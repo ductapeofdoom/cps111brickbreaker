@@ -20,5 +20,5 @@ class bob {
 class bobilina { };
 
 class billy { };
-string ha;
+string haha;
 
