@@ -21,3 +21,6 @@ class bobilina { };
 
 class bill {};
 
+class billy { };
+
+
