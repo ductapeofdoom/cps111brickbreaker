@@ -19,6 +19,7 @@ class bob {
 
 class bobilina { };
 
+class bill {};
 
 class billy { };
 string ha;
