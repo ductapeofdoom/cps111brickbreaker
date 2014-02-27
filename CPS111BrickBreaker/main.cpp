@@ -19,4 +19,5 @@ class bob {
 
 class bobilina { };
 
+class bill {};
 
