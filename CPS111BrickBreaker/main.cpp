@@ -12,13 +12,5 @@ int main(int argc, char *argv[])
 }
 
 
-class bob {
 
-
-};
-
-class bobilina { };
-
-class billy { };
-class john { };
 
