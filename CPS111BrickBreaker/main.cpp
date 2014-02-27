@@ -21,5 +21,5 @@ class bobilina { };
 
 
 class billy { };
-
+string ha;
 
