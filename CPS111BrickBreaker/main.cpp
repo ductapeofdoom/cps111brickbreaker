@@ -10,4 +10,6 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
-class bob {}
+class bob {};
+
+class bill {};
