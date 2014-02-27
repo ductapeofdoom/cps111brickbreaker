@@ -15,3 +15,5 @@ class bob {
 
 
 }
+
+class Tom{};
