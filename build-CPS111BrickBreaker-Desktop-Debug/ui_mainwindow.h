@@ -15,6 +15,10 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+<<<<<<< HEAD
+#include <QtWidgets/QMenuBar>
+=======
+>>>>>>> b005d4cabcd647be36b70a401eb9517b60f4c041
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -24,14 +28,32 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+<<<<<<< HEAD
+    QMenuBar *menuBar;
+    QToolBar *mainToolBar;
+    QWidget *centralWidget;
+=======
     QWidget *centralWidget;
     QToolBar *mainToolBar;
+>>>>>>> b005d4cabcd647be36b70a401eb9517b60f4c041
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
+<<<<<<< HEAD
+        MainWindow->resize(400, 300);
+        menuBar = new QMenuBar(MainWindow);
+        menuBar->setObjectName(QStringLiteral("menuBar"));
+        MainWindow->setMenuBar(menuBar);
+        mainToolBar = new QToolBar(MainWindow);
+        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
+        MainWindow->addToolBar(mainToolBar);
+        centralWidget = new QWidget(MainWindow);
+        centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        MainWindow->setCentralWidget(centralWidget);
+=======
         MainWindow->resize(491, 585);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
@@ -39,6 +61,7 @@ public:
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
         MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
+>>>>>>> b005d4cabcd647be36b70a401eb9517b60f4c041
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
@@ -50,7 +73,11 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
+<<<<<<< HEAD
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+=======
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Brick Breaker!", 0));
+>>>>>>> b005d4cabcd647be36b70a401eb9517b60f4c041
     } // retranslateUi
 
 };

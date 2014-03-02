@@ -14,14 +14,24 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    highscore.cpp
+        gameworld.cpp \
+        gameobject.cpp \
+        savemanager.cpp
+        highscore.cpp
 
 HEADERS  += mainwindow.h \
-    highscore.h
-    gamewindow.cpp
+        highscore.h
+        gamewindow.cpp
 
 HEADERS  += mainwindow.h \
-    gamewindow.h
+        gameworld.h \
+        gameobject.h \
+        savemanager.h
+        gamewindow.cpp
+
+HEADERS  += mainwindow.h \
+        gamewindow.h
+
 
 FORMS    += mainwindow.ui \
     gamewindow.ui \
