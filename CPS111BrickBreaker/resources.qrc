@@ -5,5 +5,7 @@
         <file>images/howto.png</file>
         <file>images/highscore.png</file>
         <file>images/multiplayer.png</file>
+        <file>images/load.png</file>
+        <file>images/newgame.png</file>
     </qresource>
 </RCC>

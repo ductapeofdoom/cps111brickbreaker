@@ -16,22 +16,16 @@ SOURCES += main.cpp\
         mainwindow.cpp \
         gameworld.cpp \
         gameobject.cpp \
-        savemanager.cpp
-        highscore.cpp
-
-HEADERS  += mainwindow.h \
-        highscore.h
+        savemanager.cpp\
+        highscore.cpp\
         gamewindow.cpp
 
 HEADERS  += mainwindow.h \
+        highscore.h\
         gameworld.h \
         gameobject.h \
-        savemanager.h
-        gamewindow.cpp
-
-HEADERS  += mainwindow.h \
+        savemanager.h\
         gamewindow.h
-
 
 FORMS    += mainwindow.ui \
     gamewindow.ui
