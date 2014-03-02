@@ -17,6 +17,11 @@ SOURCES += main.cpp\
         gameworld.cpp \
         gameobject.cpp \
         savemanager.cpp
+        highscore.cpp
+
+HEADERS  += mainwindow.h \
+        highscore.h
+        gamewindow.cpp
 
 HEADERS  += mainwindow.h \
         gameworld.h \
