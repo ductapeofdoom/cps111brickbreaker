@@ -18,5 +18,15 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     highscore.h
+    gamewindow.cpp
 
-FORMS    += mainwindow.ui
+HEADERS  += mainwindow.h \
+    gamewindow.h
+
+FORMS    += mainwindow.ui \
+    gamewindow.ui
+
+QMAKE_CXXFLAGS += -std=c++0x
+
+RESOURCES += \
+    resources.qrc
