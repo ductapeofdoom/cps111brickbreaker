@@ -28,7 +28,8 @@ HEADERS  += mainwindow.h \
         gamewindow.h
 
 FORMS    += mainwindow.ui \
-    gamewindow.ui
+    gamewindow.ui \
+    highscore.ui
 
 QMAKE_CXXFLAGS += -std=c++0x
 
