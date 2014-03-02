@@ -14,13 +14,24 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    gameworld.cpp \
-    gameobject.cpp \
-    savemanager.cpp
+        gameworld.cpp \
+        gameobject.cpp \
+        savemanager.cpp
 
 HEADERS  += mainwindow.h \
-    gameworld.h \
-    gameobject.h \
-    savemanager.h
+        gameworld.h \
+        gameobject.h \
+        savemanager.h
+        gamewindow.cpp
 
-FORMS    += mainwindow.ui
+HEADERS  += mainwindow.h \
+        gamewindow.h
+
+
+FORMS    += mainwindow.ui \
+    gamewindow.ui
+
+QMAKE_CXXFLAGS += -std=c++0x
+
+RESOURCES += \
+    resources.qrc
