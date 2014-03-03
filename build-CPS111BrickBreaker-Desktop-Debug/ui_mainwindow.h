@@ -14,11 +14,9 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
-<<<<<<< HEAD
-#include <QtWidgets/QMenuBar>
-=======
->>>>>>> b005d4cabcd647be36b70a401eb9517b60f4c041
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -28,40 +26,67 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-<<<<<<< HEAD
-    QMenuBar *menuBar;
-    QToolBar *mainToolBar;
     QWidget *centralWidget;
-=======
-    QWidget *centralWidget;
+    QLabel *label;
+    QPushButton *btnPlay;
+    QPushButton *btnHowToPlay;
+    QPushButton *btnMultiplayer;
+    QPushButton *btnHighScores;
+    QPushButton *btnLoad;
     QToolBar *mainToolBar;
->>>>>>> b005d4cabcd647be36b70a401eb9517b60f4c041
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-<<<<<<< HEAD
-        MainWindow->resize(400, 300);
-        menuBar = new QMenuBar(MainWindow);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        MainWindow->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(MainWindow);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        MainWindow->addToolBar(mainToolBar);
-        centralWidget = new QWidget(MainWindow);
-        centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        MainWindow->setCentralWidget(centralWidget);
-=======
         MainWindow->resize(491, 585);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(0, 0, 491, 71));
+        label->setPixmap(QPixmap(QString::fromUtf8(":/images/title.png")));
+        label->setScaledContents(true);
+        btnPlay = new QPushButton(centralWidget);
+        btnPlay->setObjectName(QStringLiteral("btnPlay"));
+        btnPlay->setGeometry(QRect(40, 110, 401, 91));
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/images/newgame.png"), QSize(), QIcon::Normal, QIcon::On);
+        btnPlay->setIcon(icon);
+        btnPlay->setIconSize(QSize(400, 400));
+        btnHowToPlay = new QPushButton(centralWidget);
+        btnHowToPlay->setObjectName(QStringLiteral("btnHowToPlay"));
+        btnHowToPlay->setGeometry(QRect(50, 340, 381, 61));
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/images/howto.png"), QSize(), QIcon::Normal, QIcon::On);
+        btnHowToPlay->setIcon(icon1);
+        btnHowToPlay->setIconSize(QSize(300, 300));
+        btnMultiplayer = new QPushButton(centralWidget);
+        btnMultiplayer->setObjectName(QStringLiteral("btnMultiplayer"));
+        btnMultiplayer->setGeometry(QRect(50, 480, 381, 61));
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/images/multiplayer.png"), QSize(), QIcon::Normal, QIcon::On);
+        btnMultiplayer->setIcon(icon2);
+        btnMultiplayer->setIconSize(QSize(300, 300));
+        btnHighScores = new QPushButton(centralWidget);
+        btnHighScores->setObjectName(QStringLiteral("btnHighScores"));
+        btnHighScores->setGeometry(QRect(50, 410, 381, 61));
+        QIcon icon3;
+        icon3.addFile(QStringLiteral(":/images/highscore.png"), QSize(), QIcon::Normal, QIcon::On);
+        btnHighScores->setIcon(icon3);
+        btnHighScores->setIconSize(QSize(300, 300));
+        btnLoad = new QPushButton(centralWidget);
+        btnLoad->setObjectName(QStringLiteral("btnLoad"));
+        btnLoad->setGeometry(QRect(120, 220, 241, 91));
+        QIcon icon4;
+        icon4.addFile(QStringLiteral(":/images/load.png"), QSize(), QIcon::Normal, QIcon::On);
+        btnLoad->setIcon(icon4);
+        btnLoad->setIconSize(QSize(200, 200));
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
         MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
->>>>>>> b005d4cabcd647be36b70a401eb9517b60f4c041
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
@@ -73,11 +98,13 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-<<<<<<< HEAD
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-=======
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Brick Breaker!", 0));
->>>>>>> b005d4cabcd647be36b70a401eb9517b60f4c041
+        label->setText(QString());
+        btnPlay->setText(QString());
+        btnHowToPlay->setText(QString());
+        btnMultiplayer->setText(QString());
+        btnHighScores->setText(QString());
+        btnLoad->setText(QString());
     } // retranslateUi
 
 };

@@ -18,18 +18,21 @@ SOURCES += main.cpp\
         gameobject.cpp \
         savemanager.cpp\
         highscore.cpp\
-        gamewindow.cpp
+        gamewindow.cpp \
+    inputdialog.cpp
 
 HEADERS  += mainwindow.h \
         highscore.h\
         gameworld.h \
         gameobject.h \
         savemanager.h\
-        gamewindow.h
+        gamewindow.h \
+    inputdialog.h
 
 FORMS    += mainwindow.ui \
     gamewindow.ui \
-    highscore.ui
+    highscore.ui \
+    inputdialog.ui
 
 QMAKE_CXXFLAGS += -std=c++0x
 
