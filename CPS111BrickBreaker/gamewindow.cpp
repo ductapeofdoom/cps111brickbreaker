@@ -3,12 +3,12 @@
 
 GameWindow::GameWindow(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::GameWindow)
+    gameui(new Ui::GameWindow)
 {
-    ui->setupUi(this);
+    gameui->setupUi(this);
 }
 
 GameWindow::~GameWindow()
 {
-    delete ui;
+    delete gameui;
 }

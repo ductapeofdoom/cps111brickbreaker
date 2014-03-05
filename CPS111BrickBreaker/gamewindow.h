@@ -16,7 +16,7 @@ public:
     ~GameWindow();
     
 private:
-    Ui::GameWindow *ui;
+    Ui::GameWindow *gameui;
 };
 
 #endif // GAMEWINDOW_H

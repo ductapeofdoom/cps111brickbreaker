@@ -23,6 +23,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnPlay_clicked()
 {
-    inputDialog input;
-    input.show();
+    inputDialog *input = new inputDialog;
+    input->show();
 }
