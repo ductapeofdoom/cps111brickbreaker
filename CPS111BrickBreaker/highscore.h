@@ -7,8 +7,8 @@
 
 
 //keep track of personal high scores
-class HighScore{
-private:
+//class HighScore{
+//private:
 
     /* vector<HighScore*>
      *
@@ -18,12 +18,12 @@ private:
      *
      */
 
-    int score;
-    string name;
+    /*int score;
+    string name;*/
 
 
 
-public:
+//public:
     /*
      *
      *
@@ -33,7 +33,7 @@ public:
      *
      */
     //get methods
-    string getName() {return name;}
+    /*string getName() {return name;}
     int getHighScore() {return score;}
 
     //set methods
@@ -80,7 +80,7 @@ public:
 
 
 
-
+*/
 
 
 

@@ -18,7 +18,6 @@ SOURCES += main.cpp\
         gameobject.cpp \
         savemanager.cpp\
         highscore.cpp\
-        gamewindow.cpp \
     inputdialog.cpp
 
 HEADERS  += mainwindow.h \
@@ -26,11 +25,9 @@ HEADERS  += mainwindow.h \
         gameworld.h \
         gameobject.h \
         savemanager.h\
-        gamewindow.h \
     inputdialog.h
 
 FORMS    += mainwindow.ui \
-    gamewindow.ui \
     highscore.ui \
     inputdialog.ui
 

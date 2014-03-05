@@ -23,6 +23,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnPlay_clicked()
 {
-    //I was trying to show the other window here
-    //inputDialog::ui->inputD
+    inputDialog input;
+    input.show();
 }

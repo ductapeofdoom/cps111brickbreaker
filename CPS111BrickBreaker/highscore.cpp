@@ -5,6 +5,8 @@
 
 //resets highscore, deletes everything from vector??
 //check!
+
+/*
 void HighScore::reset(){
     int i = 0;
     for (HighScore *high: highscore) //im not sure what I am doing
@@ -30,7 +32,6 @@ void HighScore::deleteScore() {
 }
 
 
-
-
+*/
 
 
