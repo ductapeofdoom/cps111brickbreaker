@@ -21,12 +21,17 @@ QT_BEGIN_NAMESPACE
 class Ui_GameWindow
 {
 public:
+    QWidget *wdGame;
 
     void setupUi(QWidget *GameWindow)
     {
         if (GameWindow->objectName().isEmpty())
             GameWindow->setObjectName(QStringLiteral("GameWindow"));
-        GameWindow->resize(400, 300);
+        GameWindow->resize(642, 588);
+        wdGame = new QWidget(GameWindow);
+        wdGame->setObjectName(QStringLiteral("wdGame"));
+        wdGame->setGeometry(QRect(30, 30, 400, 500));
+        wdGame->setStyleSheet(QStringLiteral("background-color: rgb(0, 0, 0);"));
 
         retranslateUi(GameWindow);
 
