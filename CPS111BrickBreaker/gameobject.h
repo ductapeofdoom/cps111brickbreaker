@@ -1,7 +1,8 @@
-#include <QString>
-using namespace std;
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
+
+#include <QString>
+using namespace std;
 
 class GameObject
 {

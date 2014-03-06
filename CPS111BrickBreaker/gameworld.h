@@ -1,8 +1,9 @@
+#ifndef GAMEWORLD_H
+#define GAMEWORLD_H
+
 #include <vector>
 #include "gameobject.h"
 using namespace std;
-#ifndef GAMEWORLD_H
-#define GAMEWORLD_H
 
 class GameWorld
 {
