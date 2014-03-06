@@ -1,14 +1,31 @@
 #include "inputdialog.h"
 #include "ui_inputdialog.h"
 
+#include <QMessageBox>
+#include <QString>
+
+#include <string>
+
+using namespace std;
+
 inputDialog::inputDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::inputDialog)
+    inputui(new Ui::inputDialog)
 {
-    ui->setupUi(this);
+    inputui->setupUi(this);
 }
 
 inputDialog::~inputDialog()
 {
-    delete ui;
+    delete inputui;
+}
+
+void inputDialog::on_buttonBox_accepted()
+{
+    QString name = inputui->lineEditPlayerName->text();
+    int difficulty = inputui->cmbBoxDifficultyLevels->currentIndex();
+
+    if (name == NULL || name == ""){
+        QMessageBox::critical(this, "AAAAAAAAAAAA!", "You must provide a name.");
+    }
 }

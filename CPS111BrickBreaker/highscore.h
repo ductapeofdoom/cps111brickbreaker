@@ -4,11 +4,11 @@
 #include <QMainWindow>
 #include <string>
 
-
+using namespace std;
 
 //keep track of personal high scores
-//class HighScore{
-//private:
+class HighScore{
+private:
 
     /* vector<HighScore*>
      *
@@ -18,12 +18,12 @@
      *
      */
 
-    /*int score;
-    string name;*/
+    int score;
+    string name;
 
 
 
-//public:
+public:
     /*
      *
      *
@@ -32,13 +32,6 @@
      *
      *
      */
-    //get methods
-    /*string getName() {return name;}
-    int getHighScore() {return score;}
-
-    //set methods
-    void setName(string newName): name(newName) { }
-    void setHighScore(int newScore): score(newScore) { }
 
     //constructor
     HighScore(){
@@ -47,6 +40,16 @@
 
     }
     ~HighScore(){ }
+
+    //get methods
+    string getName() {return name;}
+    int getHighScore() {return score;}
+
+    //set methods
+    void setName(string newName) { name = newName; }
+    void setHighScore(int newScore) { score = newScore; }
+
+
 
     //add to vector
     void addScore();
@@ -80,7 +83,7 @@ public:
 
 
 
-*/
+
 
 
 

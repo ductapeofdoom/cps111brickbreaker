@@ -15,8 +15,11 @@ public:
     explicit inputDialog(QWidget *parent = 0);
     ~inputDialog();
     
+private slots:
+    void on_buttonBox_accepted();
+
 private:
-    Ui::inputDialog *ui;
+    Ui::inputDialog *inputui;
 };
 
 #endif // INPUTDIALOG_H

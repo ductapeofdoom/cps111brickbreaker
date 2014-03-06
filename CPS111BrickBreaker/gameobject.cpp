@@ -1,4 +1,5 @@
 #include "gameobject.h"
+#include "gamewindow.h"
 #include <cassert>
 
 //Units tests for ball collision detection

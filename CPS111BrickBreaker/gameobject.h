@@ -1,13 +1,14 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-<<<<<<< HEAD
+
 #include <QString>
 using namespace std;
 
-=======
+void collisionUnitTests();
+
 //Abstract class that contains a set of x,y coordinated and and object id.
->>>>>>> fb9ed0559aeaccd501d3ac48e433db35a57d70ea
+
 class GameObject
 {
 protected:
@@ -29,8 +30,14 @@ public:
 //Data class for the bricks
 class Brick : public GameObject {
     int hits, hitCounter;
-    QString color;
 public:
+    //constructor
+    explicit Brick(int numhits, double BrickX, double BrickY):
+        hits(numhits), GameObject(BrickX, BrickY) {}
+
+    //accessors
+    int getHits(){ return hits; }
+
     //Method for incrementing hit counter and check for destruction
     void hit();
 

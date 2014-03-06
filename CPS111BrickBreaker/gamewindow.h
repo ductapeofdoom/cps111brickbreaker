@@ -20,6 +20,9 @@ public:
     //Timer used for animations
     QTimer * getTimer(){return animTimer;}
 
+    //accessor
+    //static GameWindow* getUi();
+
     ~GameWindow();
 
 private slots:
@@ -67,6 +70,19 @@ public:
 
     //Getter methods
     Ball * getBall(){return ball;}
+};
+
+class GUIBrick : public QWidget{
+    Brick * brick;
+    QString imgName;
+public:
+    explicit GUIBrick(QWidget * parent, Brick * newBrick): QWidget(parent), brick(newBrick){
+        setGeometry(QRect(brick->getX(), brick->getY(), 126, 63));
+        imgName = brick->getHits() + ".png";
+    }
+
+    //accessor
+    QString getImage(){ return imgName; }
 };
 
 #endif // GAMEWINDOW_H
