@@ -101,6 +101,11 @@ public:
     void sety(double newY) {y = newY;}
     void setXHeading(double heading){xHeading = heading;}
     void setYHeading(double heading){yHeading = heading;}
+
+    //cheat
+    void noDeath();
+    void slowBallCheat();
+    void speedBallCheat();
 };
 
 //Data class for power ups
