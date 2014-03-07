@@ -7,5 +7,6 @@
         <file>images/multiplayer.png</file>
         <file>images/load.png</file>
         <file>images/newgame.png</file>
+        <file>documents/howTo.txt</file>
     </qresource>
 </RCC>

@@ -18,6 +18,8 @@ public:
 private slots:
     void on_btnPlay_clicked();
 
+    void on_btnHowToPlay_clicked();
+
 private:
     Ui::MainWindow *mainui;
 };
