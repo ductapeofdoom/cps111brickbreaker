@@ -10,6 +10,7 @@ GameWindow::GameWindow(QWidget *parent) :
     gameui(new Ui::GameWindow)
 {
     gameui->setupUi(this);
+    cyclecount = 0;
     animTimer = new QTimer(this);
     animTimer->setInterval(1);
     connect(animTimer, &QTimer::timeout, this, &GameWindow::animTimerHit);
@@ -32,14 +33,14 @@ void Animate(QObject * obj){
     QPropertyAnimation * animation = new QPropertyAnimation(obj, "geometry");
     animation->setDuration(1);
     animation->setStartValue(QRect(ball->x(), ball->y(), 20, 20));
-    animation->setEndValue(QRect(ball->getBall()->getx(),ball->getBall()->gety(),20,20));
+    animation->setEndValue(QRect(ball->getBall()->getX(),ball->getBall()->getY(),20,20));
     animation->start();
 }
 
 //Slot implementaion for animTimerHit. Redraws the paddle and executes Animation every 10 cycles. It will also reset animation and stop the timer if the ball goes off the bottom.
 void GameWindow::animTimerHit(){
     GUIPaddle * paddle = dynamic_cast<GUIPaddle *>(gameui->wdGame->children().at(0));
-    paddle->setGeometry(QRect(paddle->getPaddle()->getx(), paddle->getPaddle()->gety(), 120, 20));
+    paddle->setGeometry(QRect(paddle->getPaddle()->getX(), paddle->getPaddle()->getY(), 120, 20));
     GUIBall * ball = dynamic_cast<GUIBall *>(gameui->wdGame->children().at(1));
     ball->getBall()->updatePosition();
     if (cyclecount == 10){
@@ -55,7 +56,7 @@ void GameWindow::animTimerHit(){
         animTimer->stop();
     }
     //ball->hide();
-    //ball->setGeometry(QRect(ball->getBall()->getx(), ball->getBall()->gety(), 20, 20));
+    //ball->setGeometry(QRect(ball->getBall()->getX(), ball->getBall()->getY(), 20, 20));
     //ball->show();
 }
 
@@ -70,7 +71,7 @@ void GUIPaddle::keyPressEvent(QKeyEvent *event)
                 initialCommand = false;
             }
             if(!paddle->checkCollisionRight()){
-                paddle->setx(paddle->getx() + 10);
+                paddle->setX(paddle->getX() + 10);
             }
         }
         else if(keyPress == Qt::Key_Left) {
@@ -81,7 +82,7 @@ void GUIPaddle::keyPressEvent(QKeyEvent *event)
             }
 
             if(!paddle->checkCollisionLeft()){
-             paddle->setx(paddle->getx() - 10);
+             paddle->setX(paddle->getX() - 10);
             }
         }
 }
@@ -123,15 +124,15 @@ void Ball::checkCollision()
     else if (y >= 500){
         yHeading = 0;
         xHeading = 0;
-        x = paddle->getx() + 50;
-        y = paddle->gety() - 20;
+        x = paddle->getX() + 50;
+        y = paddle->getY() - 20;
         initialPos = true;
     }
-    else if ((x >= paddle->getx() - 20 && x <= paddle->getx() + 120) && (y >= paddle->gety() - 20 && y <= paddle->gety() + 20)){
-        //int testX = paddle->getx();
-        //int testY = paddle->gety();
-        if (((x+20 >= paddle->getx() - 20 && x >= paddle->getx() - 20 && x+20 <= paddle->getx() && x <= paddle->getx()) && y >= paddle->gety() - 20 && y <= paddle->gety() + 20) ||
-                ((x+20 <= paddle->getx() + 140 && x <= paddle->getx() + 140 && x+20 >= paddle->getx() + 120 && x >= paddle->getx() + 120) && y >= paddle->gety() - 20 && y <=paddle->gety() + 20)){
+    else if ((x >= paddle->getX() - 20 && x <= paddle->getX() + 120) && (y >= paddle->getY() - 20 && y <= paddle->getY() + 20)){
+        //int testX = paddle->getX();
+        //int testY = paddle->getY();
+        if (((x+20 >= paddle->getX() - 20 && x >= paddle->getX() - 20 && x+20 <= paddle->getX() && x <= paddle->getX()) && y >= paddle->getY() - 20 && y <= paddle->getY() + 20) ||
+                ((x+20 <= paddle->getX() + 140 && x <= paddle->getX() + 140 && x+20 >= paddle->getX() + 120 && x >= paddle->getX() + 120) && y >= paddle->getY() - 20 && y <=paddle->getY() + 20)){
             xHeading = -1 * xHeading;
         }
         else{

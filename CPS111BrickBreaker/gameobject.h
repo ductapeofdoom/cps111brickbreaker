@@ -16,27 +16,32 @@ protected:
 
 
 public:
-        GameObject(double newX,double newY): x(newX), y(newY){}
+    GameObject(double newX,double newY): x(newX), y(newY){}
+
+    //Method to save state of objects
+    virtual void saveState() = 0;
 
     //Getter methods
-    int getX(){return x;}
-    int getY(){return y;}
+    double getX(){return x;}
+    double getY(){return y;}
 
     //Setter methods
-    void setX(int newX){x = newX;}
-    void setY(int newY){y = newY;}
+    void setX(double newX){x = newX;}
+    void setY(double newY){y = newY;}
 };
 
 //Data class for the bricks
 class Brick : public GameObject {
+private:
     int hits, hitCounter;
 public:
     //constructor
     explicit Brick(int numhits, double BrickX, double BrickY):
-        hits(numhits), GameObject(BrickX, BrickY) {}
+        GameObject(BrickX, BrickY), hits(numhits), hitCounter(0) {}
 
     //accessors
     int getHits(){ return hits; }
+    int getHitCounter() {return hitCounter;}
 
     //Method for incrementing hit counter and check for destruction
     void hit();
@@ -61,14 +66,10 @@ public:
     bool checkCollisionLeft();
 
     //Getter methods
-    int getx() {return x;}
-    int gety() {return y;}
     bool getInitialLeft(){return initialLeft;}
     bool getInitialRight(){return initialRight;}
 
     //Setter methods
-    void setx(int newX) {x = newX;}
-    void sety(int newY) {y = newY;}
     void setInitialRight(bool value){initialRight = value;}
     void setInitialLeft(bool value){initialLeft = value;}
 };
@@ -77,7 +78,7 @@ public:
 class Ball : public GameObject {
 
 private:
-    double x, y, xHeading, yHeading;
+    double xHeading, yHeading;
     Paddle * paddle;
     bool initialPos;
 public:
@@ -90,15 +91,11 @@ public:
     void updatePosition();
 
     //Getter methods
-    double getx() {return x;}
-    double gety() {return y;}
     double getXHeading() {return xHeading;}
     double getYHeading() {return yHeading;}
     bool getInitalPos() {return initialPos;}
 
     //Setter methods
-    void setx(double newX) {x = newX;}
-    void sety(double newY) {y = newY;}
     void setXHeading(double heading){xHeading = heading;}
     void setYHeading(double heading){yHeading = heading;}
 

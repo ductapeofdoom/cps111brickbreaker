@@ -28,6 +28,9 @@ public:
 
     void deleteObject(int id);
 
+    //Method to update state of all GameObjects
+    void update();
+
     //Getter methods
     vector<GameObject*> getObjects() {return worldObjects;}
     QString getName() { return playerName; }
