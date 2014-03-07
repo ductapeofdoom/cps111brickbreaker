@@ -1,31 +1,44 @@
+#include <QString>
+#include <QMessageBox>
+#include <QDebug>
+
 #include "inputdialog.h"
 #include "ui_inputdialog.h"
+#include "gameworld.h"
 
-#include <QMessageBox>
-#include <QString>
-
-#include <string>
-
-using namespace std;
-
-inputDialog::inputDialog(QWidget *parent) :
-    QDialog(parent),
-    inputui(new Ui::inputDialog)
+InputDialog::InputDialog(QWidget *parent) :
+    QWidget(parent),
+    inputui(new Ui::InputDialog)
 {
     inputui->setupUi(this);
 }
 
-inputDialog::~inputDialog()
+InputDialog::~InputDialog()
 {
     delete inputui;
 }
 
-void inputDialog::on_buttonBox_accepted()
+void InputDialog::on_btnOk_clicked()
 {
-    QString name = inputui->lineEditPlayerName->text();
-    int difficulty = inputui->cmbBoxDifficultyLevels->currentIndex();
+    QString name = inputui->lineEditName->text();
+    int difficulty = inputui->cmbBoxDifficulty->currentIndex();
 
-    if (name == NULL || name == ""){
-        QMessageBox::critical(this, "AAAAAAAAAAAA!", "You must provide a name.");
+    if (name == "" || name == NULL){
+        QMessageBox::warning(this, "Error", "Please provide a name.");
+        return;
     }
+
+    delete this;
+
+
+    GameWorld::accessWorld().setPlayerName(name);
+    GameWorld::accessWorld().setDifficulty(difficulty);
+
+    qDebug() << name << " " << difficulty;
+
+}
+
+void InputDialog::on_btnCancel_clicked()
+{
+    delete this;
 }

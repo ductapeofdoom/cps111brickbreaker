@@ -1,25 +1,27 @@
 #ifndef INPUTDIALOG_H
 #define INPUTDIALOG_H
 
-#include <QDialog>
+#include <QWidget>
 
 namespace Ui {
-class inputDialog;
+class InputDialog;
 }
 
-class inputDialog : public QDialog
+class InputDialog : public QWidget
 {
     Q_OBJECT
     
 public:
-    explicit inputDialog(QWidget *parent = 0);
-    ~inputDialog();
+    explicit InputDialog(QWidget *parent = 0);
+    ~InputDialog();
     
 private slots:
-    void on_buttonBox_accepted();
+    void on_btnOk_clicked();
+
+    void on_btnCancel_clicked();
 
 private:
-    Ui::inputDialog *inputui;
+    Ui::InputDialog *inputui;
 };
 
 #endif // INPUTDIALOG_H

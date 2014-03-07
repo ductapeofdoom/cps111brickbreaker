@@ -1,5 +1,6 @@
 #include "gameworld.h"
 
-GameWorld::GameWorld()
-{
-}
+GameWorld::GameWorld(): playerName("") {}
+
+GameWorld GameWorld::worldInstance;
+

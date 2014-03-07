@@ -2,21 +2,40 @@
 #define GAMEWORLD_H
 
 #include <vector>
+
+#include <QString>
+#include <QObject>
+
 #include "gameobject.h"
 using namespace std;
 
-class GameWorld
+class GameWorld : public QObject
 {
-    vector<GameObject*> worldObjects;
-public:
+
+    Q_OBJECT
+
+private:
     GameWorld();
+    vector<GameObject*> worldObjects;
+    QString playerName;
+    int difficulty;
+    static GameWorld worldInstance;
+
+public:
+    static GameWorld& accessWorld() { return worldInstance; }
 
     void addObject(GameObject * newObject){ worldObjects.push_back(newObject);}
 
     void deleteObject(int id);
 
-     //Getter methdod
+    //Getter methods
     vector<GameObject*> getObjects() {return worldObjects;}
+    QString getName() { return playerName; }
+    int getDifficulty() { return difficulty; }
+
+    //Setter methods
+    void setPlayerName(QString newName) { playerName = newName; }
+    void setDifficulty(int newDiff) { difficulty = newDiff; }//0 = Easy    1 = Medium   2 = Hard
 };
 
 #endif // GAMEWORLD_H

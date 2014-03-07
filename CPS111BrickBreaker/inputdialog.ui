@@ -1,40 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>inputDialog</class>
- <widget class="QDialog" name="inputDialog">
+ <class>InputDialog</class>
+ <widget class="QWidget" name="InputDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>325</width>
-    <height>167</height>
+    <width>400</width>
+    <height>168</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Player Name</string>
+   <string>Enter Name</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QPushButton" name="btnOk">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>280</x>
      <y>120</y>
-     <width>271</width>
-     <height>32</height>
+     <width>98</width>
+     <height>27</height>
     </rect>
    </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   <property name="text">
+    <string>Ok</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="cmbBoxDifficultyLevels">
+  <widget class="QPushButton" name="btnCancel">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>170</x>
+     <y>120</y>
+     <width>98</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblEnterYourName">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>151</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Enter your name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEditName">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>20</y>
+     <width>201</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblSelectDifficulty">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
      <y>60</y>
      <width>151</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Select Difficulty:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cmbBoxDifficulty">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>70</y>
+     <width>201</width>
      <height>27</height>
     </rect>
    </property>
@@ -54,76 +100,7 @@
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="lblDifficulty">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>60</y>
-     <width>91</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Difficulty:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lblPlayerName">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>111</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Player Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEditPlayerName">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>10</y>
-     <width>151</width>
-     <height>27</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>inputDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>inputDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

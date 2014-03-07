@@ -1,8 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "inputdialog.h"
+#include "gameworld.h"
 
-#include <QDialogButtonBox>
+#include <QInputDialog>
+#include <QStringList>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,13 +19,10 @@ MainWindow::~MainWindow()
     delete mainui;
 }
 
-
-
-
-
-
 void MainWindow::on_btnPlay_clicked()
 {
-    inputDialog *input = new inputDialog;
+    InputDialog *input = new InputDialog();
     input->show();
+
+    //delete input;
 }
