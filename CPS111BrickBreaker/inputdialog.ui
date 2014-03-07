@@ -10,6 +10,9 @@
     <height>168</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::TabFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>Enter Name</string>
   </property>
@@ -34,6 +37,9 @@
      <width>98</width>
      <height>27</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
    </property>
    <property name="text">
     <string>Cancel</string>

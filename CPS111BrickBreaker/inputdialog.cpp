@@ -5,6 +5,7 @@
 #include "inputdialog.h"
 #include "ui_inputdialog.h"
 #include "gameworld.h"
+#include "gamewindow.h"
 
 InputDialog::InputDialog(QWidget *parent) :
     QWidget(parent),
@@ -30,11 +31,11 @@ void InputDialog::on_btnOk_clicked()
 
     delete this;
 
-
     GameWorld::accessWorld().setPlayerName(name);
     GameWorld::accessWorld().setDifficulty(difficulty);
 
-    qDebug() << name << " " << difficulty;
+    GameWindow* gamewindow = new GameWindow();
+    gamewindow->show();
 
 }
 

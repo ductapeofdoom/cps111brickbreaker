@@ -23,6 +23,4 @@ void MainWindow::on_btnPlay_clicked()
 {
     InputDialog *input = new InputDialog();
     input->show();
-
-    //delete input;
 }
