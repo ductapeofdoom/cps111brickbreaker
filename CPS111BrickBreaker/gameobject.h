@@ -57,13 +57,15 @@ class Paddle : public GameObject{
 private:
     bool initialLeft, initialRight;
 public:
-    explicit Paddle(double newX, double newY): GameObject(newX, newY), initialLeft(false), initialRight(false){}
+    Paddle(double newX, double newY): GameObject(newX, newY), initialLeft(false), initialRight(false){}
 
     //Method used for collision detection on the right side of the screen
     bool checkCollisionRight();
 
     //Method used for collision detection on the left side of the screen
     bool checkCollisionLeft();
+
+    void saveState();
 
     //Getter methods
     bool getInitialLeft(){return initialLeft;}
@@ -82,13 +84,15 @@ private:
     Paddle * paddle;
     bool initialPos;
 public:
-    explicit Ball(double newX, double newY, double newXHeading, double newYHeading, Paddle * newPaddle): GameObject(newX, newY), xHeading(newXHeading), yHeading(newYHeading), paddle(newPaddle), initialPos(true){}
+    Ball(double newX, double newY, double newXHeading, double newYHeading, Paddle * newPaddle): GameObject(newX, newY), xHeading(newXHeading), yHeading(newYHeading), paddle(newPaddle), initialPos(true){}
 
     //Method used for ball collision detection
     void checkCollision();
 
     //Method used to update the ball's x,y coordinates
     void updatePosition();
+
+    void saveState();
 
     //Getter methods
     double getXHeading() {return xHeading;}

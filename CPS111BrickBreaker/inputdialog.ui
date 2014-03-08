@@ -67,6 +67,9 @@
      <height>27</height>
     </rect>
    </property>
+   <property name="text">
+    <string>Player 1</string>
+   </property>
   </widget>
   <widget class="QLabel" name="lblSelectDifficulty">
    <property name="geometry">

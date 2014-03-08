@@ -109,6 +109,11 @@ bool Paddle::checkCollisionLeft()
     }
 }
 
+void Paddle::saveState()
+{
+
+}
+
 //Checks for the ball's collision and sets its headings accordingly. If the ball has gone off the bottom of the screen the ball is reset to the center of the paddle.
 void Ball::checkCollision()
 {
@@ -160,6 +165,11 @@ void Ball::updatePosition()
    checkCollision();
    x = x + xHeading;
    y = y + yHeading;
+}
+
+void Ball::saveState()
+{
+
 }
 
 //GameWindow destructor

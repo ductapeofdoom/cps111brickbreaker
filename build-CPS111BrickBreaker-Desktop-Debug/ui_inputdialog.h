@@ -69,6 +69,7 @@ public:
         btnOk->setText(QApplication::translate("InputDialog", "Ok", 0));
         btnCancel->setText(QApplication::translate("InputDialog", "Cancel", 0));
         lblEnterYourName->setText(QApplication::translate("InputDialog", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Enter your name:</span></p></body></html>", 0));
+        lineEditName->setText(QApplication::translate("InputDialog", "Player 1", 0));
         lblSelectDifficulty->setText(QApplication::translate("InputDialog", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Select Difficulty:</span></p></body></html>", 0));
         cmbBoxDifficulty->clear();
         cmbBoxDifficulty->insertItems(0, QStringList()
