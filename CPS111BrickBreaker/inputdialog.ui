@@ -93,6 +93,9 @@
      <height>27</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
    <item>
     <property name="text">
      <string>Easy</string>

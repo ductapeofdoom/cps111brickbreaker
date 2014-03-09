@@ -24,6 +24,9 @@ void MainWindow::on_btnPlay_clicked()
 {
     InputDialog *input = new InputDialog();
     input->show();
+    //set focus of the line edit for player name (see tab in firefox)
+    //I was trying to make a method that allows access to the inputui thingy
+    //doing it here will set it to be focused when the user sees it
 }
 
 void MainWindow::on_btnHowToPlay_clicked()
