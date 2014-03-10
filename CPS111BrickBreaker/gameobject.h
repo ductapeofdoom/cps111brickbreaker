@@ -35,7 +35,7 @@ class Brick : public GameObject {
 private:
     int hitsLeft;
     //For the sake of networking identification I feel that these are neccessary
-    int id, totalHits;
+    int id;
 public:
     //constructor
     //unbreakable brick has -1 hits, everytime it hits,
