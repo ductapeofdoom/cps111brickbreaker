@@ -18,7 +18,7 @@ private:
     GameWorld();
     vector<GameObject*> worldObjects;
     QString playerName;
-    int difficulty;
+    int difficulty, curLevel;
     static GameWorld worldInstance;
 
 public:
@@ -30,6 +30,12 @@ public:
 
     //Method to update state of all GameObjects
     void update();
+
+    //method to start and run a game
+    void runGame();
+
+    //method to render a level
+    void makeLevel();
 
     //Getter methods
     vector<GameObject*> getObjects() {return worldObjects;}
