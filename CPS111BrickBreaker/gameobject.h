@@ -35,13 +35,14 @@ class Brick : public GameObject {
 private:
     int hitsLeft;
     //For the sake of networking identification I feel that these are neccessary
-    int id, totalHits;
+    int id;
 public:
     //constructor
     //unbreakable brick has -1 hits, everytime it hits,
     //it will decrease but not reach 0, so cant be destroyed
-    explicit Brick(int numhits, int newId, int hits, double BrickX, double BrickY):
-        GameObject(BrickX, BrickY), hitsLeft(numhits), id(newId), totalHits(hits){}
+
+    explicit Brick(int numhits, int newId, double BrickX, double BrickY):
+        GameObject(BrickX, BrickY), hitsLeft(numhits), id(newId){}
 
     //accessors
     int getHits(){ return hitsLeft; }
