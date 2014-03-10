@@ -1,6 +1,7 @@
 #include "gamewindow.h"
 #include "gameobject.h"
 #include "gameworld.h"
+#include "highscore.h"
 #include "ui_gamewindow.h"
 #include <QPropertyAnimation>
 #include <QKeyEvent>
@@ -12,6 +13,7 @@ GameWindow::GameWindow(QWidget *parent) :
 {
     gameui->setupUi(this);
     collisionUnitTests();
+    //highScoreUnitTests();
     cyclecount = 0;
     animTimer = new QTimer(this);
     animTimer->setInterval(1);
