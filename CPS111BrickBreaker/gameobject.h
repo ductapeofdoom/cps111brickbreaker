@@ -40,11 +40,8 @@ public:
     //constructor
     //unbreakable brick has -1 hits, everytime it hits,
     //it will decrease but not reach 0, so cant be destroyed
-<<<<<<< HEAD
-    explicit Brick(int numhits, int newId, int hits, double BrickX, double BrickY):
-=======
+
     explicit Brick(int numhits, int newId, double BrickX, double BrickY):
->>>>>>> e079d4593703c25c929b704fba8dc65d43d573b3
         GameObject(BrickX, BrickY), hitsLeft(numhits), id(newId){}
 
     //accessors
