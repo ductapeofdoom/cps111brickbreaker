@@ -9,9 +9,12 @@
 #include "gameworld.h"
 
 
+
 namespace Ui {
 class HighScore;
 }
+
+class SingleScore;
 
 class HighScore : public QWidget
 {
@@ -20,30 +23,25 @@ class HighScore : public QWidget
 public:
     explicit HighScore(QWidget *parent = 0);
     ~HighScore();
-    vector<HighScore*> highscore;
+    vector<SingleScore*> highscore;
+    //add to vector
+    void addScore(SingleScore*);
 
-   //get methods
-   string getName() {return name;}
-   int getHighScore() {return score;}
+    //delete high score from vector when
+    void deleteScore(SingleScore*);
 
-   //set methods
-   void setName(string newName) { name = newName; }
-   void setHighScore(int newScore) { score = newScore; }
+    //reset high scores -> there will be a button
+    void reset();
 
-   //add to vector
-   void addScore();
+    //unit tests for high scores
+    void highScoreUnitTests();
 
-   //delete high score from vector when
-   void deleteScore();
+    //print highscores (in ui?)
+    QString print();
 
-   //reset high scores -> there will be a button
-   void reset();
-
-   //unit tests for high scores
-   void highScoreUnitTests();
-
-   //print highscores (in ui?)
-   void print();
+    // have save scores and load scores
+    void loadHS();
+    void saveHS();
 
 private:
     Ui::HighScore *highscoreui;
@@ -51,12 +49,30 @@ private:
     string name;
 };
 
+class SingleScore{
+private:
+    int score;
+    string name;
+public:
+    //constructor
+    SingleScore() { }
+    SingleScore(int score_, string name_) :
+        score(score_), name(name_) { }
+    //get methods
+    string getName() {return name;}
+    int getHighScore() {return score;}
+
+    //set methods
+    void setName(string newName) { name = newName; }
+    void setHighScore(int newScore) { score = newScore; }
+
+};
 
 
 //keep track of multiplayer high scores
 class MultiScore : public HighScore{
 private:
-    vector<MultiScore*> multiscore;
+    vector<HighScore*> multiscore;
 public:
     MultiScore() { }
     ~MultiScore() { }
