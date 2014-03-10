@@ -19,6 +19,7 @@ SOURCES += main.cpp\
         savemanager.cpp\
     gamewindow.cpp \
     inputdialog.cpp \
+    highscorewindow.cpp \
     highscore.cpp
 
 
@@ -28,12 +29,14 @@ HEADERS  += mainwindow.h \
         savemanager.h\
     gamewindow.h \
     inputdialog.h \
+    highscorewindow.h \
     highscore.h
 
 FORMS    += mainwindow.ui \
     inputdialog.ui \
-    highscore.ui\
-    gamewindow.ui
+    gamewindow.ui \
+    highscorewindow.ui \
+    highscore.ui
 
 QMAKE_CXXFLAGS += -std=c++0x
 

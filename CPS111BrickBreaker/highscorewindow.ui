@@ -2,8 +2,8 @@
  <author/>
  <comment/>
  <exportmacro/>
- <class>HighScore</class>
- <widget class="QWidget" name="HighScore">
+ <class>HighScoreWindow</class>
+ <widget class="QWidget" name="HighScoreWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
