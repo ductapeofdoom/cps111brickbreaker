@@ -1,5 +1,6 @@
 #include "gamewindow.h"
 #include "gameobject.h"
+#include "gameworld.h"
 #include "ui_gamewindow.h"
 #include <QPropertyAnimation>
 #include <QKeyEvent>
@@ -21,6 +22,7 @@ GameWindow::GameWindow(QWidget *parent) :
     GUIBall * ball = new GUIBall(gameui->wdGame, dataBall);
     ball->show();
     paddle->show();
+    this->showStuff();
 }
 
 //Animates <obj>. Designed specifically to move the ball from it currents coordinates to its next ones.
@@ -96,3 +98,29 @@ GameWindow::~GameWindow()
     delete gameui;
 }
 
+//add or subtract lives when ball hits bottom
+//takes in a negative (when dies) or positive number when he gets pluslife powerup
+void GameWindow::setLife(int j){
+    life += j;
+}
+
+//relabels everything in gameui
+void GameWindow::showStuff(){
+    gameui->lblCPN->setText(GameWorld::accessWorld().getName());
+    //get high score from # of ball hits
+    //gameui->lblCHS->setText(GameWorld::accessWorld().);
+    QString difficults;
+    if (GameWorld::accessWorld().getDifficulty() == 0) {
+        difficults = "Easy";
+    } else if (GameWorld::accessWorld().getDifficulty() == 1){
+        difficults = "Medium";
+    } else if (GameWorld::accessWorld().getDifficulty() == 2) {
+        difficults = "Hard";}
+    gameui->lblDifficult->setText(difficults);
+    //gameui->lblLife->setText(Gameworld::accessWorld().___);
+    //gameui.lblLevel->setText();
+    //gameui->lblPowerup->setText(Gameworld::accessWorld().___);
+    //gameui->lblPowerTime->setText(Gameworld::accessWorld().___);
+
+
+}

@@ -23,7 +23,7 @@ class GameWindow : public QWidget
 private:
     Ui::GameWindow *gameui;
     QTimer * animTimer;
-    int cyclecount;
+    int cyclecount, life;
     vector<GUIBrick*> GUIBricks;
 
 private slots:
@@ -39,10 +39,19 @@ public:
     //Timer used for animations
     QTimer * getTimer(){return animTimer;}
 
+    //get/set number of lives
+    int getLife() {return life;}
+    void setLife(int);
+
     //accessor
     //static GameWindow* getUi();
 
+
+    //display stuff on side of screen
+    void showStuff();
+
     ~GameWindow();
+
 };
 
 //GUI representation of the paddle

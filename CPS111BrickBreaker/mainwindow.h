@@ -20,6 +20,8 @@ private slots:
 
     void on_btnHowToPlay_clicked();
 
+    void on_btnHighScores_clicked();
+
 private:
     Ui::MainWindow *mainui;
 };

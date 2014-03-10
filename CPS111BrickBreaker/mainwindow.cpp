@@ -45,3 +45,9 @@ void MainWindow::on_btnHowToPlay_clicked()
 
     QMessageBox::information(this, "How To Play", howToPlay);
 }
+
+void MainWindow::on_btnHighScores_clicked()
+{
+    //HighScore *highscore = new HighScore();
+    //highscore->show();
+}

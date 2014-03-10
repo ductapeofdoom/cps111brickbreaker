@@ -177,3 +177,15 @@ void Ball::saveState()
 {
 
 }
+
+void Brick::hit(){
+    hitsLeft--;
+
+    if(hitsLeft == 0) {
+        destroy();
+    }
+}
+void Brick::destroy(){
+
+    //delete Brick;
+}
