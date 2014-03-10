@@ -20,8 +20,16 @@ public:
     //Timer used for animations
     QTimer * getTimer(){return animTimer;}
 
+    //get/set number of lives
+    int getLife() {return life;}
+    void setLife(int);
+
     //accessor
     //static GameWindow* getUi();
+
+
+    //display stuff on side of screen
+    void showStuff();
 
     ~GameWindow();
 
@@ -33,6 +41,7 @@ private:
     Ui::GameWindow *gameui;
     QTimer * animTimer;
     int cyclecount;
+    int life;
 };
 
 //GUI representation of the paddle

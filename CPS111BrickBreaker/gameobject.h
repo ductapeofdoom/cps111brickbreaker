@@ -33,17 +33,18 @@ public:
 //Data class for the bricks
 class Brick : public GameObject {
 private:
-    int hits, hitCounter;
+    int hitsLeft;
 public:
     //constructor
+    //unbreakable brick has -1 hits, everytime it hits,
+    //it will decrease but not reach 0, so cant be destroyed
     explicit Brick(int numhits, double BrickX, double BrickY):
-        GameObject(BrickX, BrickY), hits(numhits), hitCounter(0) {}
+        GameObject(BrickX, BrickY), hitsLeft(numhits){}
 
     //accessors
-    int getHits(){ return hits; }
-    int getHitCounter() {return hitCounter;}
+    int getHits(){ return hitsLeft; }
 
-    //Method for incrementing hit counter and check for destruction
+    //Method for incrementing hit counter and check for destruction. if 0 = destroy
     void hit();
 
     //Method for destroying bricks
@@ -83,6 +84,9 @@ private:
     double xHeading, yHeading;
     Paddle * paddle;
     bool initialPos;
+    //score is with the ball
+    int highscore;
+
 public:
     Ball(double newX, double newY, double newXHeading, double newYHeading, Paddle * newPaddle): GameObject(newX, newY), xHeading(newXHeading), yHeading(newYHeading), paddle(newPaddle), initialPos(true){}
 
@@ -102,6 +106,7 @@ public:
     //Setter methods
     void setXHeading(double heading){xHeading = heading;}
     void setYHeading(double heading){yHeading = heading;}
+    void hitBrick() {highscore++;}
 
     //cheat
     void noDeath();
