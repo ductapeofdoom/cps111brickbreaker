@@ -185,6 +185,11 @@ void Brick::hit(){
         destroy();
     }
 }
+
+void Brick::saveState()
+{
+
+}
 void Brick::destroy(){
 
     //delete Brick;

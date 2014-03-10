@@ -50,6 +50,9 @@ public:
     //Method for incrementing hit counter and check for destruction. if 0 = destroy
     void hit();
 
+    //method to save the state of bricks
+    void saveState();
+
     //Method for destroying bricks
     void destroy();
 

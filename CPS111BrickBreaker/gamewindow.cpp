@@ -27,11 +27,6 @@ GameWindow::GameWindow(QWidget *parent) :
     this->showStuff();
 }
 
-/*GameWindow *GameWindow::getUi()
-{
-    return gameui;
-}*/
-
 //Animates <obj>. Designed specifically to move the ball from it currents coordinates to its next ones.
 void Animate(QObject * obj){
     GUIBall * ball = dynamic_cast<GUIBall*>(obj);

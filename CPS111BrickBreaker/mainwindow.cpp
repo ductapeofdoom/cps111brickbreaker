@@ -34,15 +34,15 @@ void MainWindow::on_btnHowToPlay_clicked()
 {
     QString howToPlay;
     QFile file(":/documents/howTo.txt");
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-            QMessageBox::critical(this, "Error!", "The 'How To' file appears to be missing or corrupted. You're on your own!");
-            return;
-        }
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QMessageBox::critical(this, "Error!", "The 'How To' file appears to be missing or corrupted. You're on your own!");
+        return;
+    }
 
-        while (!file.atEnd()) {
-            QByteArray line = file.readLine();
-            howToPlay = howToPlay + line;
-        }
+    while (!file.atEnd()) {
+        QByteArray line = file.readLine();
+        howToPlay = howToPlay + line;
+    }
 
     QMessageBox::information(this, "How To Play", howToPlay);
 }

@@ -5,17 +5,36 @@
 #include <QTimer>
 #include <QString>
 #include "gameobject.h"
+#include <vector>
+
+using namespace std;
 
 namespace Ui {
 class GameWindow;
 }
 
+//forward declaration of GUIBrick because GameWindow uses it
+class GUIBrick;
+
 class GameWindow : public QWidget
 {
     Q_OBJECT
+
+private:
+    Ui::GameWindow *gameui;
+    QTimer * animTimer;
+    int cyclecount, life;
+    vector<GUIBrick*> GUIBricks;
+
+private slots:
+    //Slot for timer timeout signal
+    void animTimerHit();
     
 public:
     explicit GameWindow(QWidget *parent = 0);
+
+    //method to add GUIBricks to the vector
+    void addObject(GUIBrick * newBrick){ GUIBricks.push_back(newBrick);}
 
     //Timer used for animations
     QTimer * getTimer(){return animTimer;}
@@ -33,15 +52,6 @@ public:
 
     ~GameWindow();
 
-private slots:
-    //Slot for timer timeout signal
-    void animTimerHit();
-
-private:
-    Ui::GameWindow *gameui;
-    QTimer * animTimer;
-    int cyclecount;
-    int life;
 };
 
 //GUI representation of the paddle
