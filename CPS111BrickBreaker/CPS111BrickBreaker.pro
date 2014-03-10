@@ -32,7 +32,8 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     inputdialog.ui \
-    highscore.ui
+    highscore.ui\
+    gamewindow.ui
 
 QMAKE_CXXFLAGS += -std=c++0x
 

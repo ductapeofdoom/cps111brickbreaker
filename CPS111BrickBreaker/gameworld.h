@@ -19,6 +19,7 @@ private:
     vector<GameObject*> worldObjects;
     QString playerName;
     int difficulty, curLevel;
+    static int totalNumBricks;
     static GameWorld worldInstance;
 
 public:
@@ -37,10 +38,14 @@ public:
     //method to render a level
     void makeLevel();
 
+    //method to get total number of bricks that each level will have
+    static int getTotalNumBricks() { return totalNumBricks; }
+
     //Getter methods
     vector<GameObject*> getObjects() {return worldObjects;}
     QString getName() { return playerName; }
     int getDifficulty() { return difficulty; }
+
 
     //Setter methods
     void setPlayerName(QString newName) { playerName = newName; }
