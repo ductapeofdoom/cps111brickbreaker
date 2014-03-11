@@ -41,13 +41,15 @@ void InputDialog::on_btnOk_clicked()
 
     //make gamewindow and show it
     GameWindow* gamewindow = new GameWindow();
-    gamewindow->show();
 
     //create the bricks for a level
     GameWorld::accessWorld().makeLevel();
 
     //create the GUIBricks for a level
     gamewindow->renderLevel();
+
+    //show the game window
+    gamewindow->show();
 }
 
 void InputDialog::on_btnCancel_clicked()

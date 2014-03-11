@@ -116,8 +116,6 @@ void GameWindow::renderLevel()
         }
         GUIBrick *newGUIBrick = new GUIBrick(gameui->wdGame, tempbrick);
         GameWindow::addObject(newGUIBrick);
-
-        newGUIBrick->show();
     }
 }
 

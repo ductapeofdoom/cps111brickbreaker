@@ -11,7 +11,6 @@ int GameWorld::totalNumBricks = 60;//sets the total number of bricks that each l
 void GameWorld::makeLevel()
 {
     QString levelData, filePath = ":/documents/" + QString::number(curLevel + 1) + ".txt";
-    qDebug() << filePath;
     QFile file(filePath);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){

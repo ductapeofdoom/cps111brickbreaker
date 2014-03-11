@@ -5,6 +5,7 @@
 #include <QTimer>
 #include <QString>
 #include <QLabel>
+#include <QDebug>
 #include "gameobject.h"
 #include <vector>
 
@@ -98,11 +99,15 @@ public:
 class GUIBrick : public QWidget{
     Brick * brick;
     QString imgName;
+    QImage * image;
 public:
     explicit GUIBrick(QWidget * parent, Brick * newBrick): QWidget(parent), brick(newBrick){
         setGeometry(QRect(brick->getX(), brick->getY(), 126, 63));
         imgName = ":/images/" + QString::number(brick->getHits()) + ".png";
 
+        QString bkgndImageStyle = "background-image: url(" + imgName + ")";
+        qDebug() << bkgndImageStyle;
+        setStyleSheet(bkgndImageStyle);
     }
 
     //accessor
