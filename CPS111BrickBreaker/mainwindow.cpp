@@ -47,6 +47,5 @@ void MainWindow::on_btnHowToPlay_clicked()
 
 void MainWindow::on_btnHighScores_clicked()
 {
-    HighScore *highscore = new HighScore();
-    highscore->show();
+
 }

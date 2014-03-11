@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>HighScore</class>
- <widget class="QWidget" name="HighScore">
+ <class>HighScoreWindow</class>
+ <widget class="QWidget" name="HighScoreWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>529</width>
-    <height>469</height>
+    <width>557</width>
+    <height>514</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="lblHighScoreTitle">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>10</y>
+     <x>70</x>
+     <y>30</y>
      <width>401</width>
-     <height>71</height>
+     <height>81</height>
     </rect>
    </property>
    <property name="text">
@@ -29,13 +29,13 @@
     <pixmap resource="resources.qrc">:/images/highscore.png</pixmap>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="btnResetScores">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>390</y>
-     <width>181</width>
-     <height>31</height>
+     <x>180</x>
+     <y>440</y>
+     <width>171</width>
+     <height>27</height>
     </rect>
    </property>
    <property name="text">

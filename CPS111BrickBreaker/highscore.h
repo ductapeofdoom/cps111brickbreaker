@@ -1,77 +1,62 @@
 #ifndef HIGHSCORE_H
 #define HIGHSCORE_H
 
-#include <QWidget>
-#include <string>
 #include <vector>
 #include <QString>
-#include "gamewindow.h"
-#include "gameworld.h"
+using namespace std;
 
+//Unit tests for High Score classes
+void highScoreUnitTests();
 
-namespace Ui {
-class HighScore;
-}
-
-class HighScore : public QWidget
-{
-    Q_OBJECT
-
-public:
-    explicit HighScore(QWidget *parent = 0);
-    ~HighScore();
-    vector<HighScore*> highscore;
-
-   //get methods
-   string getName() {return name;}
-   int getHighScore() {return score;}
-
-   //set methods
-   void setName(string newName) { name = newName; }
-   void setHighScore(int newScore) { score = newScore; }
-
-   //add to vector
-   void addScore();
-
-   //delete high score from vector when
-   void deleteScore();
-
-   //reset high scores -> there will be a button
-   void reset();
-
-   //unit tests for high scores
-   void highScoreUnitTests();
-
-   //print highscores (in ui?)
-   void print();
-
+class Score{
 private:
-    Ui::HighScore *highscoreui;
     int score;
-    string name;
-};
-
-
-
-//keep track of multiplayer high scores
-class MultiScore : public HighScore{
-private:
-    vector<MultiScore*> multiscore;
+    QString name;
 public:
-    MultiScore() { }
-    ~MultiScore() { }
+    //constructor
+    Score(int newScore, QString newName) :
+        score(newScore), name(newName) { }
 
+    //get methods
+    QString getName() {return name;}
+    int getHighScore() {return score;}
 
+    //set methods
+    void setName(QString newName) { name = newName; }
+    void setHighScore(int newScore) { score = newScore; }
 
 };
 
 
+class HighScoreManager
+{
+private:
+    vector<Score*> highScores;
+public:
+    HighScoreManager(){}
+    ~HighScoreManager();
+    
+    //add to vector
+    void addScore(Score*);
 
+    //delete high score from vector when
+    void deleteScore(Score*);
 
+    //reset high scores -> there will be a button
+    void reset();
 
+    //print highscores (in ui?)
+    QString print();
 
+    // have save scores and load scores
+    void loadHS();
 
+    void saveHS();
+
+    //Getter methods
+    vector<Score*> getScores(){return highScores;}
+
+};
 
 
 #endif // HIGHSCORE_H
-
