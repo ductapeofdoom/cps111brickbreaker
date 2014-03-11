@@ -21,6 +21,7 @@ GameWindow::GameWindow(QWidget *parent) :
     collisionUnitTests();
     //highScoreUnitTests();
     cyclecount = 0;
+    collisioncount = 0;
     animTimer = new QTimer(this);
     animTimer->setInterval(1);
     connect(animTimer, &QTimer::timeout, this, &GameWindow::animTimerHit);
@@ -38,7 +39,7 @@ void Animate(QObject * obj){
     GUIBall * ball = dynamic_cast<GUIBall*>(obj);
     if (ball != NULL){
         QPropertyAnimation * animation = new QPropertyAnimation(obj, "geometry");
-        animation->setDuration(1);
+        animation->setDuration(10);
         animation->setStartValue(QRect(ball->x(), ball->y(), 20, 20));
         animation->setEndValue(QRect(ball->getBall()->getX(),ball->getBall()->getY(),20,20));
         animation->start();
@@ -46,7 +47,7 @@ void Animate(QObject * obj){
     GUIPaddle * paddle = dynamic_cast<GUIPaddle*>(obj);
     if (paddle != NULL){
         QPropertyAnimation * animation = new QPropertyAnimation(obj, "geometry");
-        animation->setDuration(1);
+        animation->setDuration(10);
         animation->setStartValue(QRect(paddle->x(), paddle->y(), 120, 20));
         animation->setEndValue(QRect(paddle->getPaddle()->getX(), paddle->getPaddle()->getY(), 120, 20));
         animation->start();
@@ -63,8 +64,16 @@ void GameWindow::animTimerHit(){
         Animate(ball);
         cyclecount = 0;
     }
+    else if (collisioncount == 2){
+        if (ball->getBall()->getCollision()){
+            ball->getBall()->setCollision(false);
+        }
+        cyclecount++;
+        collisioncount = 0;
+    }
     else{
         cyclecount++;
+        collisioncount++;
     }
     if(ball->getBall()->getInitalPos()){
         Animate(ball);
