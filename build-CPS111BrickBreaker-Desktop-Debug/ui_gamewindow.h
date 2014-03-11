@@ -57,6 +57,7 @@ public:
         btnPause = new QPushButton(GameWindow);
         btnPause->setObjectName(QStringLiteral("btnPause"));
         btnPause->setGeometry(QRect(460, 410, 161, 51));
+        btnPause->setFocusPolicy(Qt::NoFocus);
         btnPause->setCheckable(true);
         lblCHS = new QLabel(GameWindow);
         lblCHS->setObjectName(QStringLiteral("lblCHS"));

@@ -13,7 +13,7 @@ void collisionUnitTests(){
     assert(testBall->getXHeading() == .5);
     assert(testBall->getYHeading() == -.2);
     assert(testBall->getX() == 110.5);
-    //assert(testBall->getY() == 79.8);
+    assert(testBall->getY() == 79.8);
     testBall->setCollision(false);
     //Test 2
     testBall->setX(220);
@@ -24,7 +24,7 @@ void collisionUnitTests(){
     assert(testBall->getYHeading() == -.2);
     assert(testBall->getX() == 221.5);
     //--------------------------------------//
-    //assert(testBall->getY() == 119.8);
+    assert(testBall->getY() == 119.8);
     testBall->setCollision(false);
     //Test 3
     testBall->setX(0);
@@ -35,7 +35,7 @@ void collisionUnitTests(){
     assert(testBall->getYHeading() == -.2);
     assert(testBall->getX() == 1.5);
     //-----------------------------------//
-    //assert(testBall->getY() == 19.8);
+    assert(testBall->getY() == 19.8);
     testBall->setCollision(false);
     //Test 4
     testBall->setX(50);
@@ -116,29 +116,6 @@ void Paddle::saveState()
 //Checks for the ball's collision and sets its headings accordingly. If the ball has gone off the bottom of the screen the ball is reset to the center of the paddle.
 void Ball::checkCollision()
 {
-    if (x <= 0){
-        xHeading = -1 * xHeading;
-    }
-    else if (y <= 0){
-        yHeading = -1 * yHeading;
-    }
-    else if (x >= 380) {
-        xHeading = -1 * xHeading;
-    }
-    else if (y >= 500){
-        yHeading = 0;
-        xHeading = 0;
-        x = paddle->getX() + 50;
-        y = paddle->getY() - 20;
-        initialPos = true;
-        //change life if hits bottom
-        GameWorld::accessWorld().setLife(-1);
-    }
-    else if ((x >= paddle->getX() - 20 && x <= paddle->getX() + 120) && (y >= paddle->getY() - 20 && y <= paddle->getY() + 20)){
-        //int testX = paddle->getX();
-        //int testY = paddle->getY();
-        if (((x+20 >= paddle->getX() - 20 && x >= paddle->getX() - 20 && x+20 <= paddle->getX() && x <= paddle->getX()) && y >= paddle->getY() - 20 && y <= paddle->getY() + 20) ||
-                ((x+20 <= paddle->getX() + 140 && x <= paddle->getX() + 140 && x+20 >= paddle->getX() + 120 && x >= paddle->getX() + 120) && y >= paddle->getY() - 20 && y <=paddle->getY() + 20)){
     if (!collided){
         if (x <= 0){
             xHeading = -1 * xHeading;
@@ -200,23 +177,25 @@ void Ball::checkCollision()
                         collided = true;
                     }
                 }
+
+                //What are these doing?
                 ballHit();
                 brick->getHits();
             }
         }
     }
-}}}
+}
 
 //Updates the ball's x,y coordinates with its heading and sets it heading if the ball is sitting still.
 void Ball::updatePosition(){
     if (initialPos){
         if(paddle->getInitialLeft()){
-            yHeading = -.2;
+            yHeading = .2;
             xHeading = -.5;
             paddle->setInitialLeft(false);
         }
         else if(paddle->getInitialRight()){
-            yHeading = -.2;
+            yHeading = .2;
             xHeading = .5;
             paddle->setInitialRight(false);
         }
