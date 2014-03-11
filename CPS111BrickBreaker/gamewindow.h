@@ -102,11 +102,10 @@ class GUIBrick : public QWidget{
     QImage * image;
 public:
     explicit GUIBrick(QWidget * parent, Brick * newBrick): QWidget(parent), brick(newBrick){
-        setGeometry(QRect(brick->getX(), brick->getY(), 126, 63));
+        setGeometry(QRect(brick->getX(), brick->getY(), 40, 20));
         imgName = ":/images/" + QString::number(brick->getHits()) + ".png";
 
         QString bkgndImageStyle = "background-image: url(" + imgName + ")";
-        qDebug() << bkgndImageStyle;
         setStyleSheet(bkgndImageStyle);
     }
 
