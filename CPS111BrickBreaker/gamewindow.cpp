@@ -140,12 +140,6 @@ void GameWindow::renderLevel()
 void GameWindow::showStuff(){
     gameui->lblCPN->setText(GameWorld::accessWorld().getName());
     //get high score from # of ball hits
-    QString Highscore;
-    for(GameObject * obj: GameWorld::accessWorld().getObjects()){
-        Ball* theBall = dynamic_cast<Ball*>(obj);
-        Highscore = QString::number(theBall->getHS());
-    }
-    gameui->lblCHS->setText(Highscore);
     QString difficults;
     if (GameWorld::accessWorld().getDifficulty() == 0) {
         difficults = "Easy";
@@ -154,6 +148,14 @@ void GameWindow::showStuff(){
     } else if (GameWorld::accessWorld().getDifficulty() == 2) {
         difficults = "Hard";}
     gameui->lblDifficult->setText(difficults);
+
+    //Stuff that needs to be put in QTimer/QThread
+    QString Highscore;
+    for(GameObject * obj: GameWorld::accessWorld().getObjects()){
+        Ball* theBall = dynamic_cast<Ball*>(obj);
+        Highscore = QString::number(theBall->getHS());
+    }
+    gameui->lblCHS->setText(Highscore);
     //change according to deaths
     gameui->lblLife->setText(QString::number(GameWorld::accessWorld().getLife()));
     gameui->lblLevel->setText(QString::number(GameWorld::accessWorld().getLevel()));
@@ -170,6 +172,7 @@ void GameWindow::on_btnPause_clicked()
     }
     else{
         animTimer->stop();
+        showStuff();
     }
 }
 void GUIUnitTests()

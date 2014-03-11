@@ -23,8 +23,7 @@ void collisionUnitTests(){
     assert(testBall->getXHeading() == 1.5);
     assert(testBall->getYHeading() == -.2);
     assert(testBall->getX() == 221.5);
-    //--------------------------------------//
-    //assert(testBall->getY() == 119.8);
+    assert(testBall->getY() == 119.8);
     testBall->setCollision(false);
     //Test 3
     testBall->setX(0);
@@ -34,8 +33,7 @@ void collisionUnitTests(){
     assert(testBall->getXHeading() == 1.5);
     assert(testBall->getYHeading() == -.2);
     assert(testBall->getX() == 1.5);
-    //-----------------------------------//
-    //assert(testBall->getY() == 19.8);
+    assert(testBall->getY() == 19.8);
     testBall->setCollision(false);
     //Test 4
     testBall->setX(50);
