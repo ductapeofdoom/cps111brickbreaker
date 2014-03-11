@@ -4,8 +4,6 @@
 #include <QWidget>
 #include <QTimer>
 #include <QString>
-#include <QLabel>
-#include <QDebug>
 #include "gameobject.h"
 #include <vector>
 
@@ -48,8 +46,9 @@ public:
     //create GUIBricks based on the Brick objects in the vector in gameworld
     void renderLevel();
 
-    //accessor
+    //accessors
     //static GameWindow* getUi();
+    vector<GUIBrick*>& getGUIBricks(){ return GUIBricks; }
 
 
     //display stuff on side of screen
@@ -99,7 +98,6 @@ public:
 class GUIBrick : public QWidget{
     Brick * brick;
     QString imgName;
-    QImage * image;
 public:
     explicit GUIBrick(QWidget * parent, Brick * newBrick): QWidget(parent), brick(newBrick){
         setGeometry(QRect(brick->getX(), brick->getY(), 40, 20));
@@ -110,11 +108,14 @@ public:
     }
 
     //accessor
-    QString getImage(){ return imgName; }
+    QString getImage() { return imgName; }
+    double getXValue() { return brick->getX(); }
 
     ~GUIBrick() {
         delete brick;
     }
 };
+
+void GUIUnitTests();
 
 #endif // GAMEWINDOW_H

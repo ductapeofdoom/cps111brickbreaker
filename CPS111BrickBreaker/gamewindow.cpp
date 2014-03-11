@@ -3,8 +3,14 @@
 #include "gameworld.h"
 #include "highscore.h"
 #include "ui_gamewindow.h"
+
 #include <QPropertyAnimation>
 #include <QKeyEvent>
+#include <QDebug>
+
+#include <cassert>
+
+using namespace std;
 
 //Constructor for the GUI. Creates and sets animTimer and spawns the ball and paddle in the game widget.
 GameWindow::GameWindow(QWidget *parent) :
@@ -138,4 +144,32 @@ void GameWindow::showStuff(){
     //gameui->lblPowerTime->setText(Gameworld::accessWorld().___);
 
 
+}
+
+
+void GUIUnitTests()
+{
+    /*Test 1*/
+    Brick *brick1 = new Brick(1, 0, 0, 0);
+    Brick *brick2 = new Brick(1, 1, 40, 0);
+    Brick *brick3 = new Brick(1, 2, 80, 0);
+    Brick *brick4 = new Brick(1, 3, 120, 0);
+    Brick *brick5 = new Brick(1, 4, 160, 0);
+    GameWorld::accessWorld().addObject(brick1);
+    GameWorld::accessWorld().addObject(brick2);
+    GameWorld::accessWorld().addObject(brick3);
+    GameWorld::accessWorld().addObject(brick4);
+    GameWorld::accessWorld().addObject(brick5);
+    GameWindow *testgamewindow = new GameWindow();
+    testgamewindow->renderLevel();
+    GUIBrick *tempbrick = testgamewindow->getGUIBricks().at(3);
+    assert(tempbrick->getXValue() == 120);
+    delete testgamewindow;
+    delete brick1;
+    delete brick2;
+    delete brick3;
+    delete brick4;
+    delete brick5;
+    /*end test 1*/
+    /*more tests?*/
 }

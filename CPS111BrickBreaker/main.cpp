@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "gameobject.h"
+#include "gamewindow.h"
 #include <QApplication>
 #include <vector>
 
@@ -7,6 +8,7 @@ using namespace std;
 
 void runUnitTests(){
     collisionUnitTests();
+    GUIUnitTests();
 }
 
 int main(int argc, char *argv[])
@@ -19,7 +21,6 @@ int main(int argc, char *argv[])
     if (args.size() > 1 && args.at(1) == "test"){
         runUnitTests();
     }
-
     w.show();
 
     return a.exec();
