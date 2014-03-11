@@ -9,6 +9,7 @@
 #include <QtWidgets>
 #include <QDebug>
 #include <cassert>
+#include <QThread>
 
 using namespace std;
 
@@ -28,6 +29,9 @@ GameWindow::GameWindow(QWidget *parent) :
     GUIPaddle * paddle = new GUIPaddle(gameui->wdGame, dataPaddle, this);
     Ball * dataBall = new Ball(200, 430, 0, 0, dataPaddle);
     GUIBall * ball = new GUIBall(gameui->wdGame, dataBall);
+    //set defaults
+    dataBall->setDefaultScore();
+    GameWorld::accessWorld().setDefaultLife();
     ball->show();
     paddle->show();
     this->showStuff();
@@ -106,13 +110,11 @@ GameWindow::~GameWindow()
     delete gameui;
 }
 
-//add or subtract lives when ball hits bottom
-//takes in a negative (when dies) or positive number when he gets pluslife powerup
-void GameWindow::setLife(int j){
-    life += j;
-}
+
 
 //create GUIBricks for a level
+//***for each level starting from one, for every 3 levels, increase bricks hits +1 for random bricks
+//***each difficulty, # of unbreakables
 void GameWindow::renderLevel()
 {
     for (GameObject *obj : GameWorld::accessWorld().getObjects()){
@@ -129,7 +131,12 @@ void GameWindow::renderLevel()
 void GameWindow::showStuff(){
     gameui->lblCPN->setText(GameWorld::accessWorld().getName());
     //get high score from # of ball hits
-    //gameui->lblCHS->setText(GameWorld::accessWorld().);
+    QString Highscore;
+    for(GameObject * obj: GameWorld::accessWorld().getObjects()){
+        Ball* theBall = dynamic_cast<Ball*>(obj);
+        Highscore = QString::number(theBall->getHS());
+    }
+    gameui->lblCHS->setText(Highscore);
     QString difficults;
     if (GameWorld::accessWorld().getDifficulty() == 0) {
         difficults = "Easy";
@@ -138,8 +145,9 @@ void GameWindow::showStuff(){
     } else if (GameWorld::accessWorld().getDifficulty() == 2) {
         difficults = "Hard";}
     gameui->lblDifficult->setText(difficults);
-    //gameui->lblLife->setText(Gameworld::accessWorld().___);
-    //gameui.lblLevel->setText();
+    //change according to deaths
+    gameui->lblLife->setText(QString::number(GameWorld::accessWorld().getLife()));
+    gameui->lblLevel->setText(QString::number(GameWorld::accessWorld().getLevel()));
     //gameui->lblPowerup->setText(Gameworld::accessWorld().___);
     //gameui->lblPowerTime->setText(Gameworld::accessWorld().___);
 

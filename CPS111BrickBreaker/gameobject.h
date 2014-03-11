@@ -108,11 +108,13 @@ public:
     double getXHeading() {return xHeading;}
     double getYHeading() {return yHeading;}
     bool getInitalPos() {return initialPos;}
+    int getHS() {return highscore;}
 
     //Setter methods
     void setXHeading(double heading){xHeading = heading;}
     void setYHeading(double heading){yHeading = heading;}
-    void hitBrick() {highscore++;}
+    void setDefaultScore() {highscore = 0;}
+    void ballHit() {highscore++;}
 
     //cheat
     void noDeath();

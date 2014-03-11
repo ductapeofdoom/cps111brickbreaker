@@ -18,7 +18,7 @@ private:
     GameWorld();
     vector<GameObject*> worldObjects;
     QString playerName;
-    int difficulty, curLevel;
+    int difficulty, curLevel, life;
     static int totalNumBricks;
     static GameWorld worldInstance;
 
@@ -32,6 +32,7 @@ public:
     //Method to update state of all GameObjects
     void update();
 
+    int getLevel() {return curLevel; }
     //method to render a level
     void makeLevel();
 
@@ -42,11 +43,19 @@ public:
     vector<GameObject*> getObjects() {return worldObjects;}
     QString getName() { return playerName; }
     int getDifficulty() { return difficulty; }
+    int getLife() {return life;}
 
 
     //Setter methods
     void setPlayerName(QString newName) { playerName = newName; }
     void setDifficulty(int newDiff) { difficulty = newDiff; }//0 = Easy    1 = Medium   2 = Hard
+    void setLevel() {curLevel++;}
+    void loadLevel(int loadLevel) {curLevel = loadLevel;}
+
+    //add or subtract lives when ball hits bottom
+    //takes in a negative (when dies) or positive number when he gets pluslife powerup
+    void setLife(int lifeChange) { life += lifeChange; }
+    void setDefaultLife() {life = 1; }
 };
 
 #endif // GAMEWORLD_H

@@ -14,9 +14,11 @@ class HighScoreWindow : public QWidget
 public:
     explicit HighScoreWindow(QWidget *parent = 0);
     ~HighScoreWindow();
+
+    void showHS();
     
 private:
-    Ui::HighScoreWindow *ui;
+    Ui::HighScoreWindow *highScoreUi;
 };
 
 #endif // HIGHSCOREWINDOW_H

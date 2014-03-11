@@ -121,6 +121,8 @@ void Ball::checkCollision()
         x = paddle->getX() + 50;
         y = paddle->getY() - 20;
         initialPos = true;
+        //change life if hits bottom
+        GameWorld::accessWorld().setLife(-1);
     }
     else if ((x >= paddle->getX() - 20 && x <= paddle->getX() + 120) && (y >= paddle->getY() - 20 && y <= paddle->getY() + 20)){
         //int testX = paddle->getX();
@@ -160,6 +162,8 @@ void Ball::checkCollision()
                         yHeading = -1 * yHeading;
                     }*/
                 }
+                ballHit();
+                brick->getHits();
             }
         }
     }

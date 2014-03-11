@@ -6,6 +6,9 @@
 #include "gameworld.h"
 #include <cassert>
 #include <QDebug>
+#include <QFile>
+#include <QMessageBox>
+#include <QStringList>
 using namespace std;
 
 
@@ -62,26 +65,52 @@ void HighScoreManager::deleteScore(Score* deleted) {
 }
 
 void HighScoreManager::loadHS() {
-// open some text
-    // loop to read high scores and store each in Score
-    /*for () {
-     * string name_ = read line
-     * int score_ = read line
-     *Score *savedScore = new Score(score_, name_)
-     *addScore(savedScore);
-     *}
-*/
+    QString highscoreText;
+    QFile file(":/documents/highscore.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        return;
+    }//if
+    while (!file.atEnd()) {
+        QByteArray line = file.readLine();
+        highscoreText += line;
+    }//while
+    file.close();
+//put data in list
+    QStringList namesandScores = highscoreText.split("\n");
+//add scores and names to vector
+    for (int i; i < namesandScores.size(); i++){
+        QString nandS= namesandScores.at(i);
+        QStringList nameScore = nandS.split(" ");
+        QString name_ = nameScore.at(0);
+        int score_ = namesandScores.at(1).toInt();
+        Score* aScore = new Score(score_, name_);
+        addScore(aScore);
+    }//for
 
 }
 
 //save in text file
 void HighScoreManager::saveHS(){
+
     for (size_t k = 0; highScores.size() > k; k++){
         Score* toSave = highScores.at(k);
         QString name = toSave->getName();
-        int score = toSave->getHighScore();
+        QString score = QString::number(toSave->getHighScore());
+        QString nameandScore = nameandScore + "\n" + name + " " + score;
         //convert to txt and save
         }
+    //overwrite file????? HOW TO DO*******************
+    QString highscoreText;
+    QFile file(":/documents/highscore.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        return;
+    }//if
+    while (!file.atEnd()) {
+        QByteArray line = file.readLine();
+        highscoreText += line;
+    }//while
+    file.close();
+
 }
 
 

@@ -3,6 +3,7 @@
 #include "inputdialog.h"
 #include "gameworld.h"
 #include "highscore.h"
+#include "highscorewindow.h"
 
 #include <QString>
 #include <QDebug>
@@ -47,5 +48,6 @@ void MainWindow::on_btnHowToPlay_clicked()
 
 void MainWindow::on_btnHighScores_clicked()
 {
-
+    HighScoreWindow* showHS = new HighScoreWindow();
+    showHS->show();
 }

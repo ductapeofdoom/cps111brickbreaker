@@ -23,7 +23,7 @@ class GameWindow : public QWidget
 private:
     Ui::GameWindow *gameui;
     QTimer * animTimer;
-    int cyclecount, life;
+    int cyclecount;
     vector<GUIBrick*> GUIBricks;
 
 private slots:
@@ -36,14 +36,10 @@ public:
     explicit GameWindow(QWidget *parent = 0);
 
     //method to add GUIBricks to the vector
-    void addObject(GUIBrick * newBrick){ GUIBricks.push_back(newBrick);}
+    void  addObject(GUIBrick * newBrick){ GUIBricks.push_back(newBrick);}
 
     //Timer used for animations
     QTimer * getTimer(){return animTimer;}
-
-    //get/set number of lives
-    int getLife() {return life;}
-    void setLife(int);
 
     //create GUIBricks based on the Brick objects in the vector in gameworld
     void renderLevel();
@@ -71,6 +67,7 @@ public:
         setGeometry(QRect(150, 450, 120, 20));
         setFocusPolicy(Qt::StrongFocus);
         setStyleSheet("background-color: white");
+
     }
 
     //Method for what happens when the object recieves a key press
