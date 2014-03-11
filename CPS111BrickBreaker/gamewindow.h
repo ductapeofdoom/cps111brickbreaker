@@ -23,7 +23,7 @@ class GameWindow : public QWidget
 private:
     Ui::GameWindow *gameui;
     QTimer * animTimer;
-    int cyclecount;
+    int cyclecount, life, collisioncount;
     vector<GUIBrick*> GUIBricks;
 
 private slots:
