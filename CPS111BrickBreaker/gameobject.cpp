@@ -137,15 +137,28 @@ void Ball::checkCollision()
         for(GameObject * obj: GameWorld::accessWorld().getObjects()){
             Brick * brick = dynamic_cast<Brick*>(obj);
             if (brick != NULL){
-                if(x >= brick->getX() - 20 && x <= brick->getX() + 40 && y >= brick->getY() - 20 && y <= brick->getY() + 20){
+                if((x >= brick->getX() - 20 && x <= brick->getX() + 40) && (y >= brick->getY() - 20 && y <= brick->getY() + 20)){
+
                     //int testY = paddle->getY();
-                    if (((x+20 >= brick->getX() - 20 && x >= brick->getX() - 20 && x+20 <= brick->getX() && x <= brick->getX()) && y >= brick->getY() - 20 && y <= brick->getY() + 20) ||
-                            ((x+20 <= brick->getX() + 140 && x <= brick->getX() + 140 && x+20 >= brick->getX() + 120 && x >= brick->getX() + 120) && y >= brick->getY() - 20 && y <=brick->getY() + 20)){
+                    if (((x+20 >= brick->getX() - 20 && x >= brick->getX() - 20 && x+20 <= brick->getX() && x <= brick->getX()) && y >= brick->getY() - 20 && y <= brick->getY() + 20)){
+                        //x = x - 1;
+                        xHeading = -1 * xHeading;
+                    }
+                    else if ((x+20 <= brick->getX() + 60 && x <= brick->getX() + 60 && x+20 >= brick->getX() + 40 && x >= brick->getX() + 40) && y >= brick->getY() - 20 && y <=brick->getY() + 20){
+                        //x = x + 1;
                         xHeading = -1 * xHeading;
                     }
                     else{
                         yHeading = -1 * yHeading;
                     }
+                    /*else if (y +20 >= brick->getY() && y + 20 <= brick->getY() + 20){
+                        y = y - .4;
+                        yHeading = -1 * yHeading;
+                    }
+                    //else if(y >= brick->getY() + 20 && y <= brick->getY()){
+                        y = y + .4;
+                        yHeading = -1 * yHeading;
+                    }*/
                 }
             }
         }

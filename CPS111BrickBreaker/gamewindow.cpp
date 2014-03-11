@@ -6,8 +6,8 @@
 
 #include <QPropertyAnimation>
 #include <QKeyEvent>
+#include <QtWidgets>
 #include <QDebug>
-
 #include <cassert>
 
 using namespace std;
@@ -146,7 +146,15 @@ void GameWindow::showStuff(){
 
 }
 
-
+void GameWindow::on_btnPause_clicked()
+{
+    if (!gameui->btnPause->isChecked()){
+        animTimer->start();
+    }
+    else{
+        animTimer->stop();
+    }
+}
 void GUIUnitTests()
 {
     /*Test 1*/

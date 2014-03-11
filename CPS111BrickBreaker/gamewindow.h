@@ -30,6 +30,8 @@ private slots:
     //Slot for timer timeout signal
     void animTimerHit();
     
+    void on_btnPause_clicked();
+
 public:
     explicit GameWindow(QWidget *parent = 0);
 
