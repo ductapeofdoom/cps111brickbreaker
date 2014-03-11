@@ -5,6 +5,7 @@
 #include "ui_gamewindow.h"
 #include <QPropertyAnimation>
 #include <QKeyEvent>
+#include <QtWidgets>
 
 //Constructor for the GUI. Creates and sets animTimer and spawns the ball and paddle in the game widget.
 GameWindow::GameWindow(QWidget *parent) :
@@ -138,4 +139,14 @@ void GameWindow::showStuff(){
     //gameui->lblPowerTime->setText(Gameworld::accessWorld().___);
 
 
+}
+
+void GameWindow::on_btnPause_clicked()
+{
+    if (!gameui->btnPause->isChecked()){
+        animTimer->start();
+    }
+    else{
+        animTimer->stop();
+    }
 }

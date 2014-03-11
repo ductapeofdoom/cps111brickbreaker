@@ -39,7 +39,7 @@
     <string>Current High Score</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="btnPause">
    <property name="geometry">
     <rect>
      <x>460</x>
@@ -50,6 +50,9 @@
    </property>
    <property name="text">
     <string>Pause</string>
+   </property>
+   <property name="checkable">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="lblCHS">
