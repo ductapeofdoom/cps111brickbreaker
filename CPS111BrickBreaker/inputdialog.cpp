@@ -13,6 +13,11 @@ InputDialog::InputDialog(QWidget *parent) :
 {
     inputui->setupUi(this);
 }
+//method that specifically exists to set the focus on the "enter name" box when this window is shown
+void InputDialog::setFocusOnLineEdit()
+{
+    inputui->lineEditName->setFocus();
+}
 
 InputDialog::~InputDialog()
 {
@@ -34,9 +39,15 @@ void InputDialog::on_btnOk_clicked()
     GameWorld::accessWorld().setPlayerName(name);
     GameWorld::accessWorld().setDifficulty(difficulty);
 
+    //make gamewindow and show it
     GameWindow* gamewindow = new GameWindow();
     gamewindow->show();
 
+    //create the bricks for a level
+    GameWorld::accessWorld().makeLevel();
+
+    //create the GUIBricks for a level
+    gamewindow->renderLevel();
 }
 
 void InputDialog::on_btnCancel_clicked()

@@ -1,19 +1,19 @@
 #include "gameworld.h"
 #include <QFile>
+#include <QDebug>
 
 GameWorld::GameWorld(): playerName("") {}
 
-//method to start and run a game
-void GameWorld::runGame()
-{
-    //use threading to do this, cause this method will need to be constantly running
-}
+int GameWorld::totalNumBricks = 60;//sets the total number of bricks that each level will have in it.
+//this needs to correspond to the number of entries in each leveldata text document.
 
 //method to render a level
 void GameWorld::makeLevel()
 {
-    QString levelData, filePath = ":/documents/" + curLevel + ".txt";
+    QString levelData, filePath = ":/documents/" + QString::number(curLevel + 1) + ".txt";
+    qDebug() << filePath;
     QFile file(filePath);
+
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
     }
@@ -25,12 +25,19 @@ void GameWorld::makeLevel()
 
     file.close();
 
+    int count = 0;
+
     //loop through the rows of Bricks
     for (int i = 0; i < GameWorld::getTotalNumBricks()/10; i++){
 
         //loop through the Bricks in a row
         for (int j = 0; j < 10; j++){
-            //create Brick objects (find out how how to then create GUIBricks)
+            QString singleBrickData = levelData.at(count);
+
+            Brick *newbrick = new Brick(singleBrickData.toInt(), count, j * 40, i * 20);
+            GameWorld::accessWorld().addObject(newbrick);
+
+            count++;
         }
 
     }

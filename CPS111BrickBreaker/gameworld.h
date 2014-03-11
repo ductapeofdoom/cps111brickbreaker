@@ -32,9 +32,6 @@ public:
     //Method to update state of all GameObjects
     void update();
 
-    //method to start and run a game
-    void runGame();
-
     //method to render a level
     void makeLevel();
 

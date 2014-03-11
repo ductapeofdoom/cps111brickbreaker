@@ -104,6 +104,21 @@ void GameWindow::setLife(int j){
     life += j;
 }
 
+//create GUIBricks for a level
+void GameWindow::renderLevel()
+{
+    for (GameObject *obj : GameWorld::accessWorld().getObjects()){
+        Brick *tempbrick = dynamic_cast<Brick*>(obj);
+        if (tempbrick == NULL){
+            break;
+        }
+        GUIBrick *newGUIBrick = new GUIBrick(gameui->wdGame, tempbrick);
+        GameWindow::addObject(newGUIBrick);
+
+        newGUIBrick->show();
+    }
+}
+
 //relabels everything in gameui
 void GameWindow::showStuff(){
     gameui->lblCPN->setText(GameWorld::accessWorld().getName());

@@ -41,23 +41,31 @@ public:
         btnOk = new QPushButton(InputDialog);
         btnOk->setObjectName(QStringLiteral("btnOk"));
         btnOk->setGeometry(QRect(280, 120, 98, 27));
+        btnOk->setMouseTracking(true);
+        btnOk->setFocusPolicy(Qt::TabFocus);
+        btnOk->setAcceptDrops(true);
         btnCancel = new QPushButton(InputDialog);
         btnCancel->setObjectName(QStringLiteral("btnCancel"));
         btnCancel->setGeometry(QRect(170, 120, 98, 27));
-        btnCancel->setFocusPolicy(Qt::StrongFocus);
+        btnCancel->setMouseTracking(true);
+        btnCancel->setFocusPolicy(Qt::TabFocus);
+        btnCancel->setAcceptDrops(true);
         lblEnterYourName = new QLabel(InputDialog);
         lblEnterYourName->setObjectName(QStringLiteral("lblEnterYourName"));
         lblEnterYourName->setGeometry(QRect(10, 10, 151, 51));
         lineEditName = new QLineEdit(InputDialog);
         lineEditName->setObjectName(QStringLiteral("lineEditName"));
         lineEditName->setGeometry(QRect(180, 20, 201, 27));
+        lineEditName->setFocusPolicy(Qt::TabFocus);
         lblSelectDifficulty = new QLabel(InputDialog);
         lblSelectDifficulty->setObjectName(QStringLiteral("lblSelectDifficulty"));
         lblSelectDifficulty->setGeometry(QRect(10, 60, 151, 51));
         cmbBoxDifficulty = new QComboBox(InputDialog);
         cmbBoxDifficulty->setObjectName(QStringLiteral("cmbBoxDifficulty"));
         cmbBoxDifficulty->setGeometry(QRect(180, 70, 201, 27));
-        cmbBoxDifficulty->setFocusPolicy(Qt::StrongFocus);
+        cmbBoxDifficulty->setMouseTracking(true);
+        cmbBoxDifficulty->setFocusPolicy(Qt::TabFocus);
+        cmbBoxDifficulty->setAcceptDrops(true);
 
         retranslateUi(InputDialog);
 

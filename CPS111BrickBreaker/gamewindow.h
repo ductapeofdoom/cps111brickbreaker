@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTimer>
 #include <QString>
+#include <QLabel>
 #include "gameobject.h"
 #include <vector>
 
@@ -42,6 +43,9 @@ public:
     //get/set number of lives
     int getLife() {return life;}
     void setLife(int);
+
+    //create GUIBricks based on the Brick objects in the vector in gameworld
+    void renderLevel();
 
     //accessor
     //static GameWindow* getUi();
@@ -97,11 +101,16 @@ class GUIBrick : public QWidget{
 public:
     explicit GUIBrick(QWidget * parent, Brick * newBrick): QWidget(parent), brick(newBrick){
         setGeometry(QRect(brick->getX(), brick->getY(), 126, 63));
-        imgName = brick->getHits() + ".png";
+        imgName = ":/images/" + QString::number(brick->getHits()) + ".png";
+
     }
 
     //accessor
     QString getImage(){ return imgName; }
+
+    ~GUIBrick() {
+        delete brick;
+    }
 };
 
 #endif // GAMEWINDOW_H
