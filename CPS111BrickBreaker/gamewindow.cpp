@@ -167,9 +167,11 @@ void GameWindow::on_btnPause_clicked()
 {
     if (!gameui->btnPause->isChecked()){
         animTimer->start();
+        gameui->btnPause->setText("Pause");
     }
     else{
         animTimer->stop();
+        gameui->btnPause->setText("Resume");
     }
 }
 void GUIUnitTests()
