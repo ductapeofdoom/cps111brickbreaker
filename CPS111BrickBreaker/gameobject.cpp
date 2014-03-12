@@ -150,7 +150,7 @@ void Ball::checkCollision()
             for(GameObject * obj: GameWorld::accessWorld().getObjects()){
                 Brick * brick = dynamic_cast<Brick*>(obj);
                 if (brick != NULL){
-                    if((x >= brick->getX() - 20.1 && x <= brick->getX() + 40.1) && (y >= brick->getY() - 20.1 && y <= brick->getY() + 20.1)){
+                    if((x >= brick->getX() - 20.1 && x <= brick->getX() + 40.1) && (y >= brick->getY() - 20.1 && y <= brick->getY() + 20.1) && !collided){
 
                         //int testY = paddle->getY();
                         if (((x+20 >= brick->getX() - 20 && x >= brick->getX() - 20 && x+20 <= brick->getX() && x <= brick->getX()) && y >= brick->getY() - 20 && y <= brick->getY() + 20) && !collided){
@@ -173,12 +173,10 @@ void Ball::checkCollision()
                             yHeading = -1 * yHeading;
                         }*/
                         collided = true;
+                        ballHit();
+                        brick->hit();
                     }
                 }
-
-                //What are these doing?
-                ballHit();
-                brick->getHits();
             }
         }
     }

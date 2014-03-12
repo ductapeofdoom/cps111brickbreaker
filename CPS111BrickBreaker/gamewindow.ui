@@ -167,7 +167,7 @@
     <rect>
      <x>450</x>
      <y>140</y>
-     <width>66</width>
+     <width>71</width>
      <height>17</height>
     </rect>
    </property>
@@ -178,10 +178,10 @@
   <widget class="QLabel" name="lblPowerTime">
    <property name="geometry">
     <rect>
-     <x>530</x>
+     <x>550</x>
      <y>140</y>
-     <width>111</width>
-     <height>16</height>
+     <width>91</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">

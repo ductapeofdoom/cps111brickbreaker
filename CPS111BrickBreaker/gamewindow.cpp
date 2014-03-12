@@ -26,9 +26,9 @@ GameWindow::GameWindow(QWidget *parent) :
     animTimer = new QTimer(this);
     animTimer->setInterval(1);
     connect(animTimer, &QTimer::timeout, this, &GameWindow::animTimerHit);
-    Paddle * dataPaddle = new Paddle(150, 450);
+    Paddle * dataPaddle = dynamic_cast<Paddle*>(GameWorld::accessWorld().getObjects().at(0));
     GUIPaddle * paddle = new GUIPaddle(gameui->wdGame, dataPaddle, this);
-    Ball * dataBall = new Ball(200, 430, 0, 0, dataPaddle);
+    Ball * dataBall = dynamic_cast<Ball*>(GameWorld::accessWorld().getObjects().at(1));
     GUIBall * ball = new GUIBall(gameui->wdGame, dataBall);
     //set defaults
     dataBall->setDefaultScore();
@@ -66,6 +66,7 @@ void GameWindow::animTimerHit(){
     if (cyclecount == 10){
         Animate(paddle);
         Animate(ball);
+        showStuff();
         cyclecount = 0;
     }
     else if (collisioncount == 2){
@@ -128,11 +129,10 @@ void GameWindow::renderLevel()
 {
     for (GameObject *obj : GameWorld::accessWorld().getObjects()){
         Brick *tempbrick = dynamic_cast<Brick*>(obj);
-        if (tempbrick == NULL){
-            break;
+        if (tempbrick != NULL){
+            GUIBrick *newGUIBrick = new GUIBrick(gameui->wdGame, tempbrick);
+            GameWindow::addObject(newGUIBrick);
         }
-        GUIBrick *newGUIBrick = new GUIBrick(gameui->wdGame, tempbrick);
-        GameWindow::addObject(newGUIBrick);
     }
 }
 
@@ -140,7 +140,7 @@ void GameWindow::renderLevel()
 void GameWindow::showStuff(){
     gameui->lblCPN->setText(GameWorld::accessWorld().getName());
     //get high score from # of ball hits
-    QString difficults;
+    QString difficults = "";
     if (GameWorld::accessWorld().getDifficulty() == 0) {
         difficults = "Easy";
     } else if (GameWorld::accessWorld().getDifficulty() == 1){
@@ -150,10 +150,12 @@ void GameWindow::showStuff(){
     gameui->lblDifficult->setText(difficults);
 
     //Stuff that needs to be put in QTimer/QThread
-    QString Highscore;
+    QString Highscore = "";
     for(GameObject * obj: GameWorld::accessWorld().getObjects()){
         Ball* theBall = dynamic_cast<Ball*>(obj);
-        Highscore = QString::number(theBall->getHS());
+        if (theBall != NULL){
+            Highscore = QString::number(theBall->getHS());
+        }
     }
     gameui->lblCHS->setText(Highscore);
     //change according to deaths

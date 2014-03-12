@@ -39,11 +39,11 @@ void InputDialog::on_btnOk_clicked()
     GameWorld::accessWorld().setPlayerName(name);
     GameWorld::accessWorld().setDifficulty(difficulty);
 
-    //make gamewindow and show it
-    GameWindow* gamewindow = new GameWindow();
-
     //create the bricks for a level
     GameWorld::accessWorld().makeLevel();
+
+    //make gamewindow and show it
+    GameWindow* gamewindow = new GameWindow();
 
     //create the GUIBricks for a level
     gamewindow->renderLevel();

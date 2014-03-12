@@ -1,4 +1,5 @@
 #include "gameworld.h"
+#include "gameobject.h"
 #include <QFile>
 #include <QDebug>
 
@@ -10,6 +11,12 @@ int GameWorld::totalNumBricks = 60;//sets the total number of bricks that each l
 //method to render a level
 void GameWorld::makeLevel()
 {
+    //Adds the ball and paddle GameWorld
+    Paddle * dataPaddle = new Paddle(150, 450);
+    Ball * dataBall = new Ball(200, 430, 0, 0, dataPaddle);
+    GameWorld::accessWorld().addObject(dataPaddle);
+    GameWorld::accessWorld().addObject(dataBall);
+
     QString levelData, filePath = ":/documents/" + QString::number(curLevel + 1) + ".txt";
     QFile file(filePath);
 
