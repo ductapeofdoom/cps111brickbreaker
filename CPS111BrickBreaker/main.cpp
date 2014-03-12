@@ -3,13 +3,14 @@
 #include "gamewindow.h"
 #include "highscore.h"
 #include <QApplication>
+#include <QDebug>
 #include <vector>
 
 using namespace std;
 
 void runUnitTests(){
     collisionUnitTests();
-    GUIUnitTests();
+    //GUIUnitTests();
     highScoreUnitTests();
 }
 
@@ -20,7 +21,7 @@ int main(int argc, char *argv[])
 
     //Unit test command
     vector<string> args(argv, argv + argc);
-    if (args.size() > 1 && args.at(1) == "test"){
+    if (args.size() > 1 && args.at(1) == "-test"){
         runUnitTests();
     }
     w.show();
