@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "gameobject.h"
 #include "gamewindow.h"
+#include "highscore.h"
 #include <QApplication>
 #include <vector>
 
@@ -9,6 +10,7 @@ using namespace std;
 void runUnitTests(){
     collisionUnitTests();
     GUIUnitTests();
+    highScoreUnitTests();
 }
 
 int main(int argc, char *argv[])
