@@ -48,7 +48,6 @@ public:
     //static GameWindow* getUi();
     vector<GUIBrick*>& getGUIBricks(){ return GUIBricks; }
 
-
     //display stuff on side of screen
     void showStuff();
 
@@ -109,6 +108,7 @@ public:
     //accessor
     QString getImage() { return imgName; }
     double getXValue() { return brick->getX(); }
+    Brick * getBrick() {return brick;}
 
     ~GUIBrick() {
         delete brick;

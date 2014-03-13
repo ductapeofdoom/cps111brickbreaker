@@ -5,8 +5,8 @@
 
 //Units tests for ball collision detection
 void collisionUnitTests(){
-    Paddle * testPaddle = new Paddle(100,100);
-    Ball * testBall = new Ball(110, 80, 0, 0, testPaddle);
+    Paddle * testPaddle = new Paddle(100,100,1);
+    Ball * testBall = new Ball(110, 80, 0, 0, testPaddle,2);
     testPaddle->setInitialRight(true);
     //Test 1
     testBall->updatePosition();
@@ -211,15 +211,11 @@ void Brick::hit(){
     hitsLeft--;
 
     if(hitsLeft == 0) {
-        destroy();
+        destroyed = true;
     }
 }
 
 void Brick::saveState()
 {
 
-}
-void Brick::destroy(){
-
-    //delete Brick;
 }

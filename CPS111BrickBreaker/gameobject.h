@@ -13,10 +13,10 @@ class GameObject
 {
 protected:
         double x, y;
-
+        int id;
 
 public:
-    GameObject(double newX,double newY): x(newX), y(newY){}
+        GameObject(double newX,double newY, int newId): x(newX), y(newY), id(newId){}
 
     //Method to save state of objects
     virtual void saveState() = 0;
@@ -24,6 +24,7 @@ public:
     //Getter methods
     double getX(){return x;}
     double getY(){return y;}
+    int getId() {return id;}
 
     //Setter methods
     void setX(double newX){x = newX;}
@@ -34,18 +35,14 @@ public:
 class Brick : public GameObject {
 private:
     int hitsLeft;
-    //For the sake of networking identification I feel that these are neccessary
-    int id;
+    bool destroyed;
 public:
     //constructor
     //unbreakable brick has -1 hits, everytime it hits,
     //it will decrease but not reach 0, so cant be destroyed
 
     explicit Brick(int numhits, int newId, double BrickX, double BrickY):
-        GameObject(BrickX, BrickY), hitsLeft(numhits), id(newId){}
-
-    //accessors
-    int getHits(){ return hitsLeft; }
+        GameObject(BrickX, BrickY, newId), hitsLeft(numhits), destroyed(false){}
 
     //Method for incrementing hit counter and check for destruction. if 0 = destroy
     void hit();
@@ -53,8 +50,9 @@ public:
     //method to save the state of bricks
     void saveState();
 
-    //Method for destroying bricks
-    void destroy();
+    //Getter methods
+    int getHits(){ return hitsLeft; }
+    bool getDestory() {return destroyed;}
 
 };
 
@@ -64,7 +62,7 @@ class Paddle : public GameObject{
 private:
     bool initialLeft, initialRight;
 public:
-    Paddle(double newX, double newY): GameObject(newX, newY), initialLeft(false), initialRight(false){}
+    Paddle(double newX, double newY, int newId): GameObject(newX, newY, newId), initialLeft(false), initialRight(false){}
 
     //Method used for collision detection on the right side of the screen
     bool checkCollisionRight();
@@ -95,8 +93,8 @@ private:
     int highscore;
 
 public:
-    Ball(double newX, double newY, double newXHeading, double newYHeading, Paddle * newPaddle):
-        GameObject(newX, newY), xHeading(newXHeading), yHeading(newYHeading), paddle(newPaddle), initialPos(true), collided(false){}
+    Ball(double newX, double newY, double newXHeading, double newYHeading, Paddle * newPaddle, int newId):
+        GameObject(newX, newY, newId), xHeading(newXHeading), yHeading(newYHeading), paddle(newPaddle), initialPos(true), collided(false){}
 
     //Method used for ball collision detection
     void checkCollision();
@@ -105,6 +103,8 @@ public:
     void updatePosition();
 
     void saveState();
+
+    void ballHit() {highscore++;}
 
     //Getter methods
     double getXHeading() {return xHeading;}
@@ -119,10 +119,7 @@ public:
     void setXHeading(double heading){xHeading = heading;}
     void setYHeading(double heading){yHeading = heading;}
     void setDefaultScore() {highscore = 0;}
-    void ballHit() {highscore++;}
     void setCollision(bool value){collided = value;}
-
-    void hitBrick() {highscore++;}
 
     //cheat
     void noDeath();

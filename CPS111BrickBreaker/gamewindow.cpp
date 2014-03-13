@@ -39,7 +39,7 @@ GameWindow::GameWindow(QWidget *parent) :
 }
 
 //Animates <obj>. Designed specifically to move the ball from it currents coordinates to its next ones.
-void Animate(QObject * obj){
+void Update(QObject * obj, GameWindow * window){
     GUIBall * ball = dynamic_cast<GUIBall*>(obj);
     if (ball != NULL){
         QPropertyAnimation * animation = new QPropertyAnimation(obj, "geometry");
@@ -56,34 +56,58 @@ void Animate(QObject * obj){
         animation->setEndValue(QRect(paddle->getPaddle()->getX(), paddle->getPaddle()->getY(), 120, 20));
         animation->start();
     }
+    int i = 0;
+    for(GUIBrick * brick : window->getGUIBricks()){
+        if(brick->getBrick()->getDestory()){
+            qDebug() << brick->getBrick()->getId() << " destroyed";
+            GameWorld::accessWorld().deleteObject(brick->getBrick()->getId());
+            window->getGUIBricks().erase(window->getGUIBricks().begin() + i);
+            brick->hide();
+        }
+        i++;
+    }
 }
 
-//Slot implementaion for animTimerHit. Redraws the paddle and executes Animation every 10 cycles. It will also reset animation and stop the timer if the ball goes off the bottom.
+//Slot implementaion for animTimerHit. Redraws the paddle and executes Update every 10 cycles. It will also reset animation and stop the timer if the ball goes off the bottom.
 void GameWindow::animTimerHit(){
     GUIPaddle * paddle = dynamic_cast<GUIPaddle *>(gameui->wdGame->children().at(0));
     GUIBall * ball = dynamic_cast<GUIBall *>(gameui->wdGame->children().at(1));
-    ball->getBall()->updatePosition();
-    if (cyclecount == 10){
-        Animate(paddle);
-        Animate(ball);
-        showStuff();
-        cyclecount = 0;
-    }
-    else if (collisioncount == 2){
-        if (ball->getBall()->getCollision()){
-            ball->getBall()->setCollision(false);
+    if(GameWorld::accessWorld().update()){
+        if (cyclecount == 10){
+            Update(paddle, this);
+            Update(ball, this);
+            showStuff();
+            cyclecount = 0;
         }
-        cyclecount++;
-        collisioncount = 0;
+        else if (collisioncount == 2){
+            if (ball->getBall()->getCollision()){
+                ball->getBall()->setCollision(false);
+            }
+            cyclecount++;
+            collisioncount = 0;
+        }
+        else{
+            cyclecount++;
+            collisioncount++;
+        }
+        if(ball->getBall()->getInitalPos()){
+            Update(ball, this);
+            paddle->setInitialCommand(true);
+            animTimer->stop();
+        }
+        /*for(GUIBrick * brick:this->getGUIBricks()){
+            if(brick->getBrick()->getDestory()){
+                brick->getBrick() = NULL;
+            }
+        }*/
     }
     else{
-        cyclecount++;
-        collisioncount++;
-    }
-    if(ball->getBall()->getInitalPos()){
-        Animate(ball);
-        paddle->setInitialCommand(true);
         animTimer->stop();
+        QLabel * win = new QLabel(this);
+        win->setText("You win!");
+        win->setGeometry(QRect(500,500,500,500));
+        win->setStyleSheet("color:red;");
+        win->show();
     }
 }
 
@@ -151,12 +175,8 @@ void GameWindow::showStuff(){
 
     //Stuff that needs to be put in QTimer/QThread
     QString Highscore = "";
-    for(GameObject * obj: GameWorld::accessWorld().getObjects()){
-        Ball* theBall = dynamic_cast<Ball*>(obj);
-        if (theBall != NULL){
-            Highscore = QString::number(theBall->getHS());
-        }
-    }
+    Ball* theBall = dynamic_cast<Ball*>(GameWorld::accessWorld().getObjects().at(1));
+    Highscore = QString::number(theBall->getHS());
     gameui->lblCHS->setText(Highscore);
     //change according to deaths
     gameui->lblLife->setText(QString::number(GameWorld::accessWorld().getLife()));

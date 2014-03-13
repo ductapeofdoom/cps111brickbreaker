@@ -30,10 +30,10 @@ public:
     void deleteObject(int id);
 
     //Method to update state of all GameObjects
-    void update();
+    bool update();
 
     int getLevel() {return curLevel; }
-    //method to render a level
+    //method to create a level
     void makeLevel();
 
     //method to get total number of bricks that each level will have
