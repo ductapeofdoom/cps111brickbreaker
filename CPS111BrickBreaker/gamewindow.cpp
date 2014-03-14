@@ -188,7 +188,7 @@ void GameWindow::showStuff(){
 
 }
 
-void GameWindow::closeEvent(QCloseEvent *ev)
+void GameWindow::closeEvent(QCloseEvent * ev)
 {
     animTimer->stop();
     GameWorld::accessWorld().reset();

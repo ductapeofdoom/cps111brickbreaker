@@ -14,12 +14,7 @@ using namespace std;
 
 //resets highscore, deletes everything from vector??
 void HighScoreManager::reset(){
-    for (size_t i = 0; i < highScores.size(); i++)
-    {
-        if (i > -1){
-            highScores.erase(highScores.begin() + i);
-        }
-    }
+    highScores.erase(highScores.begin(), highScores.end());
 }
 
 
