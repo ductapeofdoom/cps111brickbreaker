@@ -21,6 +21,7 @@ GameWindow::GameWindow(QWidget *parent) :
 {
     gameui->setupUi(this);
     collisionUnitTests();
+    highScoreUnitTests();
     cyclecount = 0;
     collisioncount = 0;
     animTimer = new QTimer(this);

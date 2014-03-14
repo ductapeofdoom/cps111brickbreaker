@@ -12,6 +12,7 @@ void runUnitTests(){
     collisionUnitTests();
     //GUIUnitTests();
     highScoreUnitTests();
+    qDebug() << "All tests passed.";
 }
 
 int main(int argc, char *argv[])

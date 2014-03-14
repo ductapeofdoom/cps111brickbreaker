@@ -35,9 +35,7 @@ QString HighScoreManager::print(){
 }
 
 void HighScoreManager::addScore(Score* single) {
-    for (size_t k = 0; highScores.size() > k; k++){
         highScores.push_back(single);
-    }
 
     //sort score...
 
