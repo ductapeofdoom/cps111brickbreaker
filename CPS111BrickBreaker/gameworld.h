@@ -32,6 +32,8 @@ public:
     //Method to update state of all GameObjects
     bool update();
 
+    void reset();
+
     int getLevel() {return curLevel; }
     //method to create a level
     void makeLevel();

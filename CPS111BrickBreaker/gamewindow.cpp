@@ -141,6 +141,7 @@ void GUIPaddle::keyPressEvent(QKeyEvent *event)
 //GameWindow destructor
 GameWindow::~GameWindow()
 {
+    delete animTimer;
     delete gameui;
 }
 
@@ -185,6 +186,13 @@ void GameWindow::showStuff(){
     //gameui->lblPowerTime->setText(Gameworld::accessWorld().___);
 
 
+}
+
+void GameWindow::closeEvent(QCloseEvent *ev)
+{
+    animTimer->stop();
+    GameWorld::accessWorld().reset();
+    GUIBricks.erase(GUIBricks.begin(), GUIBricks.end());
 }
 
 void GameWindow::on_btnPause_clicked()

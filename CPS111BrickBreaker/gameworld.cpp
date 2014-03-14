@@ -27,6 +27,11 @@ bool GameWorld::update()
     return true;
 }
 
+void GameWorld::reset()
+{
+    worldObjects.erase(worldObjects.begin(), worldObjects.end());
+}
+
 int GameWorld::totalNumBricks = 60;//sets the total number of bricks that each level will have in it.
 //this needs to correspond to the number of entries in each leveldata text document.
 

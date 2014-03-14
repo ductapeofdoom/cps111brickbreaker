@@ -51,6 +51,8 @@ public:
     //display stuff on side of screen
     void showStuff();
 
+    void closeEvent(QCloseEvent * ev);
+
     ~GameWindow();
 
 };
