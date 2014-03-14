@@ -15,5 +15,6 @@
         <file>images/4.png</file>
         <file>images/5.png</file>
         <file>images/6.png</file>
+        <file>documents/highscore.txt</file>
     </qresource>
 </RCC>

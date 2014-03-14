@@ -21,23 +21,43 @@ void HighScoreManager::reset(){
 //high score
 QString HighScoreManager::print(){
     QString hsShow;
-    for (size_t i = 0; highScores.size() > i; i++){
+    for (size_t i = 0; i < highScores.size(); i++){
         Score* top = highScores.at(i);
         QString name = top->getName();
         int score = top->getHighScore();
         QString currentScore = QString::number(score);
-        hsShow = name + ": " + currentScore + " \n";
-        qDebug() << hsShow;
+        hsShow += name + ": " + currentScore + " \n";
 
         //how do I put into UI?
     }
+    qDebug() << hsShow;
     return hsShow;
 }
 
 void HighScoreManager::addScore(Score* single) {
+    //sort score
+    int highPos = highScores.size() - 1;
+    int currentHigh = 0;
+    if (highScores.size() > 1){
+        for (size_t i = 0; i < highScores.size(); i++){
+            if (single->getHighScore() > highScores.at(i)->getHighScore() && highScores.at(i)->getHighScore() > currentHigh){
+                highPos = i;
+                currentHigh = highScores.at(i)->getHighScore();
+            }
+        }
+        highScores.insert(highScores.begin() + highPos, single);
+    }
+    else if (highScores.size() == 1){
+        if (single->getHighScore() > highScores.at(0)->getHighScore()){
+            highScores.insert(highScores.begin(), single);
+        }
+        else{
+            highScores.push_back(single);
+        }
+    }
+    else{
         highScores.push_back(single);
-
-    //sort score...
+    }
 
 
     //erase last score
@@ -59,24 +79,28 @@ void HighScoreManager::deleteScore(Score* deleted) {
 
 void HighScoreManager::loadHS() {
     QString highscoreText;
-    QFile file(":/documents/highscore.txt");
+    QFile file(".highscore.txt");
+
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
     }//if
+
     while (!file.atEnd()) {
         QByteArray line = file.readLine();
         highscoreText += line;
     }//while
+
     file.close();
+
 //put data in list
     QStringList namesandScores = highscoreText.split("\n");
 //add scores and names to vector
-    for (int i; i < namesandScores.size(); i++){
-        QString nandS= namesandScores.at(i);
-        QStringList nameScore = nandS.split(" ");
-        QString name_ = nameScore.at(0);
-        int score_ = namesandScores.at(1).toInt();
-        Score* aScore = new Score(score_, name_);
+    for (int i = 0; i < namesandScores.size() - 1; i++){
+        QString nameScore= namesandScores.at(i);
+        QStringList nameScoreList = nameScore.split(" ");
+        QString name = nameScoreList.at(0);
+        int score = nameScoreList.at(1).toInt();
+        Score* aScore = new Score(score, name);
         addScore(aScore);
     }//for
 
@@ -85,23 +109,18 @@ void HighScoreManager::loadHS() {
 //save in text file
 void HighScoreManager::saveHS(){
 
-    for (size_t k = 0; highScores.size() > k; k++){
+    QString nameandScore = "";
+    for (size_t k = 0; k < highScores.size(); k++){
         Score* toSave = highScores.at(k);
         QString name = toSave->getName();
         QString score = QString::number(toSave->getHighScore());
-        QString nameandScore = nameandScore + "\n" + name + " " + score;
-        //convert to txt and save
+        nameandScore += name + " " + score + "\n";
         }
-    //overwrite file????? HOW TO DO*******************
-    QString highscoreText;
-    QFile file(":/documents/highscore.txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+    QFile file(".highscore.txt");
+    if (!file.open(QIODevice::ReadWrite| QIODevice::Text)){
         return;
-    }//if
-    while (!file.atEnd()) {
-        QByteArray line = file.readLine();
-        highscoreText += line;
-    }//while
+    }
+    file.write(nameandScore.toLocal8Bit());
     file.close();
 
 }
@@ -127,7 +146,7 @@ void highScoreUnitTests()
     //test delete
     manager->deleteScore(top1);
     assert(manager->getScores().size() == 3);
-    assert(manager->print() == "Bill: 44 \nBob: 33 \nBob 25 \n");
+    assert(manager->print() == "Bill: 44 \nBob: 33 \nBob: 25 \n");
 
     manager->saveHS();
 

@@ -94,6 +94,7 @@ void GameWindow::animTimerHit(){
         if(ball->getBall()->getInitalPos()){
             Update(ball, this);
             paddle->setInitialCommand(true);
+            showStuff();
             animTimer->stop();
         }
         /*for(GUIBrick * brick:this->getGUIBricks()){
@@ -103,11 +104,12 @@ void GameWindow::animTimerHit(){
         }*/
     }
     else{
+        showStuff();
         animTimer->stop();
         QLabel * win = new QLabel(this);
         win->setText("You win!");
-        win->setGeometry(QRect(500,500,500,500));
-        win->setStyleSheet("color:red;");
+        win->setGeometry(QRect(250,250,500,500));
+        win->setStyleSheet("color:rgb(255,0,0);");
         win->show();
     }
 }

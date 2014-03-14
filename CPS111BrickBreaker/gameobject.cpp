@@ -133,6 +133,7 @@ void Ball::checkCollision()
             x = paddle->getX() + 50;
             y = paddle->getY() - 20;
             initialPos = true;
+            GameWorld::accessWorld().loseLife();
         }
         else if ((x >= paddle->getX() - 20 && x <= paddle->getX() + 120) && (y >= paddle->getY() - 20 && y <= paddle->getY() + 20)){
             collided = true;

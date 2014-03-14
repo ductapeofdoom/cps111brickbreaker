@@ -34,6 +34,8 @@ public:
 
     void reset();
 
+    void loseLife() {life--;}
+
     int getLevel() {return curLevel; }
     //method to create a level
     void makeLevel();
@@ -57,7 +59,7 @@ public:
     //add or subtract lives when ball hits bottom
     //takes in a negative (when dies) or positive number when he gets pluslife powerup
     void setLife(int lifeChange) { life += lifeChange; }
-    void setDefaultLife() {life = 1; }
+    void setDefaultLife() {life = 3; }
 };
 
 #endif // GAMEWORLD_H
