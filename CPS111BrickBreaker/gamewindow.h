@@ -24,7 +24,7 @@ private:
     Ui::GameWindow *gameui;
     QTimer * animTimer;
     int cyclecount, life, collisioncount;
-    vector<GUIBrick*> GUIBricks;
+    vector<QWidget*> GUIObjects;
 
 private slots:
     //Slot for timer timeout signal
@@ -36,7 +36,7 @@ public:
     explicit GameWindow(QWidget *parent = 0);
 
     //method to add GUIBricks to the vector
-    void  addObject(GUIBrick * newBrick){ GUIBricks.push_back(newBrick);}
+    void  addObject(QWidget * newObject){ GUIObjects.push_back(newObject);}
 
     //Timer used for animations
     QTimer * getTimer(){return animTimer;}
@@ -46,10 +46,12 @@ public:
 
     //accessors
     //static GameWindow* getUi();
-    vector<GUIBrick*>& getGUIBricks(){ return GUIBricks; }
+    vector<QWidget*>& getGUIObjects(){ return GUIObjects; }
 
     //display stuff on side of screen
     void showStuff();
+
+    void GeneratePlayer();
 
     void closeEvent(QCloseEvent *ev);
 

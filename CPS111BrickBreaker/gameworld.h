@@ -63,7 +63,7 @@ public:
     //add or subtract lives when ball hits bottom
     //takes in a negative (when dies) or positive number when he gets pluslife powerup
     void setLife(int lifeChange) { life += lifeChange; }
-    void setDefaultLife() {life = 3; }
+    void setDefaultLife() {life = 99; }
 };
 
 #endif // GAMEWORLD_H

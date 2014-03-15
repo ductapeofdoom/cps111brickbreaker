@@ -16,6 +16,7 @@
 
 using namespace std;
 
+
 //Constructor for the GUI. Creates and sets animTimer and spawns the ball and paddle in the game widget.
 GameWindow::GameWindow(QWidget *parent) :
     QWidget(parent),
@@ -29,16 +30,6 @@ GameWindow::GameWindow(QWidget *parent) :
     animTimer = new QTimer(this);
     animTimer->setInterval(1);
     connect(animTimer, &QTimer::timeout, this, &GameWindow::animTimerHit);
-    Paddle * dataPaddle = dynamic_cast<Paddle*>(GameWorld::accessWorld().getObjects().at(0));
-    GUIPaddle * paddle = new GUIPaddle(gameui->wdGame, dataPaddle, this);
-    Ball * dataBall = dynamic_cast<Ball*>(GameWorld::accessWorld().getObjects().at(1));
-    GUIBall * ball = new GUIBall(gameui->wdGame, dataBall);
-    //set defaults
-    dataBall->setDefaultScore();
-    GameWorld::accessWorld().setDefaultLife();
-    ball->show();
-    paddle->show();
-    this->showStuff();
 }
 
 //Animates <obj>. Designed specifically to move the ball from it currents coordinates to its next ones.
@@ -60,12 +51,15 @@ void Update(QObject * obj, GameWindow * window){
         animation->start();
     }
     int i = 0;
-    for(GUIBrick * brick : window->getGUIBricks()){
-        if(brick->getBrick()->getDestory()){
-            qDebug() << brick->getBrick()->getId() << " destroyed";
-            GameWorld::accessWorld().deleteObject(brick->getBrick()->getId());
-            window->getGUIBricks().erase(window->getGUIBricks().begin() + i);
-            brick->hide();
+    for(QWidget * obj : window->getGUIObjects()){
+        GUIBrick * brick  = dynamic_cast<GUIBrick*>(obj);
+        if (brick != NULL){
+            if(brick->getBrick()->getDestory()){
+                qDebug() << brick->getBrick()->getId() << " destroyed";
+                GameWorld::accessWorld().deleteObject(brick->getBrick()->getId());
+                window->getGUIObjects().erase(window->getGUIObjects().begin() + i);
+                brick->hide();
+            }
         }
         i++;
     }
@@ -73,8 +67,8 @@ void Update(QObject * obj, GameWindow * window){
 
 //Slot implementaion for animTimerHit. Redraws the paddle and executes Update every 10 cycles. It will also reset animation and stop the timer if the ball goes off the bottom.
 void GameWindow::animTimerHit(){
-    GUIPaddle * paddle = dynamic_cast<GUIPaddle *>(gameui->wdGame->children().at(0));
-    GUIBall * ball = dynamic_cast<GUIBall *>(gameui->wdGame->children().at(1));
+    GUIPaddle * paddle = dynamic_cast<GUIPaddle *>(GUIObjects.at(0));
+    GUIBall * ball = dynamic_cast<GUIBall *>(GUIObjects.at(1));
     if(GameWorld::accessWorld().update()){
         if (cyclecount == 10){
             Update(paddle, this);
@@ -112,6 +106,7 @@ void GameWindow::animTimerHit(){
         QString msg1, msg2;
         //player has lost all their lives
         if (GameWorld::accessWorld().getLife() == 0){
+            GameWorld::accessWorld().reset();
             //notify the player that they have died
             //give them the option to play the level over or go to the main menu.
         }
@@ -119,9 +114,12 @@ void GameWindow::animTimerHit(){
         //player has destroyed all the bricks
         if (GameWorld::accessWorld().getRemainingBricks() == 0){
 
-            for (GUIBrick* guibrick : GameWindow::getGUIBricks()){
-                delete guibrick;
+            GameWorld::accessWorld().reset();
+
+            for (QWidget* obj : GameWindow::getGUIObjects()){
+                delete obj;
             }
+            GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
 
             QMessageBox msgBox;
             msgBox.setText("You beat the level!");
@@ -195,14 +193,16 @@ GameWindow::~GameWindow()
 //***each difficulty, # of unbreakables
 void GameWindow::renderLevel()
 {
+    GeneratePlayer();
     for (GameObject *obj : GameWorld::accessWorld().getObjects()){
         Brick *tempbrick = dynamic_cast<Brick*>(obj);
         if (tempbrick != NULL){
             GUIBrick *newGUIBrick = new GUIBrick(gameui->wdGame, tempbrick);
+            newGUIBrick->show();
             GameWindow::addObject(newGUIBrick);
         }
     }
-    qDebug() << "made GUIBricks for level. GUIBricks vector is this big: " << GUIBricks.size();
+    qDebug() << "made GUIBricks for level. GUIBricks vector is this big: " << GUIObjects.size();
 }
 
 //relabels everything in gameui
@@ -232,11 +232,27 @@ void GameWindow::showStuff(){
 
 }
 
+void GameWindow::GeneratePlayer()
+{
+    Paddle * dataPaddle = dynamic_cast<Paddle*>(GameWorld::accessWorld().getObjects().at(0));
+    GUIPaddle * paddle = new GUIPaddle(gameui->wdGame, dataPaddle, this);
+    Ball * dataBall = dynamic_cast<Ball*>(GameWorld::accessWorld().getObjects().at(1));
+    GUIBall * ball = new GUIBall(gameui->wdGame, dataBall);
+    addObject(paddle);
+    addObject(ball);
+    //set defaults
+    dataBall->setDefaultScore();
+    GameWorld::accessWorld().setDefaultLife();
+    ball->show();
+    paddle->show();
+    this->showStuff();
+}
+
 void GameWindow::closeEvent(QCloseEvent * ev)
 {
     animTimer->stop();
     GameWorld::accessWorld().reset();
-    GUIBricks.erase(GUIBricks.begin(), GUIBricks.end());
+    GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
 }
 
 void GameWindow::on_btnPause_clicked()
