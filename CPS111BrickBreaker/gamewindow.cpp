@@ -11,6 +11,8 @@
 #include <QDebug>
 #include <cassert>
 #include <QThread>
+#include <QString>
+#include <QMessageBox>
 
 using namespace std;
 
@@ -106,11 +108,41 @@ void GameWindow::animTimerHit(){
     else{
         showStuff();
         animTimer->stop();
-        QLabel * win = new QLabel(this);
+
+        QString msg1, msg2;
+        //player has lost all their lives
+        if (GameWorld::accessWorld().getLife() == 0){
+
+
+        }
+
+        //player has destroyed all the bricks
+        if (GameWorld::accessWorld().getRemainingBricks() == 0){
+            QMessageBox msgBox;
+            msgBox.setText("You beat the level!");
+            msgBox.setInformativeText("Would you like to play the next level?");
+            msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            int choice = msgBox.exec();
+
+            switch (choice) {
+              case QMessageBox::Ok:
+                  //go to next level
+                  break;
+              case QMessageBox::Cancel:
+                  //close gamewindow and return to main menu
+                  break;
+              default:
+                  // should never be reached
+                  break;
+            }
+        }
+
+        /*QLabel * win = new QLabel(this);
         win->setText("You win!");
         win->setGeometry(QRect(250,250,500,500));
         win->setStyleSheet("color:rgb(255,0,0);");
-        win->show();
+        win->show();*/
     }
 }
 

@@ -48,6 +48,7 @@ public:
     QString getName() { return playerName; }
     int getDifficulty() { return difficulty; }
     int getLife() {return life;}
+    int getRemainingBricks();
 
 
     //Setter methods

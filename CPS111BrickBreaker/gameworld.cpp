@@ -32,7 +32,7 @@ void GameWorld::reset()
     worldObjects.erase(worldObjects.begin(), worldObjects.end());
 }
 
-int GameWorld::totalNumBricks = 60;//sets the total number of bricks that each level will have in it.
+int GameWorld::totalNumBricks = 80;//sets the total number of bricks that each level will have in it.
 //this needs to correspond to the number of entries in each leveldata text document.
 
 //method to render a level
@@ -76,10 +76,18 @@ void GameWorld::makeLevel()
         }
 
     }
+}
 
-    //in this method, I can make the Brick objects for the world. However, I need to figure out a way to make the GUIBrick objects
-    //that will need to be done in the GameWindow class probably, so I may need to read from the worldObjects vector in GameWorld
-    //to look at the Brick objects in it
+//counts the remaining bricks in the game
+int GameWorld::getRemainingBricks()
+{
+    int count = 0;
+    for (GameObject* obj : worldObjects){
+        if (dynamic_cast<Brick*>(obj) != NULL){
+            count++;
+        }
+    }
+    return count;
 }
 
 GameWorld GameWorld::worldInstance;
