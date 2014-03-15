@@ -16,5 +16,14 @@
         <file>images/5.png</file>
         <file>images/6.png</file>
         <file>documents/highscore.txt</file>
+        <file>documents/2.txt</file>
+        <file>documents/3.txt</file>
+        <file>documents/4.txt</file>
+        <file>documents/5.txt</file>
+        <file>documents/6.txt</file>
+        <file>documents/7.txt</file>
+        <file>documents/8.txt</file>
+        <file>documents/9.txt</file>
+        <file>documents/10.txt</file>
     </qresource>
 </RCC>

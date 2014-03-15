@@ -17,6 +17,11 @@ HighScoreWindow::~HighScoreWindow()
     delete highScoreUi;
 }
 
+void HighScoreWindow::setSPScoresLabel(QString scores)
+{
+    highScoreUi->lblSPHS->setText(scores);
+}
+
 void HighScoreWindow::showHS(){
 /*
     //vector<Score*> highScoreStuff = HighScoreManager::getScores();
