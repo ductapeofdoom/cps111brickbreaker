@@ -3,7 +3,7 @@
 #include <QFile>
 #include <QDebug>
 
-GameWorld::GameWorld(): playerName(""), life(0) {}
+GameWorld::GameWorld(): playerName(""), life(5) {}
 
 void GameWorld::deleteObject(int id)
 {

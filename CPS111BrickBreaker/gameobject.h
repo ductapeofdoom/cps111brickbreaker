@@ -89,8 +89,6 @@ private:
     Paddle * paddle;
     bool initialPos;
     bool collided;
-    //score is with the ball
-    int highscore;
 
 public:
     Ball(double newX, double newY, double newXHeading, double newYHeading, Paddle * newPaddle, int newId):
@@ -104,21 +102,17 @@ public:
 
     void saveState();
 
-    void ballHit() {highscore++;}
-
     //Getter methods
     double getXHeading() {return xHeading;}
     double getYHeading() {return yHeading;}
     bool getInitalPos() {return initialPos;}
 
-    int getHS() {return highscore;}
     bool getCollision() {return collided;}
 
 
     //Setter methods
     void setXHeading(double heading){xHeading = heading;}
     void setYHeading(double heading){yHeading = heading;}
-    void setDefaultScore() {highscore = 0;}
     void setCollision(bool value){collided = value;}
 
     //cheat

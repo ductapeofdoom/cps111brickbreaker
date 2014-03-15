@@ -174,7 +174,7 @@ void Ball::checkCollision()
                             yHeading = -1 * yHeading;
                         }*/
                         collided = true;
-                        ballHit();
+                        GameWorld::accessWorld().incrementScore();
                         brick->hit();
                     }
                 }

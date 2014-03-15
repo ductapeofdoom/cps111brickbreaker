@@ -23,8 +23,8 @@ GameWindow::GameWindow(QWidget *parent) :
     gameui(new Ui::GameWindow)
 {
     gameui->setupUi(this);
-    collisionUnitTests();
-    highScoreUnitTests();
+    //collisionUnitTests();
+    //highScoreUnitTests();
     cyclecount = 0;
     collisioncount = 0;
     animTimer = new QTimer(this);
@@ -106,13 +106,18 @@ void GameWindow::animTimerHit(){
         QString msg1, msg2;
         //player has lost all their lives
         if (GameWorld::accessWorld().getLife() == 0){
+            Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
+            HighScoreManager::accessManager().addScore(playerScore);
             GameWorld::accessWorld().reset();
+            GameWorld::accessWorld().setCurrentScore(0);
             //notify the player that they have died
             //give them the option to play the level over or go to the main menu.
         }
 
         //player has destroyed all the bricks
-        if (GameWorld::accessWorld().getRemainingBricks() == 0){
+        else if (GameWorld::accessWorld().getRemainingBricks() == 0){
+
+            GameWorld::accessWorld().setCurrentScore(GameWorld::accessWorld().getCurrentScore());
 
             GameWorld::accessWorld().reset();
 
@@ -130,14 +135,20 @@ void GameWindow::animTimerHit(){
 
             switch (choice) {
               case QMessageBox::Yes:
+            {
                   GameWorld::accessWorld().incrementLevel(1);
                   qDebug() << "incremented level.";
                   GameWorld::accessWorld().makeLevel();
                   this->renderLevel();
                   break;
+            }
               case QMessageBox::No:
+            {
+                  Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
+                  HighScoreManager::accessManager().addScore(playerScore);
                   this->close();
                   break;
+            }
               default:
                   // should never be reached
                   break;
@@ -220,8 +231,8 @@ void GameWindow::showStuff(){
 
     //Stuff that needs to be put in QTimer/QThread
     QString Highscore = "";
-    Ball* theBall = dynamic_cast<Ball*>(GameWorld::accessWorld().getObjects().at(1));
-    Highscore = QString::number(theBall->getHS());
+    //Ball* theBall = dynamic_cast<Ball*>(GameWorld::accessWorld().getObjects().at(1));
+    Highscore = QString::number(GameWorld::accessWorld().getCurrentScore());
     gameui->lblCHS->setText(Highscore);
     //change according to deaths
     gameui->lblLife->setText(QString::number(GameWorld::accessWorld().getLife()));
@@ -241,8 +252,6 @@ void GameWindow::GeneratePlayer()
     addObject(paddle);
     addObject(ball);
     //set defaults
-    dataBall->setDefaultScore();
-    GameWorld::accessWorld().setDefaultLife();
     ball->show();
     paddle->show();
     this->showStuff();
@@ -250,9 +259,13 @@ void GameWindow::GeneratePlayer()
 
 void GameWindow::closeEvent(QCloseEvent * ev)
 {
-    animTimer->stop();
-    GameWorld::accessWorld().reset();
-    GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
+    if (ev != NULL){
+        animTimer->stop();
+        GameWorld::accessWorld().reset();
+        GameWorld::accessWorld().setCurrentScore(0);
+        GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
+        HighScoreManager::accessManager().saveHS(".highscore");
+    }
 }
 
 void GameWindow::on_btnPause_clicked()

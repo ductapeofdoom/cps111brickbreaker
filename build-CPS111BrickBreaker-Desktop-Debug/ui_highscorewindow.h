@@ -58,7 +58,7 @@ public:
         lblHighScoreTitle->setText(QString());
         btnResetScores->setText(QApplication::translate("HighScoreWindow", "Reset High Scores", 0));
         label->setText(QApplication::translate("HighScoreWindow", "Single Player", 0));
-        lblSPHS->setText(QApplication::translate("HighScoreWindow", "TextLabel", 0));
+        lblSPHS->setText(QString());
     } // retranslateUi
 
 };

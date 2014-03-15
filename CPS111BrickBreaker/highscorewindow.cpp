@@ -10,6 +10,7 @@ HighScoreWindow::HighScoreWindow(QWidget *parent) :
     highScoreUi(new Ui::HighScoreWindow)
 {
     highScoreUi->setupUi(this);
+    showHS();
 }
 
 HighScoreWindow::~HighScoreWindow()
@@ -23,23 +24,22 @@ void HighScoreWindow::setSPScoresLabel(QString scores)
 }
 
 void HighScoreWindow::showHS(){
-/*
-    //vector<Score*> highScoreStuff = HighScoreManager::getScores();
-    QString out;
-    for (size_t i = 0; i < highScoreStuff.size(); i++)
+
+    vector<Score*> highScores = HighScoreManager::accessManager().getScores();
+    QString out = "";
+    for (size_t i = 0; i < highScores.size(); i++)
     {
-        Score* bob = highScoreStuff.at(i);
+        Score* bob = highScores.at(i);
         QString name_ = bob->getName();
         QString score_ = QString::number(bob->getHighScore());
-        out = out + "\n" + name_ + ": " + score_;
+        out = out + "\t\t\t" + name_ + ": " + score_ + "\n";
 
     }
     // set single player HS
     highScoreUi->lblSPHS->setText(out);
 
     //set multiplayerHS
-    highScoreUi->lblMPHS->setText(out);
-*/
+    //highScoreUi->lblMPHS->setText(out);
 }
 
 

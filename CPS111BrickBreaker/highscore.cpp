@@ -11,6 +11,7 @@
 #include <QStringList>
 using namespace std;
 
+HighScoreManager HighScoreManager::managerInstance;
 
 //resets highscore, deletes everything from vector??
 void HighScoreManager::reset(){
@@ -77,9 +78,9 @@ void HighScoreManager::deleteScore(Score* deleted) {
     delete deleted;
 }
 
-void HighScoreManager::loadHS() {
+void HighScoreManager::loadHS(QString filename) {
     QString highscoreText;
-    QFile file(".highscore.txt");
+    QFile file(filename);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
@@ -97,9 +98,9 @@ void HighScoreManager::loadHS() {
 //add scores and names to vector
     for (int i = 0; i < namesandScores.size() - 1; i++){
         QString nameScore= namesandScores.at(i);
-        QStringList nameScoreList = nameScore.split(" ");
-        QString name = nameScoreList.at(0);
-        int score = nameScoreList.at(1).toInt();
+        QStringList nameScoreList = nameScore.split(":");
+        QString name = nameScoreList.at(0).trimmed();
+        int score = nameScoreList.at(1).trimmed().toInt();
         Score* aScore = new Score(score, name);
         addScore(aScore);
     }//for
@@ -107,17 +108,17 @@ void HighScoreManager::loadHS() {
 }
 
 //save in text file
-void HighScoreManager::saveHS(){
+void HighScoreManager::saveHS(QString filename){
 
     QString nameandScore = "";
     for (size_t k = 0; k < highScores.size(); k++){
         Score* toSave = highScores.at(k);
         QString name = toSave->getName();
         QString score = QString::number(toSave->getHighScore());
-        nameandScore += name + " " + score + "\n";
+        nameandScore += name + ":" + score + "\n";
         }
-    QFile file(".highscore.txt");
-    if (!file.open(QIODevice::ReadWrite| QIODevice::Text)){
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly| QIODevice::Text)){
         return;
     }
     file.write(nameandScore.toLocal8Bit());
@@ -128,31 +129,32 @@ void HighScoreManager::saveHS(){
 
 void highScoreUnitTests()
 {
-    HighScoreManager * manager = new HighScoreManager();
-    manager->reset();
-    assert(manager->getScores().size() == 0);
+    HighScoreManager::accessManager().reset();
+    assert( HighScoreManager::accessManager().getScores().size() == 0);
 
     //tests addScore
     Score* bob = new Score(25, "Bob");
-    manager->addScore(bob);
+    HighScoreManager::accessManager().addScore(bob);
     Score* top1 = new Score(1, "Bob");
-    manager->addScore(top1);
+    HighScoreManager::accessManager().addScore(top1);
     Score* top2 = new Score(33, "Bob");
-    manager->addScore(top2);
+    HighScoreManager::accessManager().addScore(top2);
     Score* top3 = new Score(44, "Bill");
-    manager->addScore(top3);
-    assert(manager->getScores().size() == 4);
+    HighScoreManager::accessManager().addScore(top3);
+    assert(HighScoreManager::accessManager().getScores().size() == 4);
 
     //test delete
-    manager->deleteScore(top1);
-    assert(manager->getScores().size() == 3);
-    assert(manager->print() == "Bill: 44 \nBob: 33 \nBob: 25 \n");
+    HighScoreManager::accessManager().deleteScore(top1);
+    assert(HighScoreManager::accessManager().getScores().size() == 3);
+    assert(HighScoreManager::accessManager().print() == "Bill: 44 \nBob: 33 \nBob: 25 \n");
 
-    manager->saveHS();
+    HighScoreManager::accessManager().saveHS(".highscoretest");
 
-    manager->reset();
-    assert(manager->getScores().size() == 0);
+    HighScoreManager::accessManager().reset();
+    assert(HighScoreManager::accessManager().getScores().size() == 0);
 
-    manager->loadHS();
-    assert(manager->getScores().size() == 3);
+    HighScoreManager::accessManager().loadHS(".highscoretest");
+    assert(HighScoreManager::accessManager().getScores().size() == 3);
+
+     HighScoreManager::accessManager().reset();
 }

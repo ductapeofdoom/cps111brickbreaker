@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mainui(new Ui::MainWindow)
 {
     mainui->setupUi(this);
+    HighScoreManager::accessManager().loadHS(".highscore");
 }
 
 MainWindow::~MainWindow()

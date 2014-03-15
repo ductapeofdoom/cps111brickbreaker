@@ -31,11 +31,14 @@ public:
 class HighScoreManager
 {
 private:
-    vector<Score*> highScores;
-public:
     HighScoreManager(){}
-    ~HighScoreManager();
+    vector<Score*> highScores;
+    static HighScoreManager managerInstance;
+
+public:
     
+    static HighScoreManager& accessManager() { return managerInstance; }
+
     //add to vector
     void addScore(Score*);
 
@@ -49,9 +52,9 @@ public:
     QString print();
 
     // have save scores and load scores
-    void loadHS();
+    void loadHS(QString filename);
 
-    void saveHS();
+    void saveHS(QString filename);
 
     //Getter methods
     vector<Score*> getScores(){return highScores;}
