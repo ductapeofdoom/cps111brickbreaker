@@ -32,8 +32,9 @@ void GameWorld::reset()
     worldObjects.erase(worldObjects.begin(), worldObjects.end());
 }
 
-int GameWorld::totalNumBricks = 80;//sets the total number of bricks that each level will have in it.
-//this needs to correspond to the number of entries in each leveldata text document.
+//sets the total number of bricks that each level will have in it.
+int GameWorld::totalNumBricks = 10;//this needs to correspond to the number of entries in each leveldata text document.
+
 
 //method to render a level
 void GameWorld::makeLevel()
@@ -76,6 +77,7 @@ void GameWorld::makeLevel()
         }
 
     }
+    qDebug() << "made Bricks for new level";
 }
 
 //counts the remaining bricks in the game

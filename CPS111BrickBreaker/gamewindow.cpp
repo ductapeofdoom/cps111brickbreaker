@@ -112,25 +112,33 @@ void GameWindow::animTimerHit(){
         QString msg1, msg2;
         //player has lost all their lives
         if (GameWorld::accessWorld().getLife() == 0){
-
-
+            //notify the player that they have died
+            //give them the option to play the level over or go to the main menu.
         }
 
         //player has destroyed all the bricks
         if (GameWorld::accessWorld().getRemainingBricks() == 0){
+
+            for (GUIBrick* guibrick : GameWindow::getGUIBricks()){
+                delete guibrick;
+            }
+
             QMessageBox msgBox;
             msgBox.setText("You beat the level!");
             msgBox.setInformativeText("Would you like to play the next level?");
-            msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::Yes);
             int choice = msgBox.exec();
 
             switch (choice) {
-              case QMessageBox::Ok:
-                  //go to next level
+              case QMessageBox::Yes:
+                  GameWorld::accessWorld().incrementLevel(1);
+                  qDebug() << "incremented level.";
+                  GameWorld::accessWorld().makeLevel();
+                  this->renderLevel();
                   break;
-              case QMessageBox::Cancel:
-                  //close gamewindow and return to main menu
+              case QMessageBox::No:
+                  this->close();
                   break;
               default:
                   // should never be reached
@@ -194,6 +202,7 @@ void GameWindow::renderLevel()
             GameWindow::addObject(newGUIBrick);
         }
     }
+    qDebug() << "made GUIBricks for level. GUIBricks vector is this big: " << GUIBricks.size();
 }
 
 //relabels everything in gameui

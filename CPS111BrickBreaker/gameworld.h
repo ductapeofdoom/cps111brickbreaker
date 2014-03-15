@@ -5,6 +5,7 @@
 
 #include <QString>
 #include <QObject>
+#include <QDebug>
 
 #include "gameobject.h"
 using namespace std;
@@ -37,6 +38,7 @@ public:
     void loseLife() {life--;}
 
     int getLevel() {return curLevel; }
+
     //method to create a level
     void makeLevel();
 
@@ -56,6 +58,7 @@ public:
     void setDifficulty(int newDiff) { difficulty = newDiff; }//0 = Easy    1 = Medium   2 = Hard
     void setLevel() {curLevel++;}
     void loadLevel(int loadLevel) {curLevel = loadLevel;}
+    void incrementLevel(int amount) { curLevel += amount; }
 
     //add or subtract lives when ball hits bottom
     //takes in a negative (when dies) or positive number when he gets pluslife powerup
