@@ -114,11 +114,6 @@ public:
     void setXHeading(double heading){xHeading = heading;}
     void setYHeading(double heading){yHeading = heading;}
     void setCollision(bool value){collided = value;}
-
-    //cheat
-    void noDeath();
-    void slowBallCheat();
-    void speedBallCheat();
 };
 
 //Data class for power ups

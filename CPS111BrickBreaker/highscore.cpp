@@ -37,7 +37,7 @@ QString HighScoreManager::print(){
 
 void HighScoreManager::addScore(Score* single) {
     //sort score
-    int highPos = highScores.size() - 1;
+    int highPos = highScores.size();
     int currentHigh = 0;
     if (highScores.size() > 1){
         for (size_t i = 0; i < highScores.size(); i++){

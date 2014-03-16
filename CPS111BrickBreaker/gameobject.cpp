@@ -128,12 +128,17 @@ void Ball::checkCollision()
             collided = true;
         }
         else if (y >= 500){
-            yHeading = 0;
-            xHeading = 0;
-            x = paddle->getX() + 50;
-            y = paddle->getY() - 20;
-            initialPos = true;
-            GameWorld::accessWorld().loseLife();
+            if (!GameWorld::accessWorld().getNoDeath()){
+                yHeading = 0;
+                xHeading = 0;
+                x = paddle->getX() + 50;
+                y = paddle->getY() - 20;
+                initialPos = true;
+                GameWorld::accessWorld().loseLife();
+            }
+            else{
+                yHeading = -1 * yHeading;
+            }
         }
         else if ((x >= paddle->getX() - 20 && x <= paddle->getX() + 120) && (y >= paddle->getY() - 20 && y <= paddle->getY() + 20)){
             collided = true;
@@ -199,8 +204,18 @@ void Ball::updatePosition(){
         initialPos = false;
     }
    checkCollision();
-   x = x + xHeading;
-   y = y + yHeading;
+   if (GameWorld::accessWorld().getSlowBall()){
+       x = x + (xHeading * .5);
+       y = y + (yHeading * .5);
+   }
+   else if (GameWorld::accessWorld().getSpeedBall()){
+       x = x + (xHeading * 1.5);
+       y = y + (yHeading * 1.5);
+   }
+   else{
+       x = x + xHeading;
+       y = y + yHeading;
+   }
 }
 
 void Ball::saveState()

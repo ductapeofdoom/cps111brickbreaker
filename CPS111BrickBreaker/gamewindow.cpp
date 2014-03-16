@@ -110,6 +110,7 @@ void GameWindow::animTimerHit(){
             HighScoreManager::accessManager().addScore(playerScore);
             GameWorld::accessWorld().reset();
             GameWorld::accessWorld().setCurrentScore(0);
+            //GameWorld::accessWorld().setLevel(0);
             //notify the player that they have died
             //give them the option to play the level over or go to the main menu.
         }
@@ -263,8 +264,10 @@ void GameWindow::closeEvent(QCloseEvent * ev)
         animTimer->stop();
         GameWorld::accessWorld().reset();
         GameWorld::accessWorld().setCurrentScore(0);
+        GameWorld::accessWorld().setLife(5);
+        GameWorld::accessWorld().setLevel(0);
         GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
-        HighScoreManager::accessManager().saveHS(".highscore");
+        HighScoreManager::accessManager().saveHS(".highscore.txt");
     }
 }
 
@@ -280,3 +283,43 @@ void GameWindow::on_btnPause_clicked()
     }
 }
 
+
+void GameWindow::on_btnNoDeath_clicked()
+{
+    if (!gameui->btnNoDeath->isChecked()){
+        GameWorld::accessWorld().setnoDeath(false);
+    }
+    else{
+         GameWorld::accessWorld().setnoDeath(true);
+    }
+}
+
+void GameWindow::on_btnSlowBall_clicked()
+{
+    if (!gameui->btnSlowBall->isChecked()){
+        GameWorld::accessWorld().setSlowBall(false);
+        gameui->btnSpeedBall->setEnabled(true);
+    }
+    else{
+        GameWorld::accessWorld().setSlowBall(true);
+        gameui->btnSpeedBall->setEnabled(false);
+    }
+}
+
+void GameWindow::on_btnSpeedBall_clicked()
+{
+    if (!gameui->btnSpeedBall->isChecked()){
+        GameWorld::accessWorld().setSpeedBall(false);
+        gameui->btnSlowBall->setEnabled(true);
+    }
+    else{
+        GameWorld::accessWorld().setSpeedBall(true);
+        gameui->btnSlowBall->setEnabled(false);
+    }
+}
+
+void GameWindow::on_btnAddLife_clicked()
+{
+    GameWorld::accessWorld().setLife(GameWorld::accessWorld().getLife() + 1);
+    showStuff();
+}

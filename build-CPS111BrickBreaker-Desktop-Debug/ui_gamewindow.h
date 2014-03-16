@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
@@ -41,12 +42,19 @@ public:
     QLabel *lblOScore;
     QLabel *lblNumberOfLives;
     QLabel *lblLife;
+    QLabel *lblCheats;
+    QWidget *widget;
+    QHBoxLayout *btnCheatLayout;
+    QPushButton *btnNoDeath;
+    QPushButton *btnSlowBall;
+    QPushButton *btnSpeedBall;
+    QPushButton *btnAddLife;
 
     void setupUi(QWidget *GameWindow)
     {
         if (GameWindow->objectName().isEmpty())
             GameWindow->setObjectName(QStringLiteral("GameWindow"));
-        GameWindow->resize(642, 588);
+        GameWindow->resize(642, 608);
         wdGame = new QWidget(GameWindow);
         wdGame->setObjectName(QStringLiteral("wdGame"));
         wdGame->setGeometry(QRect(30, 30, 400, 500));
@@ -104,6 +112,47 @@ public:
         lblLife = new QLabel(GameWindow);
         lblLife->setObjectName(QStringLiteral("lblLife"));
         lblLife->setGeometry(QRect(580, 190, 31, 21));
+        lblCheats = new QLabel(GameWindow);
+        lblCheats->setObjectName(QStringLiteral("lblCheats"));
+        lblCheats->setGeometry(QRect(200, 540, 66, 17));
+        QFont font;
+        font.setPointSize(15);
+        lblCheats->setFont(font);
+        lblCheats->setStyleSheet(QStringLiteral("color: rgb(170, 0, 0);"));
+        widget = new QWidget(GameWindow);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(40, 560, 364, 29));
+        btnCheatLayout = new QHBoxLayout(widget);
+        btnCheatLayout->setObjectName(QStringLiteral("btnCheatLayout"));
+        btnCheatLayout->setContentsMargins(0, 0, 0, 0);
+        btnNoDeath = new QPushButton(widget);
+        btnNoDeath->setObjectName(QStringLiteral("btnNoDeath"));
+        btnNoDeath->setFocusPolicy(Qt::NoFocus);
+        btnNoDeath->setStyleSheet(QStringLiteral(""));
+        btnNoDeath->setCheckable(true);
+
+        btnCheatLayout->addWidget(btnNoDeath);
+
+        btnSlowBall = new QPushButton(widget);
+        btnSlowBall->setObjectName(QStringLiteral("btnSlowBall"));
+        btnSlowBall->setFocusPolicy(Qt::NoFocus);
+        btnSlowBall->setCheckable(true);
+
+        btnCheatLayout->addWidget(btnSlowBall);
+
+        btnSpeedBall = new QPushButton(widget);
+        btnSpeedBall->setObjectName(QStringLiteral("btnSpeedBall"));
+        btnSpeedBall->setFocusPolicy(Qt::NoFocus);
+        btnSpeedBall->setCheckable(true);
+
+        btnCheatLayout->addWidget(btnSpeedBall);
+
+        btnAddLife = new QPushButton(widget);
+        btnAddLife->setObjectName(QStringLiteral("btnAddLife"));
+        btnAddLife->setFocusPolicy(Qt::NoFocus);
+
+        btnCheatLayout->addWidget(btnAddLife);
+
 
         retranslateUi(GameWindow);
 
@@ -130,6 +179,11 @@ public:
         lblOScore->setText(QString());
         lblNumberOfLives->setText(QApplication::translate("GameWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Number of Lives</span></p></body></html>", 0));
         lblLife->setText(QApplication::translate("GameWindow", "1", 0));
+        lblCheats->setText(QApplication::translate("GameWindow", "Cheats", 0));
+        btnNoDeath->setText(QApplication::translate("GameWindow", "No Death", 0));
+        btnSlowBall->setText(QApplication::translate("GameWindow", "Slow Ball", 0));
+        btnSpeedBall->setText(QApplication::translate("GameWindow", "Speed Ball", 0));
+        btnAddLife->setText(QApplication::translate("GameWindow", "Add Life", 0));
     } // retranslateUi
 
 };

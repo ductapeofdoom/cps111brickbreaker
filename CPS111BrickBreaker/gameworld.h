@@ -20,6 +20,7 @@ private:
     vector<GameObject*> worldObjects;
     QString playerName;
     int difficulty, curLevel, life, curScore;
+    bool noDeath, speedBall, slowBall;
     static int totalNumBricks;
     static GameWorld worldInstance;
 
@@ -54,19 +55,25 @@ public:
     int getLife() {return life;}
     int getRemainingBricks();
     int getCurrentScore() {return curScore;}
+    bool getNoDeath() {return noDeath;}
+    bool getSlowBall() {return slowBall;}
+    bool getSpeedBall() {return speedBall;}
 
 
     //Setter methods
     void setPlayerName(QString newName) { playerName = newName; }
     void setDifficulty(int newDiff) { difficulty = newDiff; }//0 = Easy    1 = Medium   2 = Hard
-    void setLevel() {curLevel++;}
+    void setLevel(int newLevel) {curLevel = newLevel;}
     void setCurrentScore(int newScore){curScore = newScore;}
     void loadLevel(int loadLevel) {curLevel = loadLevel;}
     void incrementLevel(int amount) { curLevel += amount; }
+    void setnoDeath(bool value) {noDeath = value;}
+    void setSlowBall(bool value) {slowBall = value;}
+    void setSpeedBall(bool value) {speedBall = value;}
 
     //add or subtract lives when ball hits bottom
     //takes in a negative (when dies) or positive number when he gets pluslife powerup
-    void setLife(int lifeChange) { life += lifeChange; }
+    void setLife(int lifeChange) { life = lifeChange; }
 };
 
 #endif // GAMEWORLD_H

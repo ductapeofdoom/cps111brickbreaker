@@ -32,6 +32,14 @@ private slots:
     
     void on_btnPause_clicked();
 
+    void on_btnNoDeath_clicked();
+
+    void on_btnSlowBall_clicked();
+
+    void on_btnSpeedBall_clicked();
+
+    void on_btnAddLife_clicked();
+
 public:
     explicit GameWindow(QWidget *parent = 0);
 
