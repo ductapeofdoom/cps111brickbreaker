@@ -102,17 +102,56 @@ void GameWindow::animTimerHit(){
     else{
         showStuff();
         animTimer->stop();
-
+        if (GameWorld::accessWorld().getLife() != 0){
+            GameWorld::accessWorld().incrementLevel(1);
+            qDebug() << "incremented level.";
+        }
         QString msg1, msg2;
         //player has lost all their lives
-        if (GameWorld::accessWorld().getLife() == 0){
+        if (GameWorld::accessWorld().getLife() == 0 || GameWorld::accessWorld().getLevel() == 10){
             Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
             HighScoreManager::accessManager().addScore(playerScore);
             GameWorld::accessWorld().reset();
             GameWorld::accessWorld().setCurrentScore(0);
-            //GameWorld::accessWorld().setLevel(0);
+            GameWorld::accessWorld().setLevel(0);
+            GameWorld::accessWorld().setLife(5);
+
+            for (QWidget* obj : GameWindow::getGUIObjects()){
+                delete obj;
+            }
+            GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
+
             //notify the player that they have died
             //give them the option to play the level over or go to the main menu.
+            QMessageBox msgBox;
+            if (GameWorld::accessWorld().getLife() == 0){
+                msgBox.setText("Unfortunately you have run out of lives.");
+                msgBox.setInformativeText("Would you like to play the again?");
+            }
+            else if (GameWorld::accessWorld().getLevel() == 10){
+                msgBox.setText("Congratulation, you have finished the game!");
+                msgBox.setInformativeText("Would you like to play the again?");
+            }
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::Yes);
+            int choice = msgBox.exec();
+
+            switch (choice) {
+              case QMessageBox::Yes:
+            {
+                  GameWorld::accessWorld().makeLevel();
+                  this->renderLevel();
+                  break;
+            }
+              case QMessageBox::No:
+            {
+                  this->close();
+                  break;
+            }
+              default:
+                  // should never be reached
+                  break;
+            }
         }
 
         //player has destroyed all the bricks
@@ -137,8 +176,6 @@ void GameWindow::animTimerHit(){
             switch (choice) {
               case QMessageBox::Yes:
             {
-                  GameWorld::accessWorld().incrementLevel(1);
-                  qDebug() << "incremented level.";
                   GameWorld::accessWorld().makeLevel();
                   this->renderLevel();
                   break;
@@ -154,11 +191,6 @@ void GameWindow::animTimerHit(){
                   // should never be reached
                   break;
             }
-        }
-
-        else if (GameWorld::accessWorld().getLevel() == 11){
-            Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
-            HighScoreManager::accessManager().addScore(playerScore);
         }
 
         /*QLabel * win = new QLabel(this);
