@@ -156,6 +156,11 @@ void GameWindow::animTimerHit(){
             }
         }
 
+        else if (GameWorld::accessWorld().getLevel() == 11){
+            Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
+            HighScoreManager::accessManager().addScore(playerScore);
+        }
+
         /*QLabel * win = new QLabel(this);
         win->setText("You win!");
         win->setGeometry(QRect(250,250,500,500));

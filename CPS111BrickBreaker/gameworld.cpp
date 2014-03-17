@@ -22,7 +22,7 @@ bool GameWorld::update()
 {
     Ball * ball = dynamic_cast<Ball*>(worldObjects.at(1));
     ball->updatePosition();
-    if (worldObjects.size() == 2 or life == 0){
+    if (worldObjects.size() == 2 || life == 0 || curLevel == 11){
         return false;
     }
     return true;
