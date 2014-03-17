@@ -70,6 +70,8 @@ public:
     //Method used for collision detection on the left side of the screen
     bool checkCollisionLeft();
 
+    void CheckBallCollision();
+
     void saveState();
 
     //Getter methods

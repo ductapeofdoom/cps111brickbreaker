@@ -54,7 +54,7 @@ public:
 
     void retranslateUi(QWidget *HighScoreWindow)
     {
-        HighScoreWindow->setWindowTitle(QApplication::translate("HighScoreWindow", "Form", 0));
+        HighScoreWindow->setWindowTitle(QApplication::translate("HighScoreWindow", "High Scores", 0));
         lblHighScoreTitle->setText(QString());
         btnResetScores->setText(QApplication::translate("HighScoreWindow", "Reset High Scores", 0));
         label->setText(QApplication::translate("HighScoreWindow", "Single Player", 0));

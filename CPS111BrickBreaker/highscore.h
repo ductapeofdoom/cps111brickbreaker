@@ -32,6 +32,7 @@ class HighScoreManager
 {
 private:
     HighScoreManager(){}
+    ~HighScoreManager();
     vector<Score*> highScores;
     static HighScoreManager managerInstance;
 

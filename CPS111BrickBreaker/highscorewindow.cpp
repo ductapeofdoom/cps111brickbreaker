@@ -43,3 +43,10 @@ void HighScoreWindow::showHS(){
 }
 
 
+
+void HighScoreWindow::on_btnResetScores_clicked()
+{
+    HighScoreManager::accessManager().reset();
+    HighScoreManager::accessManager().saveHS(".highscore.txt");
+    showHS();
+}

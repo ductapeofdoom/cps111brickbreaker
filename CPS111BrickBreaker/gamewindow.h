@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTimer>
 #include <QString>
+#include <QPropertyAnimation>
 #include "gameobject.h"
 #include <vector>
 
@@ -23,6 +24,8 @@ class GameWindow : public QWidget
 private:
     Ui::GameWindow *gameui;
     QTimer * animTimer;
+    QPropertyAnimation * animationBall;
+    QPropertyAnimation * animationPaddle;
     int cyclecount, life, collisioncount;
     vector<QWidget*> GUIObjects;
 
@@ -51,6 +54,8 @@ public:
 
     //create GUIBricks based on the Brick objects in the vector in gameworld
     void renderLevel();
+
+    void Update(QObject *obj);
 
     //accessors
     //static GameWindow* getUi();

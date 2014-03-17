@@ -43,7 +43,7 @@ public:
     QLabel *lblNumberOfLives;
     QLabel *lblLife;
     QLabel *lblCheats;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QHBoxLayout *btnCheatLayout;
     QPushButton *btnNoDeath;
     QPushButton *btnSlowBall;
@@ -62,6 +62,7 @@ public:
         lblCurrentHighScore = new QLabel(GameWindow);
         lblCurrentHighScore->setObjectName(QStringLiteral("lblCurrentHighScore"));
         lblCurrentHighScore->setGeometry(QRect(450, 10, 141, 21));
+        lblCurrentHighScore->setAlignment(Qt::AlignCenter);
         btnPause = new QPushButton(GameWindow);
         btnPause->setObjectName(QStringLiteral("btnPause"));
         btnPause->setGeometry(QRect(460, 410, 161, 51));
@@ -73,6 +74,7 @@ public:
         lblCurrentPlayersName = new QLabel(GameWindow);
         lblCurrentPlayersName->setObjectName(QStringLiteral("lblCurrentPlayersName"));
         lblCurrentPlayersName->setGeometry(QRect(30, 10, 161, 16));
+        lblCurrentPlayersName->setAlignment(Qt::AlignCenter);
         lblCPN = new QLabel(GameWindow);
         lblCPN->setObjectName(QStringLiteral("lblCPN"));
         lblCPN->setGeometry(QRect(210, 10, 181, 16));
@@ -119,13 +121,13 @@ public:
         font.setPointSize(15);
         lblCheats->setFont(font);
         lblCheats->setStyleSheet(QStringLiteral("color: rgb(170, 0, 0);"));
-        widget = new QWidget(GameWindow);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(40, 560, 364, 29));
-        btnCheatLayout = new QHBoxLayout(widget);
+        layoutWidget = new QWidget(GameWindow);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(40, 560, 364, 29));
+        btnCheatLayout = new QHBoxLayout(layoutWidget);
         btnCheatLayout->setObjectName(QStringLiteral("btnCheatLayout"));
         btnCheatLayout->setContentsMargins(0, 0, 0, 0);
-        btnNoDeath = new QPushButton(widget);
+        btnNoDeath = new QPushButton(layoutWidget);
         btnNoDeath->setObjectName(QStringLiteral("btnNoDeath"));
         btnNoDeath->setFocusPolicy(Qt::NoFocus);
         btnNoDeath->setStyleSheet(QStringLiteral(""));
@@ -133,21 +135,21 @@ public:
 
         btnCheatLayout->addWidget(btnNoDeath);
 
-        btnSlowBall = new QPushButton(widget);
+        btnSlowBall = new QPushButton(layoutWidget);
         btnSlowBall->setObjectName(QStringLiteral("btnSlowBall"));
         btnSlowBall->setFocusPolicy(Qt::NoFocus);
         btnSlowBall->setCheckable(true);
 
         btnCheatLayout->addWidget(btnSlowBall);
 
-        btnSpeedBall = new QPushButton(widget);
+        btnSpeedBall = new QPushButton(layoutWidget);
         btnSpeedBall->setObjectName(QStringLiteral("btnSpeedBall"));
         btnSpeedBall->setFocusPolicy(Qt::NoFocus);
         btnSpeedBall->setCheckable(true);
 
         btnCheatLayout->addWidget(btnSpeedBall);
 
-        btnAddLife = new QPushButton(widget);
+        btnAddLife = new QPushButton(layoutWidget);
         btnAddLife->setObjectName(QStringLiteral("btnAddLife"));
         btnAddLife->setFocusPolicy(Qt::NoFocus);
 
@@ -162,10 +164,10 @@ public:
     void retranslateUi(QWidget *GameWindow)
     {
         GameWindow->setWindowTitle(QApplication::translate("GameWindow", "Brick Breaker!", 0));
-        lblCurrentHighScore->setText(QApplication::translate("GameWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Current High Score</span></p></body></html>", 0));
+        lblCurrentHighScore->setText(QApplication::translate("GameWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Score</span></p></body></html>", 0));
         btnPause->setText(QApplication::translate("GameWindow", "Pause", 0));
         lblCHS->setText(QApplication::translate("GameWindow", "0", 0));
-        lblCurrentPlayersName->setText(QApplication::translate("GameWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Current Player's Name</span></p></body></html>", 0));
+        lblCurrentPlayersName->setText(QApplication::translate("GameWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Player's Name:</span></p></body></html>", 0));
         lblCPN->setText(QApplication::translate("GameWindow", "(player name)", 0));
         lblLevel_2->setText(QApplication::translate("GameWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Level:</span></p></body></html>", 0));
         lblLevel->setText(QApplication::translate("GameWindow", "1", 0));
