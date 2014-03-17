@@ -3,7 +3,8 @@
 #include <QFile>
 #include <QDebug>
 
-GameWorld::GameWorld(): playerName(""), life(5), noDeath(false), slowBall(false), speedBall(false) {}
+GameWorld::GameWorld(): playerName(""), life(5), noDeath(false), speedBall(false), slowBall(false) {
+}
 
 void GameWorld::deleteObject(int id)
 {
@@ -33,7 +34,7 @@ void GameWorld::reset()
 }
 
 //sets the total number of bricks that each level will have in it.
-int GameWorld::totalNumBricks = 10;//this needs to correspond to the number of entries in each leveldata text document.
+//int GameWorld::totalNumBricks = 10;//this needs to correspond to the number of entries in each leveldata text document.
 
 /*this variable ^ is currently set at 10 so that when testing, it doesn't take 3 years to beat the level to see the end of the level.
  *this variable does need to be a multiple of 10. Setting it at 0 makes the level end immediately, but
@@ -43,6 +44,15 @@ int GameWorld::totalNumBricks = 10;//this needs to correspond to the number of e
 //method to render a level
 void GameWorld::makeLevel()
 {
+    if (difficulty == 0){
+        totalNumBricks = 20;
+    }
+    else if (difficulty == 1){
+        totalNumBricks = 40;
+    }
+    else if (difficulty == 2){
+        totalNumBricks = 60;
+    }
     //Adds the ball and paddle GameWorld
     Paddle * dataPaddle = new Paddle(150, 450, 1);
     Ball * dataBall = new Ball(200, 430, 0, 0, dataPaddle, 2);

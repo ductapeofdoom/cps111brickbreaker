@@ -21,7 +21,7 @@ private:
     QString playerName;
     int difficulty, curLevel, life, curScore;
     bool noDeath, speedBall, slowBall;
-    static int totalNumBricks;
+    int totalNumBricks;
     static GameWorld worldInstance;
 
 public:
@@ -46,7 +46,7 @@ public:
     void makeLevel();
 
     //method to get total number of bricks that each level will have
-    static int getTotalNumBricks() { return totalNumBricks; }
+    int getTotalNumBricks() { return totalNumBricks; }
 
     //Getter methods
     vector<GameObject*> getObjects() {return worldObjects;}
