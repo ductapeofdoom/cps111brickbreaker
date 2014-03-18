@@ -81,7 +81,10 @@ void collisionUnitTests(){
     assert(testBall->getX() == 150);
     assert(testBall->getY() == 80);
     testBall->setCollision(false);
+    GameWorld::accessWorld().setLife(5);
 
+    delete testBall;
+    delete testPaddle;
 }
 
 //Checks if the paddle has collided with the right side of the screen
@@ -103,6 +106,20 @@ bool Paddle::checkCollisionLeft()
     }
     else{
         return false;
+    }
+}
+
+void Paddle::CheckBallCollision()
+{
+    int ballX = GameWorld::accessWorld().getObjects().at(1)->getX();
+    int ballY = GameWorld::accessWorld().getObjects().at(1)->getY();
+
+    if (ballX > x - 20 && ballX < x + 60 && ballY > y - 20 && ballY < y + 20){
+        GameWorld::accessWorld().getObjects().at(1)->setX(ballX - 10);
+    }
+
+    else if(ballX < x + 120 && ballX > x + 60 && ballY > y - 20 && ballY < y + 20){
+        GameWorld::accessWorld().getObjects().at(1)->setX(ballX + 10);
     }
 }
 

@@ -34,7 +34,7 @@ void InputDialog::on_btnOk_clicked()
         return;
     }
 
-    delete this;
+    this->close();
 
     GameWorld::accessWorld().setPlayerName(name);
     GameWorld::accessWorld().setDifficulty(difficulty);
@@ -54,5 +54,5 @@ void InputDialog::on_btnOk_clicked()
 
 void InputDialog::on_btnCancel_clicked()
 {
-    delete this;
+   this->close();
 }

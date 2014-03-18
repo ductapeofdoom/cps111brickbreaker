@@ -17,6 +17,7 @@ class GameWorld : public QObject
 
 private:
     GameWorld();
+    ~GameWorld();
     vector<GameObject*> worldObjects;
     QString playerName;
     int difficulty, curLevel, life, curScore;

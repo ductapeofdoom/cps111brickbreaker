@@ -23,8 +23,8 @@ GameWindow::GameWindow(QWidget *parent) :
     gameui(new Ui::GameWindow)
 {
     gameui->setupUi(this);
-    //collisionUnitTests();
-    //highScoreUnitTests();
+    collisionUnitTests();
+    highScoreUnitTests();
     cyclecount = 0;
     collisioncount = 0;
     animTimer = new QTimer(this);
@@ -32,32 +32,31 @@ GameWindow::GameWindow(QWidget *parent) :
     connect(animTimer, &QTimer::timeout, this, &GameWindow::animTimerHit);
 }
 
-//Animates <obj>. Designed specifically to move the ball from it currents coordinates to its next ones.
-void Update(QObject * obj, GameWindow * window){
+//Animates <obj> and hides bricks that have been destroyed.
+void GameWindow::Update(QObject * obj)
+{
     GUIBall * ball = dynamic_cast<GUIBall*>(obj);
     if (ball != NULL){
-        QPropertyAnimation * animation = new QPropertyAnimation(obj, "geometry");
-        animation->setDuration(10);
-        animation->setStartValue(QRect(ball->x(), ball->y(), 20, 20));
-        animation->setEndValue(QRect(ball->getBall()->getX(),ball->getBall()->getY(),20,20));
-        animation->start();
+        animationBall->setDuration(10);
+        animationBall->setStartValue(QRect(ball->x(), ball->y(), 20, 20));
+        animationBall->setEndValue(QRect(ball->getBall()->getX(),ball->getBall()->getY(),20,20));
+        animationBall->start();
     }
     GUIPaddle * paddle = dynamic_cast<GUIPaddle*>(obj);
     if (paddle != NULL){
-        QPropertyAnimation * animation = new QPropertyAnimation(obj, "geometry");
-        animation->setDuration(10);
-        animation->setStartValue(QRect(paddle->x(), paddle->y(), 120, 20));
-        animation->setEndValue(QRect(paddle->getPaddle()->getX(), paddle->getPaddle()->getY(), 120, 20));
-        animation->start();
+        animationPaddle->setDuration(10);
+        animationPaddle->setStartValue(QRect(paddle->x(), paddle->y(), 120, 20));
+        animationPaddle->setEndValue(QRect(paddle->getPaddle()->getX(), paddle->getPaddle()->getY(), 120, 20));
+        animationPaddle->start();
     }
     int i = 0;
-    for(QWidget * obj : window->getGUIObjects()){
+    for(QWidget * obj : this->getGUIObjects()){
         GUIBrick * brick  = dynamic_cast<GUIBrick*>(obj);
         if (brick != NULL){
             if(brick->getBrick()->getDestory()){
                 qDebug() << brick->getBrick()->getId() << " destroyed";
                 GameWorld::accessWorld().deleteObject(brick->getBrick()->getId());
-                window->getGUIObjects().erase(window->getGUIObjects().begin() + i);
+                this->getGUIObjects().erase(this->getGUIObjects().begin() + i);
                 brick->hide();
             }
         }
@@ -71,8 +70,8 @@ void GameWindow::animTimerHit(){
     GUIBall * ball = dynamic_cast<GUIBall *>(GUIObjects.at(1));
     if(GameWorld::accessWorld().update()){
         if (cyclecount == 10){
-            Update(paddle, this);
-            Update(ball, this);
+            Update(paddle);
+            Update(ball);
             showStuff();
             cyclecount = 0;
         }
@@ -88,7 +87,7 @@ void GameWindow::animTimerHit(){
             collisioncount++;
         }
         if(ball->getBall()->getInitalPos()){
-            Update(ball, this);
+            Update(ball);
             paddle->setInitialCommand(true);
             showStuff();
             animTimer->stop();
@@ -102,17 +101,58 @@ void GameWindow::animTimerHit(){
     else{
         showStuff();
         animTimer->stop();
-
-        QString msg1, msg2;
+        if (GameWorld::accessWorld().getLife() != 0){
+            GameWorld::accessWorld().incrementLevel(1);
+            qDebug() << "incremented level.";
+        }
+        //QString msg1, msg2;
         //player has lost all their lives
-        if (GameWorld::accessWorld().getLife() == 0){
+        if (GameWorld::accessWorld().getLife() == 0 || GameWorld::accessWorld().getLevel() == 10){
             Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
             HighScoreManager::accessManager().addScore(playerScore);
-            GameWorld::accessWorld().reset();
-            GameWorld::accessWorld().setCurrentScore(0);
-            //GameWorld::accessWorld().setLevel(0);
+
+            for (QWidget* obj : GameWindow::getGUIObjects()){
+                delete obj;
+            }
+            GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
+
             //notify the player that they have died
             //give them the option to play the level over or go to the main menu.
+            QMessageBox msgBox;
+            if (GameWorld::accessWorld().getLife() == 0){
+                msgBox.setText("Unfortunately you have run out of lives.");
+                msgBox.setInformativeText("Would you like to play the again?");
+            }
+            else if (GameWorld::accessWorld().getLevel() == 10){
+                msgBox.setText("Congratulation, you have finished the game!");
+                msgBox.setInformativeText("Would you like to play the again?");
+            }
+            GameWorld::accessWorld().reset();
+            GameWorld::accessWorld().setCurrentScore(0);
+            GameWorld::accessWorld().setLevel(0);
+            GameWorld::accessWorld().setLife(5);
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::Yes);
+            int choice = msgBox.exec();
+
+            switch (choice) {
+              case QMessageBox::Yes:
+            {
+                  delete animationBall;
+                  delete animationPaddle;
+                  GameWorld::accessWorld().makeLevel();
+                  this->renderLevel();
+                  break;
+            }
+              case QMessageBox::No:
+            {
+                  this->close();
+                  break;
+            }
+              default:
+                  // should never be reached
+                  break;
+            }
         }
 
         //player has destroyed all the bricks
@@ -137,8 +177,8 @@ void GameWindow::animTimerHit(){
             switch (choice) {
               case QMessageBox::Yes:
             {
-                  GameWorld::accessWorld().incrementLevel(1);
-                  qDebug() << "incremented level.";
+                  delete animationBall;
+                  delete animationPaddle;
                   GameWorld::accessWorld().makeLevel();
                   this->renderLevel();
                   break;
@@ -154,11 +194,6 @@ void GameWindow::animTimerHit(){
                   // should never be reached
                   break;
             }
-        }
-
-        else if (GameWorld::accessWorld().getLevel() == 11){
-            Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
-            HighScoreManager::accessManager().addScore(playerScore);
         }
 
         /*QLabel * win = new QLabel(this);
@@ -200,6 +235,8 @@ void GUIPaddle::keyPressEvent(QKeyEvent *event)
 GameWindow::~GameWindow()
 {
     delete animTimer;
+    delete animationBall;
+    delete animationPaddle;
     delete gameui;
 }
 
@@ -255,6 +292,8 @@ void GameWindow::GeneratePlayer()
     GUIPaddle * paddle = new GUIPaddle(gameui->wdGame, dataPaddle, this);
     Ball * dataBall = dynamic_cast<Ball*>(GameWorld::accessWorld().getObjects().at(1));
     GUIBall * ball = new GUIBall(gameui->wdGame, dataBall);
+    animationBall = new QPropertyAnimation(ball, "geometry");
+    animationPaddle = new QPropertyAnimation(paddle, "geometry");
     addObject(paddle);
     addObject(ball);
     //set defaults
@@ -328,3 +367,4 @@ void GameWindow::on_btnAddLife_clicked()
     GameWorld::accessWorld().setLife(GameWorld::accessWorld().getLife() + 1);
     showStuff();
 }
+

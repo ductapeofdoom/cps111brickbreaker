@@ -3,7 +3,15 @@
 #include <QFile>
 #include <QDebug>
 
-GameWorld::GameWorld(): playerName(""), life(5), noDeath(false), speedBall(false), slowBall(false) {
+GameWorld::GameWorld(): playerName(""), curLevel(0), life(5), curScore(0), noDeath(false), speedBall(false), slowBall(false) {
+}
+
+GameWorld::~GameWorld()
+{
+    for(GameObject * obj : worldObjects){
+        delete obj;
+    }
+    worldObjects.erase(worldObjects.begin(), worldObjects.end());
 }
 
 void GameWorld::deleteObject(int id)
@@ -22,7 +30,9 @@ bool GameWorld::update()
 {
     Ball * ball = dynamic_cast<Ball*>(worldObjects.at(1));
     ball->updatePosition();
-    if (worldObjects.size() == 2 || life == 0 || curLevel == 11){
+    Paddle * paddle = dynamic_cast<Paddle*>(worldObjects.at(0));
+    paddle->CheckBallCollision();
+    if (worldObjects.size() == 2 || life == 0 || curLevel == 10){
         return false;
     }
     return true;

@@ -15,6 +15,9 @@ HighScoreManager HighScoreManager::managerInstance;
 
 //resets highscore, deletes everything from vector??
 void HighScoreManager::reset(){
+    for(Score * score: highScores){
+        delete score;
+    }
     highScores.erase(highScores.begin(), highScores.end());
 }
 
@@ -33,6 +36,13 @@ QString HighScoreManager::print(){
     }
     qDebug() << hsShow;
     return hsShow;
+}
+
+HighScoreManager::~HighScoreManager()
+{
+    for(Score * score: highScores){
+        delete score;
+    }
 }
 
 void HighScoreManager::addScore(Score* single) {
@@ -63,7 +73,7 @@ void HighScoreManager::addScore(Score* single) {
 
     //erase last score
     if (highScores.size() > 10) {
-        Score* lastHS = highScores.at(11);
+        Score* lastHS = highScores.at(10);
         highScores.erase(highScores.end() - 1);
         delete lastHS;
     }
@@ -157,4 +167,5 @@ void highScoreUnitTests()
     assert(HighScoreManager::accessManager().getScores().size() == 3);
 
      HighScoreManager::accessManager().reset();
+     HighScoreManager::accessManager().loadHS(".highscore.txt");
 }

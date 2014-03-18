@@ -23,6 +23,8 @@ public:
 
     void showHS();
 
+private slots:
+    void on_btnResetScores_clicked();
 };
 
 #endif // HIGHSCOREWINDOW_H
