@@ -4,6 +4,7 @@
 #include "gameworld.h"
 #include "highscore.h"
 #include "highscorewindow.h"
+#include "multiplayergui.h"
 
 #include <QString>
 #include <QDebug>
@@ -51,4 +52,10 @@ void MainWindow::on_btnHighScores_clicked()
 {
     HighScoreWindow* showHS = new HighScoreWindow();
     showHS->show();
+}
+
+void MainWindow::on_btnMultiplayer_clicked()
+{
+    MultiplayerGUI * window = new MultiplayerGUI();
+    window->show();
 }

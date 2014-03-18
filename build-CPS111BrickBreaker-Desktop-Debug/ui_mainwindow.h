@@ -64,7 +64,7 @@ public:
         btnHowToPlay->setIconSize(QSize(300, 300));
         btnMultiplayer = new QPushButton(centralWidget);
         btnMultiplayer->setObjectName(QStringLiteral("btnMultiplayer"));
-        btnMultiplayer->setEnabled(false);
+        btnMultiplayer->setEnabled(true);
         btnMultiplayer->setGeometry(QRect(50, 480, 381, 61));
         QIcon icon2;
         icon2.addFile(QStringLiteral(":/images/multiplayer.png"), QSize(), QIcon::Normal, QIcon::On);
