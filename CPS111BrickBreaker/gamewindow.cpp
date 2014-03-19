@@ -110,7 +110,7 @@ void GameWindow::animTimerHit(){
         }
         //QString msg1, msg2;
         //player has lost all their lives
-        if (GameWorld::accessWorld().getLife() == 0 || GameWorld::accessWorld().getLevel() == 10){
+        if (GameWorld::accessWorld().getLife() == 0 || GameWorld::accessWorld().getLevel() == 30){
             Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
             HighScoreManager::accessManager().addScore(playerScore);
 
@@ -126,7 +126,7 @@ void GameWindow::animTimerHit(){
                 msgBox.setText("Unfortunately you have run out of lives.");
                 msgBox.setInformativeText("Would you like to play the again?");
             }
-            else if (GameWorld::accessWorld().getLevel() == 10){
+            else if (GameWorld::accessWorld().getLevel() == 30){
                 msgBox.setText("Congratulation, you have finished the game!");
                 msgBox.setInformativeText("Would you like to play the game again?");
             }
