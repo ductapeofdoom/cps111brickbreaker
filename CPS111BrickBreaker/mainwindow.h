@@ -24,6 +24,8 @@ private slots:
 
     void on_btnHighScores_clicked();
 
+    void on_btnLoad_clicked();
+
 private:
     Ui::MainWindow *mainui;
 };

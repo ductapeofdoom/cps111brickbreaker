@@ -9,10 +9,15 @@
 #include <QKeyEvent>
 #include <QtWidgets>
 #include <QDebug>
-#include <cassert>
 #include <QThread>
 #include <QString>
 #include <QMessageBox>
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cassert>
+#include <sstream>
 
 using namespace std;
 
@@ -23,8 +28,6 @@ GameWindow::GameWindow(QWidget *parent) :
     gameui(new Ui::GameWindow)
 {
     gameui->setupUi(this);
-    collisionUnitTests();
-    highScoreUnitTests();
     cyclecount = 0;
     collisioncount = 0;
     animTimer = new QTimer(this);
@@ -125,11 +128,11 @@ void GameWindow::animTimerHit(){
             }
             else if (GameWorld::accessWorld().getLevel() == 10){
                 msgBox.setText("Congratulation, you have finished the game!");
-                msgBox.setInformativeText("Would you like to play the again?");
+                msgBox.setInformativeText("Would you like to play the game again?");
             }
             GameWorld::accessWorld().reset();
             GameWorld::accessWorld().setCurrentScore(0);
-            GameWorld::accessWorld().setLevel(0);
+            GameWorld::accessWorld().setLevel(1);
             GameWorld::accessWorld().setLife(5);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
             msgBox.setDefaultButton(QMessageBox::Yes);
@@ -256,7 +259,7 @@ void GameWindow::renderLevel()
             GameWindow::addObject(newGUIBrick);
         }
     }
-    qDebug() << "made GUIBricks for level. GUIBricks vector is this big: " << GUIObjects.size();
+    qDebug() << "made GUIBricks for level. GUIObjects vector is this big: " << GUIObjects.size();
 }
 
 //relabels everything in gameui
@@ -368,3 +371,48 @@ void GameWindow::on_btnAddLife_clicked()
     showStuff();
 }
 
+
+void GameWindow::on_btnSave_clicked()
+{
+    //eliminate the possiblity of double clicking the button
+    gameui->btnSave->setEnabled(false);
+
+    stringstream savedatastream;
+
+    //store the elements in a string that will be written to a file
+    savedatastream << GameWorld::accessWorld().getLevel()
+                   << '%'
+                   << GameWorld::accessWorld().getName().toStdString()
+                   << '%'
+                   << GameWorld::accessWorld().getCurrentScore()
+                   << '%'
+                   << GameWorld::accessWorld().getDifficulty()
+                   << '%'
+                   << GameWorld::accessWorld().getLife()
+                   << '%'
+                   << '#';
+
+    string savedata = savedatastream.str();
+
+    //write saved data to a file
+    //open file for writing
+    ofstream outfile("gamesave.txt");
+
+    //notify user if unsuccessful
+    if (!outfile) {
+        animTimer->stop();
+        QMessageBox::critical(this, "Error!", "Unable to save game!");
+        animTimer->start();
+        return;
+    }
+
+    //write to file
+    outfile << savedata;
+
+    //close file
+    outfile.close();
+
+    //reenable the save game button
+    gameui->btnSave->setEnabled(true);
+
+}

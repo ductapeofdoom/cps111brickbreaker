@@ -10,7 +10,6 @@ using namespace std;
 
 void runUnitTests(){
     collisionUnitTests();
-    //GUIUnitTests();
     highScoreUnitTests();
     qDebug() << "All tests passed.";
 }

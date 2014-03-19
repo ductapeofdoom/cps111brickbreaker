@@ -3,7 +3,7 @@
 #include <QFile>
 #include <QDebug>
 
-GameWorld::GameWorld(): playerName(""), curLevel(0), life(5), curScore(0), noDeath(false), speedBall(false), slowBall(false) {
+GameWorld::GameWorld(): playerName(""), curLevel(1), life(5), curScore(0), noDeath(false), speedBall(false), slowBall(false) {
 }
 
 GameWorld::~GameWorld()
@@ -69,7 +69,7 @@ void GameWorld::makeLevel()
     GameWorld::accessWorld().addObject(dataPaddle);
     GameWorld::accessWorld().addObject(dataBall);
 
-    QString levelData, filePath = ":/documents/" + QString::number(curLevel + 1) + ".txt";
+    QString levelData, filePath = ":/documents/" + QString::number(curLevel) + ".txt";
     QFile file(filePath);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){

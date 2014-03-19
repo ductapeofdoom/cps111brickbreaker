@@ -43,6 +43,8 @@ private slots:
 
     void on_btnAddLife_clicked();
 
+    void on_btnSave_clicked();
+
 public:
     explicit GameWindow(QWidget *parent = 0);
 
