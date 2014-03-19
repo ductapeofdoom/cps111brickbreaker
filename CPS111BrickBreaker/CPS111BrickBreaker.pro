@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui widgets network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     gamewindow.cpp \
     inputdialog.cpp \
     highscorewindow.cpp \
-    highscore.cpp
+    highscore.cpp \
+    multiplayergui.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -30,12 +31,14 @@ HEADERS  += mainwindow.h \
     gamewindow.h \
     inputdialog.h \
     highscorewindow.h \
-    highscore.h
+    highscore.h \
+    multiplayergui.h
 
 FORMS    += mainwindow.ui \
     inputdialog.ui \
     gamewindow.ui \
-    highscorewindow.ui
+    highscorewindow.ui \
+    multiplayergui.ui
 
 QMAKE_CXXFLAGS += -std=c++0x
 

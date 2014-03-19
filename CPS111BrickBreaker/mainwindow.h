@@ -26,6 +26,8 @@ private slots:
 
     void on_btnLoad_clicked();
 
+    void on_btnMultiplayer_clicked();
+
 private:
     Ui::MainWindow *mainui;
 };
