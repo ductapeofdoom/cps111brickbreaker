@@ -65,6 +65,7 @@ void MultiplayerGUI::clientConnected(){
         for (QTcpSocket * socket: currentConnections){
             socket->write(levelData.toLocal8Bit());
         }
+        ui->lblServerStatus->setText("Level data sent");
     }
 }
 
@@ -76,12 +77,26 @@ void MultiplayerGUI::clientDisconnected()
     ui->lblClients->setText(QString::number(clientCount));
 }
 
+void ServerProcessThread::run()
+{
+    while (socket->canReadLine()){
+        QString line = socket->readLine();
+        if (line.indexOf("DESTROY:") != -1){
+            for (QTcpSocket * sock: currentConnections){
+                if (sock != socket){
+                    sock->write(line.toLocal8Bit());
+                }
+            }
+        }
+    }
+}
+
 void MultiplayerGUI::dataRecieved()
 {
     QTcpSocket * sock = dynamic_cast<QTcpSocket*>(sender());
-    while (sock->canReadLine()){
-        QString line = sock->readLine();
-    }
+    ServerProcessThread * thread = new ServerProcessThread(sock, currentConnections);
+    connect(thread, &QThread::finished, this, &MultiplayerGUI::serverProcessFinished);
+    thread->start();
 }
 
 void MultiplayerGUI::on_btnStartServer_clicked()
@@ -125,47 +140,80 @@ void MultiplayerGUI::on_btnConnect_clicked()
     }
 }
 
+void ProcessThread::run()
+{
+    int i = 0;
+    for (QWidget * obj: window->getGUIObjects()){
+        GUIBrick * curBrick = dynamic_cast<GUIBrick*>(obj);
+        if(curBrick != NULL){
+            Brick * dataBrick = dynamic_cast<Brick*>(curBrick->getBrick());
+            if (dataBrick != NULL && curBrick->getBrick()->getId() == input.toInt()){
+                GameWorld::accessWorld().deleteObject(input.toInt());
+                window->getGUIObjects().erase(window->getGUIObjects().begin() + i);
+                resultBrick = curBrick;
+                //delete dataBrick;
+            }
+        }
+        i++;
+    }
+}
+
 void MultiplayerGUI::processInput(QString input)
 {
     if (input.indexOf("LEVEL:") != -1){
         input.remove(0,6);
-
-        Paddle * dataPaddle = new Paddle(150, 450, 1);
-        Ball * dataBall = new Ball(200, 430, 0, 0, dataPaddle, 2);
-        GameWorld::accessWorld().addObject(dataPaddle);
-        GameWorld::accessWorld().addObject(dataBall);
-
-        int count = 0;
-        int idCounter = 3;
-
-        //loop through the rows of Bricks
-        for (int i = 0; i < 6; i++){
-
-            //loop through the Bricks in a row
-            for (int j = 0; j < 10; j++){
-                QString singleBrickData = input.at(count);
-
-                Brick *newbrick = new Brick(singleBrickData.toInt(), idCounter, j * 40, i * 20);
-                GameWorld::accessWorld().addObject(newbrick);
-
-                count++;
-                idCounter++;
-            }
-
-        }
-        qDebug() << "made Bricks for new level";
-
-        GameWorld::accessWorld().setPlayerName(QInputDialog::getText(this, "Player Name?", "Please enter your name."));
-
-        //make gamewindow and show it
-        GameWindow* gamewindow = new GameWindow();
-
-        //create the GUIBricks for a level
-        gamewindow->renderLevel();
-
-        //show the game window
-        gamewindow->show();
+        GenerateMuliWorld(input);
     }
+    else if(input.indexOf("DESTROY:") != -1){
+        input.remove(0,8);
+        ProcessThread * thread = new ProcessThread(gamewindow);
+        connect(thread, &QThread::finished, this, &MultiplayerGUI::processFinished);
+        thread->setInput(input);
+        thread->start();
+    }
+}
+
+void MultiplayerGUI::GenerateMuliWorld(QString input)
+{
+    Paddle * dataPaddle = new Paddle(150, 450, 1);
+    Ball * dataBall = new Ball(200, 430, 0, 0, dataPaddle, 2);
+    GameWorld::accessWorld().addObject(dataPaddle);
+    GameWorld::accessWorld().addObject(dataBall);
+
+    int count = 0;
+    int idCounter = 3;
+
+    //loop through the rows of Bricks
+    for (int i = 0; i < 6; i++){
+
+        //loop through the Bricks in a row
+        for (int j = 0; j < 10; j++){
+            QString singleBrickData = input.at(count);
+
+            Brick *newbrick = new Brick(singleBrickData.toInt(), idCounter, j * 40, i * 20);
+            GameWorld::accessWorld().addObject(newbrick);
+
+            count++;
+            idCounter++;
+        }
+
+    }
+    qDebug() << "made Bricks for new level";
+
+    GameWorld::accessWorld().setPlayerName(QInputDialog::getText(this, "Player Name?", "Please enter your name."));
+
+    //make gamewindow and show it
+    gamewindow = new GameWindow();
+
+    //create the GUIBricks for a level
+    gamewindow->renderLevel();
+
+    gamewindow->setSocket(clientSock);
+
+    gamewindow->setNetwork(true);
+
+    //show the game window
+    gamewindow->show();
 }
 
 void MultiplayerGUI::clientDataRecieved()
@@ -187,4 +235,19 @@ void MultiplayerGUI::serverDisconnected()
     ui->lblConnectionStatus->setText("Disconnected");
     ui->lblConnectionStatus->setStyleSheet("color: red;");
 }
+
+void MultiplayerGUI::processFinished()
+{
+    if (dynamic_cast<ProcessThread*>(sender())->getResult() != NULL){
+        dynamic_cast<ProcessThread*>(sender())->getResult()->hide();
+    }
+    sender()->deleteLater();
+}
+
+void MultiplayerGUI::serverProcessFinished()
+{
+    sender()->deleteLater();
+}
+
+
 

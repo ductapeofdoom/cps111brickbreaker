@@ -26,6 +26,18 @@ void GameWorld::deleteObject(int id)
     }
 }
 
+GameObject * GameWorld::getObjectById(int id)
+{
+    int i = 0;
+    for(GameObject * obj: worldObjects){
+        if (obj->getId() == id){
+            return obj;
+        }
+        i++;
+    }
+    return NULL;
+}
+
 bool GameWorld::update()
 {
     Ball * ball = dynamic_cast<Ball*>(worldObjects.at(1));

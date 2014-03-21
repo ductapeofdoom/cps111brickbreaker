@@ -7,6 +7,7 @@
 #include <QPropertyAnimation>
 #include "gameobject.h"
 #include <vector>
+#include <QTcpSocket>
 
 using namespace std;
 
@@ -28,6 +29,8 @@ private:
     QPropertyAnimation * animationPaddle;
     int cyclecount, life, collisioncount;
     vector<QWidget*> GUIObjects;
+    bool network;
+    QTcpSocket * socket;
 
 private slots:
     //Slot for timer timeout signal
@@ -69,6 +72,10 @@ public:
     void GeneratePlayer();
 
     void closeEvent(QCloseEvent *ev);
+
+    void setNetwork(bool value) {network = value;}
+
+    void setSocket(QTcpSocket * sock) {socket = sock;}
 
     ~GameWindow();
 

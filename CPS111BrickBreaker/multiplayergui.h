@@ -1,6 +1,8 @@
 #ifndef MULTIPLAYERGUI_H
 #define MULTIPLAYERGUI_H
 
+#include "gamewindow.h"
+
 #include <QWidget>
 #include <QThread>
 #include <QTcpServer>
@@ -12,29 +14,26 @@ namespace Ui {
 class MultiplayerGUI;
 }
 
-/*class ServerThread : public QThread{
-
-private:
-    QWidget * parentWindow;
-    QTcpServer * server;
-    QString errorMsg;
-    int clientCount;
-    bool endServer;
-    QString lineRead;
+class ProcessThread :public QThread{
+    GameWindow * window;
+    QString input;
+    GUIBrick * resultBrick;
 public:
-    ServerThread(QWidget * parent, QTcpServer * newServer): parentWindow(parent), server(newServer), errorMsg(""), clientCount(0), endServer(false) {}
+    ProcessThread(GameWindow * win): window(win), resultBrick(NULL){}
     void run();
 
-    int getClientCount() {return clientCount;}
+    GUIBrick * getResult() {return resultBrick;}
 
-    void incrementClientCount() {clientCount++;}
+    void setInput(QString text){input = text;}
+};
 
-    void deincrementClientCount() {clientCount--;}
-
-    void setEndServer(bool value){endServer = value;}
-
-    void setLineRead(QString line) {lineRead = line;}
-};*/
+class ServerProcessThread: public QThread{
+    QTcpSocket * socket;
+    vector<QTcpSocket*> currentConnections;
+public:
+    ServerProcessThread(QTcpSocket * sock, vector<QTcpSocket*> connections): socket(sock), currentConnections(connections){}
+    void run();
+};
 
 class MultiplayerGUI : public QWidget
 {
@@ -45,6 +44,8 @@ public:
     ~MultiplayerGUI();
 
     void processInput(QString input);
+
+    void GenerateMuliWorld(QString input);
 
 private slots:
     void clientConnected();
@@ -58,9 +59,13 @@ private slots:
 
     void serverDisconnected();
 
+    void processFinished();
+
+    void serverProcessFinished();
 private:
     QTcpServer * server;
     QTcpSocket * clientSock;
+    GameWindow * gamewindow;
     int clientCount;
     vector<QTcpSocket*> currentConnections;
     Ui::MultiplayerGUI *ui;

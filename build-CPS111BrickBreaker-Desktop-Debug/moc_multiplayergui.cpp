@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MultiplayerGUI_t {
-    QByteArrayData data[9];
-    char stringdata[151];
+    QByteArrayData data[11];
+    char stringdata[189];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,13 +37,16 @@ QT_MOC_LITERAL(4, 51, 12),
 QT_MOC_LITERAL(5, 64, 25),
 QT_MOC_LITERAL(6, 90, 21),
 QT_MOC_LITERAL(7, 112, 18),
-QT_MOC_LITERAL(8, 131, 18)
+QT_MOC_LITERAL(8, 131, 18),
+QT_MOC_LITERAL(9, 150, 15),
+QT_MOC_LITERAL(10, 166, 21)
     },
     "MultiplayerGUI\0clientConnected\0\0"
     "clientDisconnected\0dataRecieved\0"
     "on_btnStartServer_clicked\0"
     "on_btnConnect_clicked\0clientDataRecieved\0"
-    "serverDisconnected\0"
+    "serverDisconnected\0processFinished\0"
+    "serverProcessFinished\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,7 +56,7 @@ static const uint qt_meta_data_MultiplayerGUI[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -61,15 +64,19 @@ static const uint qt_meta_data_MultiplayerGUI[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   49,    2, 0x08,
-       3,    0,   50,    2, 0x08,
-       4,    0,   51,    2, 0x08,
-       5,    0,   52,    2, 0x08,
-       6,    0,   53,    2, 0x08,
-       7,    0,   54,    2, 0x08,
-       8,    0,   55,    2, 0x08,
+       1,    0,   59,    2, 0x08,
+       3,    0,   60,    2, 0x08,
+       4,    0,   61,    2, 0x08,
+       5,    0,   62,    2, 0x08,
+       6,    0,   63,    2, 0x08,
+       7,    0,   64,    2, 0x08,
+       8,    0,   65,    2, 0x08,
+       9,    0,   66,    2, 0x08,
+      10,    0,   67,    2, 0x08,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -93,6 +100,8 @@ void MultiplayerGUI::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 4: _t->on_btnConnect_clicked(); break;
         case 5: _t->clientDataRecieved(); break;
         case 6: _t->serverDisconnected(); break;
+        case 7: _t->processFinished(); break;
+        case 8: _t->serverProcessFinished(); break;
         default: ;
         }
     }
@@ -124,13 +133,13 @@ int MultiplayerGUI::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 9;
     }
     return _id;
 }

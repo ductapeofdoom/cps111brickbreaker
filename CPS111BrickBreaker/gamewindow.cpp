@@ -33,6 +33,7 @@ GameWindow::GameWindow(QWidget *parent) :
     animTimer = new QTimer(this);
     animTimer->setInterval(1);
     connect(animTimer, &QTimer::timeout, this, &GameWindow::animTimerHit);
+    network = false;
 }
 
 //Animates <obj> and hides bricks that have been destroyed.
@@ -56,11 +57,17 @@ void GameWindow::Update(QObject * obj)
     for(QWidget * obj : this->getGUIObjects()){
         GUIBrick * brick  = dynamic_cast<GUIBrick*>(obj);
         if (brick != NULL){
-            if(brick->getBrick()->getDestory()){
+            Brick * dataBrick = dynamic_cast<Brick*>(brick->getBrick());
+            if(dataBrick != NULL && brick->getBrick()->getDestory()){
                 qDebug() << brick->getBrick()->getId() << " destroyed";
                 GameWorld::accessWorld().deleteObject(brick->getBrick()->getId());
                 this->getGUIObjects().erase(this->getGUIObjects().begin() + i);
                 brick->hide();
+                if (network){
+                    QString brickId = "DESTROY:" + QString::number(brick->getBrick()->getId()) + "\n";
+                    socket->write(brickId.toLocal8Bit());
+                }
+                //delete dataBrick;
             }
         }
         i++;
@@ -95,11 +102,6 @@ void GameWindow::animTimerHit(){
             showStuff();
             animTimer->stop();
         }
-        /*for(GUIBrick * brick:this->getGUIBricks()){
-            if(brick->getBrick()->getDestory()){
-                brick->getBrick() = NULL;
-            }
-        }*/
     }
     else{
         showStuff();

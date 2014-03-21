@@ -32,6 +32,8 @@ public:
 
     void deleteObject(int id);
 
+    GameObject *getObjectById(int id);
+
     //Method to update state of all GameObjects
     bool update();
 
