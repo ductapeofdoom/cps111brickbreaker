@@ -34,6 +34,8 @@ GameWindow::GameWindow(QWidget *parent) :
     animTimer->setInterval(1);
     connect(animTimer, &QTimer::timeout, this, &GameWindow::animTimerHit);
     network = false;
+    setMouseTracking(true);
+    wdGame = new GameWidget(this);
 }
 
 //Animates <obj> and hides bricks that have been destroyed.
@@ -256,7 +258,7 @@ void GameWindow::renderLevel()
     for (GameObject *obj : GameWorld::accessWorld().getObjects()){
         Brick *tempbrick = dynamic_cast<Brick*>(obj);
         if (tempbrick != NULL){
-            GUIBrick *newGUIBrick = new GUIBrick(gameui->wdGame, tempbrick);
+            GUIBrick *newGUIBrick = new GUIBrick(wdGame, tempbrick);
             newGUIBrick->show();
             GameWindow::addObject(newGUIBrick);
         }
@@ -294,9 +296,10 @@ void GameWindow::showStuff(){
 void GameWindow::GeneratePlayer()
 {
     Paddle * dataPaddle = dynamic_cast<Paddle*>(GameWorld::accessWorld().getObjects().at(0));
-    GUIPaddle * paddle = new GUIPaddle(gameui->wdGame, dataPaddle, this);
+    GUIPaddle * paddle = new GUIPaddle(wdGame, dataPaddle, this);
+    wdGame->setPaddle(paddle);
     Ball * dataBall = dynamic_cast<Ball*>(GameWorld::accessWorld().getObjects().at(1));
-    GUIBall * ball = new GUIBall(gameui->wdGame, dataBall);
+    GUIBall * ball = new GUIBall(wdGame, dataBall);
     animationBall = new QPropertyAnimation(ball, "geometry");
     animationPaddle = new QPropertyAnimation(paddle, "geometry");
     addObject(paddle);
@@ -314,7 +317,7 @@ void GameWindow::closeEvent(QCloseEvent * ev)
         GameWorld::accessWorld().reset();
         GameWorld::accessWorld().setCurrentScore(0);
         GameWorld::accessWorld().setLife(5);
-        GameWorld::accessWorld().setLevel(0);
+        GameWorld::accessWorld().setLevel(1);
         GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
         HighScoreManager::accessManager().saveHS(".highscore.txt");
     }
@@ -417,4 +420,31 @@ void GameWindow::on_btnSave_clicked()
     //reenable the save game button
     gameui->btnSave->setEnabled(true);
 
+}
+
+
+GameWidget::GameWidget(QWidget *parent) : QWidget(parent)
+{
+    setGeometry(QRect(30,30,400,500));
+    setStyleSheet("background-color:black;");
+    setFocusPolicy(Qt::StrongFocus);
+}
+
+void GameWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    GameWindow * parent = dynamic_cast<GameWindow*>(parentWidget());
+    if(paddle->getInitialCommand()){
+        parent->getTimer()->start();
+        if (event->x() <= 200){
+            paddle->getPaddle()->setInitialRight(true);
+        }
+        else{
+            paddle->getPaddle()->setInitialLeft(true);
+        }
+        paddle->setInitialCommand(false);
+    }
+    int testX = event->x();
+    if (testX >= 0 && testX <= 280){
+        paddle->getPaddle()->setX(testX);
+    }
 }

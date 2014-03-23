@@ -17,6 +17,8 @@ class GameWindow;
 
 //forward declaration of GUIBrick because GameWindow uses it
 class GUIBrick;
+class GUIPaddle;
+class GameWidget;
 
 class GameWindow : public QWidget
 {
@@ -31,6 +33,7 @@ private:
     vector<QWidget*> GUIObjects;
     bool network;
     QTcpSocket * socket;
+    GameWidget * wdGame;
 
 private slots:
     //Slot for timer timeout signal
@@ -80,6 +83,15 @@ public:
     ~GameWindow();
 
 };
+class GameWidget : public QWidget{
+    GUIPaddle * paddle;
+public:
+    GameWidget(QWidget * parent);
+
+    void setPaddle(GUIPaddle * newPaddle) {paddle = newPaddle;}
+
+    void mouseMoveEvent(QMouseEvent * event);
+};
 
 //GUI representation of the paddle
 class GUIPaddle : public QWidget{
@@ -90,7 +102,7 @@ public:
     //The constructor sets the paddle at the middle of the widget and makes it the focused object (can recieve key inputs)
     explicit GUIPaddle(QWidget * parent, Paddle * newPaddle, GameWindow * currentWindow) : QWidget(parent), paddle(newPaddle), window(currentWindow), initialCommand(true){
         setGeometry(QRect(150, 450, 120, 20));
-        setFocusPolicy(Qt::StrongFocus);
+        setFocusPolicy(Qt::TabFocus);
         setStyleSheet("background-color: white");
 
     }
@@ -103,6 +115,8 @@ public:
 
     //Setter methods
     void setInitialCommand(bool value){initialCommand = value;}
+
+    bool getInitialCommand() {return initialCommand;}
 };
 
 //GUI representation of the ball

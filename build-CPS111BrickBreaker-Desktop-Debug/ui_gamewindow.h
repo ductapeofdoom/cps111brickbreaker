@@ -24,7 +24,6 @@ QT_BEGIN_NAMESPACE
 class Ui_GameWindow
 {
 public:
-    QWidget *wdGame;
     QLabel *lblCurrentHighScore;
     QPushButton *btnPause;
     QLabel *lblCHS;
@@ -56,10 +55,7 @@ public:
         if (GameWindow->objectName().isEmpty())
             GameWindow->setObjectName(QStringLiteral("GameWindow"));
         GameWindow->resize(642, 608);
-        wdGame = new QWidget(GameWindow);
-        wdGame->setObjectName(QStringLiteral("wdGame"));
-        wdGame->setGeometry(QRect(30, 30, 400, 500));
-        wdGame->setStyleSheet(QStringLiteral("background-color: rgb(0, 0, 0);"));
+        GameWindow->setFocusPolicy(Qt::StrongFocus);
         lblCurrentHighScore = new QLabel(GameWindow);
         lblCurrentHighScore->setObjectName(QStringLiteral("lblCurrentHighScore"));
         lblCurrentHighScore->setGeometry(QRect(450, 10, 141, 21));

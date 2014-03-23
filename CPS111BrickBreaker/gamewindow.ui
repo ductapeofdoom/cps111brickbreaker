@@ -10,22 +10,12 @@
     <height>608</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>Brick Breaker!</string>
   </property>
-  <widget class="QWidget" name="wdGame" native="true">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>30</y>
-     <width>400</width>
-     <height>500</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(0, 0, 0);</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="lblCurrentHighScore">
    <property name="geometry">
     <rect>
