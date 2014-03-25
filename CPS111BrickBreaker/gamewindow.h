@@ -6,6 +6,7 @@
 #include <QString>
 #include <QPropertyAnimation>
 #include "gameobject.h"
+#include <string>
 #include <vector>
 #include <QTcpSocket>
 
@@ -156,5 +157,6 @@ public:
 };
 
 void GUIUnitTests();
+
 
 #endif // GAMEWINDOW_H
