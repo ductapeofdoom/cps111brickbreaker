@@ -4,6 +4,7 @@
 #include "highscore.h"
 #include "ui_gamewindow.h"
 #include "mainwindow.h"
+#include "main.h"
 
 #include <QPropertyAnimation>
 #include <QKeyEvent>
@@ -379,25 +380,33 @@ void GameWindow::on_btnAddLife_clicked()
 
 void GameWindow::on_btnSave_clicked()
 {
-    //eliminate the possiblity of double clicking the button
+    /*//eliminate the possiblity of double clicking the button
     gameui->btnSave->setEnabled(false);
 
+    string name = GameWorld::accessWorld().getName().toStdString();
+    string processedName = processText(name, ' ', '%');
     stringstream savedatastream;
 
     //store the elements in a string that will be written to a file
     savedatastream << GameWorld::accessWorld().getLevel()
-                   << '%'
-                   << GameWorld::accessWorld().getName().toStdString()
-                   << '%'
+                   << ' '
+                   << processedName
+                   << ' '
                    << GameWorld::accessWorld().getCurrentScore()
-                   << '%'
+                   << ' '
                    << GameWorld::accessWorld().getDifficulty()
-                   << '%'
+                   << ' '
                    << GameWorld::accessWorld().getLife()
-                   << '%'
-                   << '#';
+                   << ' ' << "\n\n";
+    for (GameObject * obj : GameWorld::accessWorld().getObjects()){
+        Brick * tempbrick = dynamic_cast<Brick*>(obj);
+        if (tempbrick != NULL){
+            savedatastream << tempbrick->getHits() << '(' << tempbrick->getX() << ',' << tempbrick->getY() << ") ";
+        }
+    }
 
     string savedata = savedatastream.str();
+    qDebug() << QString::fromStdString(savedata);
 
     //write saved data to a file
     //open file for writing
@@ -418,7 +427,7 @@ void GameWindow::on_btnSave_clicked()
     outfile.close();
 
     //reenable the save game button
-    gameui->btnSave->setEnabled(true);
+    gameui->btnSave->setEnabled(true);*/
 
 }
 
