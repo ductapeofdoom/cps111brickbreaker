@@ -52,6 +52,9 @@ bool GameWorld::update()
 
 void GameWorld::reset()
 {
+    for(GameObject * obj : worldObjects){
+        delete obj;
+    }
     worldObjects.erase(worldObjects.begin(), worldObjects.end());
 }
 
