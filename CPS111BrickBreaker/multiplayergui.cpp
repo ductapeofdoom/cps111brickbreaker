@@ -208,7 +208,7 @@ void MultiplayerGUI::on_btnConnect_clicked()
     clientSock = new QTcpSocket(this);
     connect(clientSock, &QTcpSocket::readyRead, this, &MultiplayerGUI::clientDataRecieved);
     connect(clientSock, &QTcpSocket::disconnected, this, &MultiplayerGUI::serverDisconnected);
-    clientSock->connectToHost("localhost", 6000);
+    clientSock->connectToHost(ui->lnServer->text(), 6000);
     if (!clientSock->waitForConnected()){
         QMessageBox::critical(this, "ERROR", "Unable to connect to server.");
     }
@@ -285,6 +285,8 @@ void MultiplayerGUI::GenerateMuliWorld(QString input)
     qDebug() << "made Bricks for new level";
 
     GameWorld::accessWorld().setPlayerName(QInputDialog::getText(this, "Player Name?", "Please enter your name."));
+
+    GameWorld::accessWorld().setDifficulty(3);
 
     //make gamewindow and show it
     gamewindow = new GameWindow();

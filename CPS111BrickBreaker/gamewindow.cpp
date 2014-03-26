@@ -288,6 +288,9 @@ void GameWindow::showStuff(){
         difficults = "Medium";
     } else if (GameWorld::accessWorld().getDifficulty() == 2) {
         difficults = "Hard";}
+    else if (GameWorld::accessWorld().getDifficulty() == 3){
+        difficults = "Multiplayer";
+    }
     gameui->lblDifficult->setText(difficults);
 
     //Stuff that needs to be put in QTimer/QThread

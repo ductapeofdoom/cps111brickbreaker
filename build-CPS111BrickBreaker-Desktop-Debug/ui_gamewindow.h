@@ -86,7 +86,7 @@ public:
         lblCurrentDifficulty->setGeometry(QRect(450, 346, 131, 20));
         lblDifficult = new QLabel(GameWindow);
         lblDifficult->setObjectName(QStringLiteral("lblDifficult"));
-        lblDifficult->setGeometry(QRect(500, 370, 71, 21));
+        lblDifficult->setGeometry(QRect(460, 370, 171, 21));
         lblPowerup_2 = new QLabel(GameWindow);
         lblPowerup_2->setObjectName(QStringLiteral("lblPowerup_2"));
         lblPowerup_2->setGeometry(QRect(450, 110, 66, 17));

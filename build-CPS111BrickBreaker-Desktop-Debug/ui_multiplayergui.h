@@ -16,6 +16,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
@@ -27,18 +28,19 @@ public:
     QLabel *label;
     QPushButton *btnStartServer;
     QPushButton *btnConnect;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
     QLabel *lblNumClients;
     QLabel *lblClients;
-    QWidget *widget1;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_2;
     QLabel *lblConnectionStatus;
-    QWidget *widget2;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
     QLabel *lblServerStatus;
+    QLineEdit *lnServer;
 
     void setupUi(QWidget *MultiplayerGUI)
     {
@@ -55,57 +57,60 @@ public:
         btnStartServer->setCheckable(true);
         btnConnect = new QPushButton(MultiplayerGUI);
         btnConnect->setObjectName(QStringLiteral("btnConnect"));
-        btnConnect->setGeometry(QRect(120, 360, 261, 31));
-        widget = new QWidget(MultiplayerGUI);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(120, 220, 218, 19));
-        horizontalLayout = new QHBoxLayout(widget);
+        btnConnect->setGeometry(QRect(120, 360, 161, 31));
+        layoutWidget = new QWidget(MultiplayerGUI);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(120, 220, 218, 19));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        lblNumClients = new QLabel(widget);
+        lblNumClients = new QLabel(layoutWidget);
         lblNumClients->setObjectName(QStringLiteral("lblNumClients"));
 
         horizontalLayout->addWidget(lblNumClients);
 
-        lblClients = new QLabel(widget);
+        lblClients = new QLabel(layoutWidget);
         lblClients->setObjectName(QStringLiteral("lblClients"));
 
         horizontalLayout->addWidget(lblClients);
 
-        widget1 = new QWidget(MultiplayerGUI);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(120, 420, 232, 19));
-        horizontalLayout_2 = new QHBoxLayout(widget1);
+        layoutWidget1 = new QWidget(MultiplayerGUI);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(120, 420, 232, 19));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget1);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        label_2 = new QLabel(widget1);
+        label_2 = new QLabel(layoutWidget1);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         horizontalLayout_2->addWidget(label_2);
 
-        lblConnectionStatus = new QLabel(widget1);
+        lblConnectionStatus = new QLabel(layoutWidget1);
         lblConnectionStatus->setObjectName(QStringLiteral("lblConnectionStatus"));
         lblConnectionStatus->setStyleSheet(QStringLiteral("color: red;"));
 
         horizontalLayout_2->addWidget(lblConnectionStatus);
 
-        widget2 = new QWidget(MultiplayerGUI);
-        widget2->setObjectName(QStringLiteral("widget2"));
-        widget2->setGeometry(QRect(120, 170, 338, 19));
-        horizontalLayout_3 = new QHBoxLayout(widget2);
+        layoutWidget2 = new QWidget(MultiplayerGUI);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(120, 170, 338, 19));
+        horizontalLayout_3 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
-        label_3 = new QLabel(widget2);
+        label_3 = new QLabel(layoutWidget2);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         horizontalLayout_3->addWidget(label_3);
 
-        lblServerStatus = new QLabel(widget2);
+        lblServerStatus = new QLabel(layoutWidget2);
         lblServerStatus->setObjectName(QStringLiteral("lblServerStatus"));
         lblServerStatus->setStyleSheet(QStringLiteral("color: red;"));
 
         horizontalLayout_3->addWidget(lblServerStatus);
 
+        lnServer = new QLineEdit(MultiplayerGUI);
+        lnServer->setObjectName(QStringLiteral("lnServer"));
+        lnServer->setGeometry(QRect(290, 360, 113, 27));
 
         retranslateUi(MultiplayerGUI);
 
@@ -124,6 +129,7 @@ public:
         lblConnectionStatus->setText(QApplication::translate("MultiplayerGUI", "Disconnected", 0));
         label_3->setText(QApplication::translate("MultiplayerGUI", "Server Status:", 0));
         lblServerStatus->setText(QApplication::translate("MultiplayerGUI", "Offline", 0));
+        lnServer->setText(QApplication::translate("MultiplayerGUI", "localhost", 0));
     } // retranslateUi
 
 };
