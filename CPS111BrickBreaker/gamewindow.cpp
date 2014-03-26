@@ -393,22 +393,31 @@ void GameWindow::on_btnSave_clicked()
     //eliminate the possiblity of double clicking the button
     gameui->btnSave->setEnabled(false);
 
+    string name = GameWorld::accessWorld().getName().toStdString();
+    QString qname = QString::fromStdString(name);
+    qname.replace(QString(" "), QString("%"));
     stringstream savedatastream;
 
     //store the elements in a string that will be written to a file
     savedatastream << GameWorld::accessWorld().getLevel()
-                   << '%'
-                   << GameWorld::accessWorld().getName().toStdString()
-                   << '%'
+                   << ' '
+                   << qname.toStdString()
+                   << ' '
                    << GameWorld::accessWorld().getCurrentScore()
-                   << '%'
+                   << ' '
                    << GameWorld::accessWorld().getDifficulty()
-                   << '%'
+                   << ' '
                    << GameWorld::accessWorld().getLife()
-                   << '%'
-                   << '#';
+                   << ' ' << "\n\n";
+    for (GameObject * obj : GameWorld::accessWorld().getObjects()){
+        Brick * tempbrick = dynamic_cast<Brick*>(obj);
+        if (tempbrick != NULL){
+            savedatastream << tempbrick->getHits() << '(' << tempbrick->getX() << ',' << tempbrick->getY() << ") ";
+        }
+    }
 
     string savedata = savedatastream.str();
+    qDebug() << QString::fromStdString(savedata);
 
     //write saved data to a file
     //open file for writing

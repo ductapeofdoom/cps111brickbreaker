@@ -32,7 +32,8 @@ HEADERS  += mainwindow.h \
     inputdialog.h \
     highscorewindow.h \
     highscore.h \
-    multiplayergui.h
+    multiplayergui.h \
+    main.h
 
 FORMS    += mainwindow.ui \
     inputdialog.ui \
