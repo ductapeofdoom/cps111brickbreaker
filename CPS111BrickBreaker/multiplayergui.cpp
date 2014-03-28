@@ -252,7 +252,7 @@ void MultiplayerGUI::processInput(QString input)
     }
     else if(input.indexOf("WINNER:") != -1){
         input.remove(0,7);
-        QMessageBox::about(this, "Winner", input);
+        QMessageBox::about(gamewindow, "Winner", input);
         gamewindow->close();
     }
 }

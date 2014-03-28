@@ -52,6 +52,9 @@ bool GameWorld::update()
 
 void GameWorld::reset()
 {
+    noDeath = false;
+    speedBall = false;
+    slowBall = false;
     for(GameObject * obj : worldObjects){
         delete obj;
     }

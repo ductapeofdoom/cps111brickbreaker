@@ -80,7 +80,6 @@ void GameWindow::Update(QObject * obj)
 
 //Slot implementaion for animTimerHit. Redraws the paddle and executes Update every 10 cycles. It will also reset animation and stop the timer if the ball goes off the bottom.
 void GameWindow::animTimerHit(){
-    QCoreApplication::processEvents();
     GUIPaddle * paddle = dynamic_cast<GUIPaddle *>(GUIObjects.at(0));
     GUIBall * ball = dynamic_cast<GUIBall *>(GUIObjects.at(1));
     if(GameWorld::accessWorld().update()){
@@ -127,10 +126,6 @@ void GameWindow::animTimerHit(){
             if (GameWorld::accessWorld().getLife() == 0 || GameWorld::accessWorld().getLevel() == 30){
                 Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
                 HighScoreManager::accessManager().addScore(playerScore);
-
-                for (QWidget* obj : GameWindow::getGUIObjects()){
-                    delete obj;
-                }
                 GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
 
                 //notify the player that they have died
@@ -179,9 +174,6 @@ void GameWindow::animTimerHit(){
 
                 GameWorld::accessWorld().reset();
 
-                for (QWidget* obj : GameWindow::getGUIObjects()){
-                    delete obj;
-                }
                 GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
 
                 QMessageBox msgBox;
@@ -212,14 +204,9 @@ void GameWindow::animTimerHit(){
                       break;
                 }
             }
-
-            /*QLabel * win = new QLabel(this);
-            win->setText("You win!");
-            win->setGeometry(QRect(250,250,500,500));
-            win->setStyleSheet("color:rgb(255,0,0);");
-            win->show();*/
         }
     }
+    //QCoreApplication::processEvents();
 }
 
 //Checks for the key press from <event> and sets the paddle's x coordinate and command state accordingly. InitialCommand is used for the first move of the game or when the ball has been reset.
@@ -456,9 +443,10 @@ GameWidget::GameWidget(QWidget *parent) : QWidget(parent)
 void GameWidget::mouseMoveEvent(QMouseEvent *event)
 {
     GameWindow * parent = dynamic_cast<GameWindow*>(parentWidget());
+
     if(paddle->getInitialCommand()){
         parent->getTimer()->start();
-        if (event->x() <= 200){
+        if (event->x() >= offsetX){
             paddle->getPaddle()->setInitialRight(true);
         }
         else{
@@ -470,4 +458,10 @@ void GameWidget::mouseMoveEvent(QMouseEvent *event)
     if (testX >= 0 && testX <= 280){
         paddle->getPaddle()->setX(testX);
     }
+}
+
+void GameWidget::mousePressEvent(QMouseEvent *event)
+{
+    offsetX = event->x();
+    offsetY = event->y();
 }
