@@ -4,6 +4,7 @@
 #include "highscore.h"
 #include "ui_gamewindow.h"
 #include "mainwindow.h"
+#include "savemanager.h"
 
 #include <QPropertyAnimation>
 #include <QKeyEvent>
@@ -398,67 +399,11 @@ void GameWindow::on_btnSave_clicked()
     //eliminate the possiblity of double clicking the button
     gameui->btnSave->setEnabled(false);
 
-    //open up a file for writing
-    ofstream outfile("gamesave.txt");
+    SaveManager * saver = new SaveManager();
 
-    //notify user if unsuccessful
-    if (!outfile) {
-        animTimer->stop();
-        QMessageBox::critical(this, "Error!", "Unable to save game!");
-        animTimer->start();
-        return;
-    }
+    saver->SaveGame();
 
-    //store the elements in a string that will be written to a file
-    outfile << GameWorld::accessWorld().getLevel() << "@\n"
-            << GameWorld::accessWorld().getName().toStdString() << "@\n"
-            << GameWorld::accessWorld().getCurrentScore() << "@\n"
-            << GameWorld::accessWorld().getDifficulty() << "@\n"
-            << GameWorld::accessWorld().getLife() << "@\n";
-    for (GameObject * obj : GameWorld::accessWorld().getObjects()){
-        Brick * tempbrick = dynamic_cast<Brick*>(obj);
-        if (tempbrick != NULL){
-            outfile << tempbrick->getHits() << '(' << tempbrick->getX() << ',' << tempbrick->getY() << ") ";
-        }
-    }
-    outfile << "@\n";
-
-    //save the state of cheats
-    //nodeath
-    if (gameui->btnNoDeath->isChecked()){
-        //true
-        outfile << "1";
-    }
-    else {
-        //false
-        outfile << "0";
-    }
-
-    //slowball
-    if (gameui->btnSlowBall->isChecked()){
-        //true
-        outfile << "1";
-    }
-    else {
-        //false
-        outfile << "0";
-    }
-
-    //speedball
-    if (gameui->btnSpeedBall->isChecked()){
-        //true
-        outfile << "1";
-    }
-    else {
-        //false
-        outfile << "0";
-    }
-    outfile << '@';
-
-    //no need to save btnAddLife because that will get saved in the life section above.
-
-    //close file
-    outfile.close();
+    delete saver;
 
     //reenable the save game button
     gameui->btnSave->setEnabled(true);
