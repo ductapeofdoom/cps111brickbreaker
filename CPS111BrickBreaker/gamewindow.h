@@ -91,12 +91,15 @@ public:
 };
 class GameWidget : public QWidget{
     GUIPaddle * paddle;
+    int offsetX, offsetY;
 public:
     GameWidget(QWidget * parent);
 
     void setPaddle(GUIPaddle * newPaddle) {paddle = newPaddle;}
 
     void mouseMoveEvent(QMouseEvent * event);
+
+    void mousePressEvent(QMouseEvent * event);
 };
 
 //GUI representation of the paddle

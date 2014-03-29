@@ -11,15 +11,20 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QFile>
+#include <QMutex>
+#include <QMutexLocker>
+
+QMutex mutex;
 
 MultiplayerGUI::MultiplayerGUI(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::MultiplayerGUI)
+    player1Name(""), player2Name("") , player1Score(0), player2Score(0), ui(new Ui::MultiplayerGUI)
 {
     ui->setupUi(this);
     server = new QTcpServer();
     connect(server, &QTcpServer::newConnection, this, &MultiplayerGUI::clientConnected);
     clientCount = 0;
+    gamewindow = NULL;
 }
 
 MultiplayerGUI::~MultiplayerGUI()
@@ -59,6 +64,7 @@ void MultiplayerGUI::clientConnected(){
             levelData = levelData + line;
         }
 
+        levelData += "\n";
         file.close();
         ui->lblServerStatus->setText("Sending level data");
         ui->lblServerStatus->setStyleSheet("color: green;");
@@ -88,15 +94,87 @@ void ServerProcessThread::run()
                 }
             }
         }
+        else if (line.indexOf("SCORE:") != -1){
+            line = line.remove(0, 6);
+            QStringList scoreList = line.split(":");
+            if (player1Name == ""){
+                player1Name = scoreList.at(0);
+                player1Score = scoreList.at(1).toInt();
+            }
+            else{
+                player2Name = scoreList.at(0);
+                player2Score = scoreList.at(1).toInt();
+                if (player1Score > player2Score){
+                    QString winningScore = "WINNER:" + player1Name + " wins with a score of " + QString::number(player1Score) +"\n";
+                    for (QTcpSocket * sock: currentConnections){
+                        sock->write(winningScore.toLocal8Bit());
+                    }
+                }
+                else if (player1Score == player2Score){
+                    QString winningScore = "WINNER: You have tied with a score of " + QString::number(player2Score) + "\n";
+                    for (QTcpSocket * sock: currentConnections){
+                        sock->write(winningScore.toLocal8Bit());
+                    }
+                }
+                else{
+                    QString winningScore = "WINNER:" + player2Name + " wins with a score of " + QString::number(player2Score) + "\n";
+                    for (QTcpSocket * sock: currentConnections){
+                        sock->write(winningScore.toLocal8Bit());
+                    }
+                }
+            }
+        }
     }
+    socket->moveToThread(QApplication::instance()->thread());
 }
 
 void MultiplayerGUI::dataRecieved()
 {
     QTcpSocket * sock = dynamic_cast<QTcpSocket*>(sender());
-    ServerProcessThread * thread = new ServerProcessThread(sock, currentConnections);
-    connect(thread, &QThread::finished, this, &MultiplayerGUI::serverProcessFinished);
-    thread->start();
+    while (sock->canReadLine()){
+        QString line = sock->readLine();
+        if (line.indexOf("DESTROY:") != -1){
+            for (QTcpSocket * socket: currentConnections){
+                if (socket != sock){
+                    socket->write(line.toLocal8Bit());
+                }
+            }
+        }
+        else if (line.indexOf("SCORE:") != -1){
+            line = line.remove(0, 6);
+            QStringList scoreList = line.split(":");
+            if (player1Name == ""){
+                player1Name = scoreList.at(0);
+                player1Score = scoreList.at(1).toInt();
+            }
+            else{
+                player2Name = scoreList.at(0);
+                player2Score = scoreList.at(1).toInt();
+                if (player1Score > player2Score){
+                    QString winningScore = "WINNER:" + player1Name + " wins with a score of " + QString::number(player1Score) +"\n";
+                    for (QTcpSocket * sock: currentConnections){
+                        sock->write(winningScore.toLocal8Bit());
+                    }
+                }
+                else if (player1Score == player2Score){
+                    QString winningScore = "WINNER: You have tied with a score of " + QString::number(player2Score) + "\n";
+                    for (QTcpSocket * sock: currentConnections){
+                        sock->write(winningScore.toLocal8Bit());
+                    }
+                }
+                else{
+                    QString winningScore = "WINNER:" + player2Name + " wins with a score of " + QString::number(player2Score) + "\n";
+                    for (QTcpSocket * sock: currentConnections){
+                        sock->write(winningScore.toLocal8Bit());
+                    }
+                }
+            }
+        }
+    }
+
+   // ServerProcessThread * thread = new ServerProcessThread(sock, currentConnections);
+    //connect(thread, &QThread::finished, this, &MultiplayerGUI::serverProcessFinished);
+    //thread->start();
 }
 
 void MultiplayerGUI::on_btnStartServer_clicked()
@@ -113,8 +191,9 @@ void MultiplayerGUI::on_btnStartServer_clicked()
         server->close();
         for (QTcpSocket * sock: currentConnections){
             sock->close();
+            delete sock;
         }
-        currentConnections.erase(currentConnections.begin(), currentConnections.end());
+        currentConnections.clear();
         ui->lblServerStatus->setText("Offline");
         ui->lblServerStatus->setStyleSheet("color: red;");
         ui->btnStartServer->setText("Start TCP Server");
@@ -129,7 +208,7 @@ void MultiplayerGUI::on_btnConnect_clicked()
     clientSock = new QTcpSocket(this);
     connect(clientSock, &QTcpSocket::readyRead, this, &MultiplayerGUI::clientDataRecieved);
     connect(clientSock, &QTcpSocket::disconnected, this, &MultiplayerGUI::serverDisconnected);
-    clientSock->connectToHost("localhost", 6000);
+    clientSock->connectToHost(ui->lnServer->text(), 6000);
     if (!clientSock->waitForConnected()){
         QMessageBox::critical(this, "ERROR", "Unable to connect to server.");
     }
@@ -171,6 +250,11 @@ void MultiplayerGUI::processInput(QString input)
         thread->setInput(input);
         thread->start();
     }
+    else if(input.indexOf("WINNER:") != -1){
+        input.remove(0,7);
+        QMessageBox::about(gamewindow, "Winner", input);
+        gamewindow->close();
+    }
 }
 
 void MultiplayerGUI::GenerateMuliWorld(QString input)
@@ -202,6 +286,8 @@ void MultiplayerGUI::GenerateMuliWorld(QString input)
 
     GameWorld::accessWorld().setPlayerName(QInputDialog::getText(this, "Player Name?", "Please enter your name."));
 
+    GameWorld::accessWorld().setDifficulty(3);
+
     //make gamewindow and show it
     gamewindow = new GameWindow();
 
@@ -222,7 +308,6 @@ void MultiplayerGUI::clientDataRecieved()
         QString str = clientSock->readLine();
         processInput(str);
     }
-
 }
 
 void MultiplayerGUI::serverDisconnected()
@@ -242,6 +327,7 @@ void MultiplayerGUI::processFinished()
         dynamic_cast<ProcessThread*>(sender())->getResult()->hide();
     }
     sender()->deleteLater();
+
 }
 
 void MultiplayerGUI::serverProcessFinished()

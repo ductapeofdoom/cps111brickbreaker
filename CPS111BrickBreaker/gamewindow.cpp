@@ -61,14 +61,16 @@ void GameWindow::Update(QObject * obj)
         if (brick != NULL){
             Brick * dataBrick = dynamic_cast<Brick*>(brick->getBrick());
             if(dataBrick != NULL && brick->getBrick()->getDestory()){
+                if (network){
+                    animTimer->stop();
+                    QString brickId = "DESTROY:" + QString::number(brick->getBrick()->getId()) + "\n";
+                    socket->write(brickId.toLocal8Bit());
+                    animTimer->start();
+                }
                 qDebug() << brick->getBrick()->getId() << " destroyed";
                 GameWorld::accessWorld().deleteObject(brick->getBrick()->getId());
                 this->getGUIObjects().erase(this->getGUIObjects().begin() + i);
                 brick->hide();
-                if (network){
-                    QString brickId = "DESTROY:" + QString::number(brick->getBrick()->getId()) + "\n";
-                    socket->write(brickId.toLocal8Bit());
-                }
                 //delete dataBrick;
             }
         }
@@ -121,109 +123,105 @@ void GameWindow::animTimerHit(){
         }
     }
     else{
-        showStuff();
-        animTimer->stop();
-        if (GameWorld::accessWorld().getLife() != 0){
-            GameWorld::accessWorld().incrementLevel(1);
-            qDebug() << "incremented level.";
+        if (network){
+            showStuff();
+            animTimer->stop();
+            QString playerScore = "SCORE:" + GameWorld::accessWorld().getName() + ":" + QString::number(GameWorld::accessWorld().getCurrentScore()) + "\n";
+            socket->write(playerScore.toLocal8Bit());
         }
-        //QString msg1, msg2;
-        //player has lost all their lives
-        if (GameWorld::accessWorld().getLife() == 0 || GameWorld::accessWorld().getLevel() == 30){
-            Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
-            HighScoreManager::accessManager().addScore(playerScore);
+        else{
+            showStuff();
+            animTimer->stop();
+            if (GameWorld::accessWorld().getLife() != 0){
+                GameWorld::accessWorld().incrementLevel(1);
+                qDebug() << "incremented level.";
+            }
+            //QString msg1, msg2;
+            //player has lost all their lives
+            if (GameWorld::accessWorld().getLife() == 0 || GameWorld::accessWorld().getLevel() == 30){
+                Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
+                HighScoreManager::accessManager().addScore(playerScore);
+                GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
 
-            for (QWidget* obj : GameWindow::getGUIObjects()){
-                delete obj;
-            }
-            GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
+                //notify the player that they have died
+                //give them the option to play the level over or go to the main menu.
+                QMessageBox msgBox;
+                if (GameWorld::accessWorld().getLife() == 0){
+                    msgBox.setText("Unfortunately you have run out of lives.");
+                    msgBox.setInformativeText("Would you like to play the again?");
+                }
+                else if (GameWorld::accessWorld().getLevel() == 30){
+                    msgBox.setText("Congratulation, you have finished the game!");
+                    msgBox.setInformativeText("Would you like to play the game again?");
+                }
+                GameWorld::accessWorld().reset();
+                GameWorld::accessWorld().setCurrentScore(0);
+                GameWorld::accessWorld().setLevel(1);
+                GameWorld::accessWorld().setLife(5);
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                msgBox.setDefaultButton(QMessageBox::Yes);
+                int choice = msgBox.exec();
 
-            //notify the player that they have died
-            //give them the option to play the level over or go to the main menu.
-            QMessageBox msgBox;
-            if (GameWorld::accessWorld().getLife() == 0){
-                msgBox.setText("Unfortunately you have run out of lives.");
-                msgBox.setInformativeText("Would you like to play the again?");
+                switch (choice) {
+                  case QMessageBox::Yes:
+                {
+                      delete animationBall;
+                      delete animationPaddle;
+                      GameWorld::accessWorld().makeLevel();
+                      this->renderLevel();
+                      break;
+                }
+                  case QMessageBox::No:
+                {
+                      this->close();
+                      break;
+                }
+                  default:
+                      // should never be reached
+                      break;
+                }
             }
-            else if (GameWorld::accessWorld().getLevel() == 30){
-                msgBox.setText("Congratulation, you have finished the game!");
-                msgBox.setInformativeText("Would you like to play the game again?");
-            }
-            GameWorld::accessWorld().reset();
-            GameWorld::accessWorld().setCurrentScore(0);
-            GameWorld::accessWorld().setLevel(1);
-            GameWorld::accessWorld().setLife(5);
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::Yes);
-            int choice = msgBox.exec();
 
-            switch (choice) {
-              case QMessageBox::Yes:
-            {
-                  delete animationBall;
-                  delete animationPaddle;
-                  GameWorld::accessWorld().makeLevel();
-                  this->renderLevel();
-                  break;
-            }
-              case QMessageBox::No:
-            {
-                  this->close();
-                  break;
-            }
-              default:
-                  // should never be reached
-                  break;
+            //player has destroyed all the bricks
+            else if (GameWorld::accessWorld().getRemainingBricks() == 0){
+
+                GameWorld::accessWorld().setCurrentScore(GameWorld::accessWorld().getCurrentScore());
+
+                GameWorld::accessWorld().reset();
+
+                GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
+
+                QMessageBox msgBox;
+                msgBox.setText("You beat the level!");
+                msgBox.setInformativeText("Would you like to play the next level?");
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                msgBox.setDefaultButton(QMessageBox::Yes);
+                int choice = msgBox.exec();
+
+                switch (choice) {
+                  case QMessageBox::Yes:
+                {
+                      delete animationBall;
+                      delete animationPaddle;
+                      GameWorld::accessWorld().makeLevel();
+                      this->renderLevel();
+                      break;
+                }
+                  case QMessageBox::No:
+                {
+                      Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
+                      HighScoreManager::accessManager().addScore(playerScore);
+                      this->close();
+                      break;
+                }
+                  default:
+                      // should never be reached
+                      break;
+                }
             }
         }
-
-        //player has destroyed all the bricks
-        else if (GameWorld::accessWorld().getRemainingBricks() == 0){
-
-            GameWorld::accessWorld().setCurrentScore(GameWorld::accessWorld().getCurrentScore());
-
-            GameWorld::accessWorld().reset();
-
-            for (QWidget* obj : GameWindow::getGUIObjects()){
-                delete obj;
-            }
-            GUIObjects.erase(GUIObjects.begin(), GUIObjects.end());
-
-            QMessageBox msgBox;
-            msgBox.setText("You beat the level!");
-            msgBox.setInformativeText("Would you like to play the next level?");
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::Yes);
-            int choice = msgBox.exec();
-
-            switch (choice) {
-              case QMessageBox::Yes:
-            {
-                  delete animationBall;
-                  delete animationPaddle;
-                  GameWorld::accessWorld().makeLevel();
-                  this->renderLevel();
-                  break;
-            }
-              case QMessageBox::No:
-            {
-                  Score * playerScore =  new Score(GameWorld::accessWorld().getCurrentScore(), GameWorld::accessWorld().getName());
-                  HighScoreManager::accessManager().addScore(playerScore);
-                  this->close();
-                  break;
-            }
-              default:
-                  // should never be reached
-                  break;
-            }
-        }
-
-        /*QLabel * win = new QLabel(this);
-        win->setText("You win!");
-        win->setGeometry(QRect(250,250,500,500));
-        win->setStyleSheet("color:rgb(255,0,0);");
-        win->show();*/
     }
+    //QCoreApplication::processEvents();
 }
 
 //Checks for the key press from <event> and sets the paddle's x coordinate and command state accordingly. InitialCommand is used for the first move of the game or when the ball has been reset.
@@ -292,6 +290,9 @@ void GameWindow::showStuff(){
         difficults = "Medium";
     } else if (GameWorld::accessWorld().getDifficulty() == 2) {
         difficults = "Hard";}
+    else if (GameWorld::accessWorld().getDifficulty() == 3){
+        difficults = "Multiplayer";
+    }
     gameui->lblDifficult->setText(difficults);
 
     //Stuff that needs to be put in QTimer/QThread
@@ -476,9 +477,10 @@ GameWidget::GameWidget(QWidget *parent) : QWidget(parent)
 void GameWidget::mouseMoveEvent(QMouseEvent *event)
 {
     GameWindow * parent = dynamic_cast<GameWindow*>(parentWidget());
+
     if(paddle->getInitialCommand()){
         parent->getTimer()->start();
-        if (event->x() <= 200){
+        if (event->x() >= offsetX){
             paddle->getPaddle()->setInitialRight(true);
         }
         else{
@@ -490,4 +492,10 @@ void GameWidget::mouseMoveEvent(QMouseEvent *event)
     if (testX >= 0 && testX <= 280){
         paddle->getPaddle()->setX(testX);
     }
+}
+
+void GameWidget::mousePressEvent(QMouseEvent *event)
+{
+    offsetX = event->x();
+    offsetY = event->y();
 }

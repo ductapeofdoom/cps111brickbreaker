@@ -30,8 +30,12 @@ public:
 class ServerProcessThread: public QThread{
     QTcpSocket * socket;
     vector<QTcpSocket*> currentConnections;
+    QString player1Name;
+    QString player2Name;
+    int player1Score;
+    int player2Score;
 public:
-    ServerProcessThread(QTcpSocket * sock, vector<QTcpSocket*> connections): socket(sock), currentConnections(connections){}
+    ServerProcessThread(QTcpSocket * sock, vector<QTcpSocket*> connections): socket(sock), currentConnections(connections), player1Name(""), player2Name("") , player1Score(0), player2Score(0){}
     void run();
 };
 
@@ -68,6 +72,10 @@ private:
     GameWindow * gamewindow;
     int clientCount;
     vector<QTcpSocket*> currentConnections;
+    QString player1Name;
+    QString player2Name;
+    int player1Score;
+    int player2Score;
     Ui::MultiplayerGUI *ui;
 };
 
