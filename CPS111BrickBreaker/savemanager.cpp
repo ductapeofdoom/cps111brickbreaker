@@ -190,13 +190,13 @@ void SaveManager::LoadGame()
                  set to 3 because the ball and paddle are already in the vector,
                  and they used up 1 and 2.*/
     for (string brickdata : brickdatavec){
-        int hits = brickdata.at(0); //set number of hits as the first number in the string
+        int hits = stoi(brickdata.substr(0,1)); //set number of hits as the first number in the string
         //remove the hits and the parentheses and store the result in a new string
         string brickcoord = brickdata.substr(2, brickdata.size() - 3);
 
         //split up the coordinates and store the values in integers
         int newx, newy, commapos = brickcoord.find(',');
-        newx = stoi(brickcoord.substr(0, brickcoord.size() - commapos));
+        newx = stoi(brickcoord.substr(0, commapos));
         newy = stoi(brickcoord.substr(commapos + 1, string::npos));
 
         //create brick & store in vector

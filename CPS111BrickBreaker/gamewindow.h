@@ -166,7 +166,7 @@ public:
     Brick * getBrick() {return brick;}
 
     ~GUIBrick() {
-        delete brick;
+        //delete brick;
     }
 };
 

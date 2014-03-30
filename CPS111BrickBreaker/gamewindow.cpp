@@ -172,8 +172,11 @@ void GameWindow::animTimerHit(){
                 switch (choice) {
                   case QMessageBox::Yes:
                 {
+                      delete wdGame;
                       delete animationBall;
                       delete animationPaddle;
+                      wdGame = new GameWidget(this);
+                      wdGame->show();
                       GameWorld::accessWorld().makeLevel();
                       this->renderLevel();
                       break;
@@ -208,8 +211,11 @@ void GameWindow::animTimerHit(){
                 switch (choice) {
                   case QMessageBox::Yes:
                 {
+                      delete wdGame;
                       delete animationBall;
                       delete animationPaddle;
+                      wdGame = new GameWidget(this);
+                      wdGame->show();
                       GameWorld::accessWorld().makeLevel();
                       this->renderLevel();
                       break;
@@ -424,21 +430,24 @@ GameWidget::GameWidget(QWidget *parent) : QWidget(parent)
 
 void GameWidget::mouseMoveEvent(QMouseEvent *event)
 {
+    int initX = paddle->getPaddle()->getX() + 60;
     GameWindow * parent = dynamic_cast<GameWindow*>(parentWidget());
+
+    int testX = event->x();
+    if (testX >= 0 && testX <= 280){
+        paddle->getPaddle()->setX(testX);
+    }
 
     if(paddle->getInitialCommand()){
         parent->getTimer()->start();
-        if (event->x() >= offsetX){
+        int s = paddle->getPaddle()->getX();
+        if (paddle->getPaddle()->getX() + 60 >= initX){
             paddle->getPaddle()->setInitialRight(true);
         }
         else{
             paddle->getPaddle()->setInitialLeft(true);
         }
         paddle->setInitialCommand(false);
-    }
-    int testX = event->x();
-    if (testX >= 0 && testX <= 280){
-        paddle->getPaddle()->setX(testX);
     }
 }
 

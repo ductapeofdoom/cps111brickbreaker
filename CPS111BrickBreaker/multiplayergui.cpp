@@ -22,6 +22,7 @@
 
 QMutex mutex;
 
+//The constructor instatiates a server and connects its newConnection signal to the clientConnected slot.
 MultiplayerGUI::MultiplayerGUI(QWidget *parent) :
     QWidget(parent),
     player1Name(""), player2Name("") , player1Score(0), player2Score(0), ui(new Ui::MultiplayerGUI)
@@ -39,7 +40,8 @@ MultiplayerGUI::~MultiplayerGUI()
     delete ui;
 }
 
-
+//The method connects the new socket to the proper slots and checks for the number of client connected
+//and if the number is 2 it will send out the level data selected by the player.
 void MultiplayerGUI::clientConnected(){
     QTcpSocket * sock = server->nextPendingConnection();
     connect(sock, &QTcpSocket::disconnected, this, &MultiplayerGUI::clientDisconnected);
@@ -81,6 +83,7 @@ void MultiplayerGUI::clientConnected(){
     }
 }
 
+//The method deletes the disconnected socket an deincrements the the clientCount variable.
 void MultiplayerGUI::clientDisconnected()
 {
     QTcpSocket * sock = dynamic_cast<QTcpSocket*>(sender());
@@ -89,7 +92,8 @@ void MultiplayerGUI::clientDisconnected()
     ui->lblClients->setText(QString::number(clientCount));
 }
 
-void ServerProcessThread::run()
+
+/*void ServerProcessThread::run()
 {
     while (socket->canReadLine()){
         QString line = socket->readLine();
@@ -132,8 +136,10 @@ void ServerProcessThread::run()
         }
     }
     socket->moveToThread(QApplication::instance()->thread());
-}
+}*/
 
+//The method checks for the data recieved and if a destroy command is recieved it echos out the command, if a score command is recieved it saves the score
+//and if both scores have been recieved it sends out the winner.
 void MultiplayerGUI::dataRecieved()
 {
     QTcpSocket * sock = dynamic_cast<QTcpSocket*>(sender());
@@ -225,6 +231,8 @@ void MultiplayerGUI::on_btnConnect_clicked()
     }
 }
 
+
+//Thread run  method for deleting neccessare bricks
 void ProcessThread::run()
 {
     int i = 0;
@@ -243,6 +251,7 @@ void ProcessThread::run()
     }
 }
 
+//The method checks for the data recieved and creates the world, destroys a block, or shows the winner as neccessary.
 void MultiplayerGUI::processInput(QString input)
 {
     if (input.indexOf("LEVEL:") != -1){
@@ -263,6 +272,7 @@ void MultiplayerGUI::processInput(QString input)
     }
 }
 
+//Creates the multiplayer world
 void MultiplayerGUI::GenerateMuliWorld(QString input)
 {
     Paddle * dataPaddle = new Paddle(150, 450, 1);
