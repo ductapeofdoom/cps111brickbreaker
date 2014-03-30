@@ -15,12 +15,14 @@
 
 using namespace std;
 
+//function that runs all of our unit tests
 void runUnitTests(){
     collisionUnitTests();
     highScoreUnitTests();
     qDebug() << "All tests passed.";
 }
 
+//main method
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

@@ -61,7 +61,13 @@ void MainWindow::on_btnHowToPlay_clicked()
         howToPlay = howToPlay + line;
     }
 
-    QMessageBox::information(this, "How To Play", howToPlay);
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("How To Play");
+    msgBox.setText("Brick Breaker");
+    msgBox.setInformativeText(howToPlay);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
 }
 
 void MainWindow::on_btnHighScores_clicked()

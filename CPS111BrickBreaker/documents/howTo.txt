@@ -1,5 +1,3 @@
-[Insert Title of Game Here]
-
 You've already reached the main menu of our game. In order to start a new game, click the "New Game" button. A pop-up will ask you for your name and the difficulty you would like to play with. Once you have filled that in and clicked 'Ok,' then the game will open up on level 1.
 
 To start the game, press either the left or right arrow on the keyboard to launch the ball. The ball will bounce around the screen hitting bricks. Your job is to keep it from falling off the bottom of the screen by catching the ball with your paddle. Move the paddle left and right by pressing the left and right arrow keys respectively. As long as you hit the ball with your paddle each time it goes down to the bottom of the screen, it will continue to bounce back up and hit more bricks.
@@ -8,6 +6,8 @@ Each time you fail to catch the ball as it falls down the screen, you will lose 
 
 Once you break all the bricks in a level, you will have the option to go to the next level or quit.
 
-If you would like to quit and come back to the game later, you can save your game by clicking "Save Game" in the gameplay window. From the main menu, you can click "Load" to open up the last saved game. It will start you at the beginning of the level you were on.
+If you would like to quit and come back to the game later, you can save your game by clicking "Save Game" in the gameplay window. From the main menu, you can click "Load" to open up the last saved game. It will pick up right where you left off when you saved.
 
-When you stop playing, if your score is higher than other players' scores, your score will be added to the high scores list! You can view your high scores by clicking "High Scores" on the main menu.
+To play with a friend online, have two people open up the game. Have both people select "Multiplayer" from the main menu. A second window should open up, and ONLY ONE person needs to click "Start TCP Server." The host, the person who started the TCP server, needs to tell the other player, the client, what his IP address is, and the client needs to put that IP address into the text box beside "Connect to TCP Server." After the client has provided the IP address of the host, both players can click "Connect to TCP Server" to connect. Players should follow the on-screen prompts to proceed to play the game.
+
+When you die or end the game, if your score is higher than other players' scores, your score will be added to the high scores list! You can view your high scores by clicking "High Scores" on the main menu.
