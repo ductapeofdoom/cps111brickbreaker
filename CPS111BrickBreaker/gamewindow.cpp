@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *gamewindow.cpp - this file contains method definitions for the
+ *                 GameWindow, GameWidget, GUIPaddle, GUIBrick, and GUIBall clases.
+ */
+
 #include "gamewindow.h"
 #include "gameobject.h"
 #include "gameworld.h"
@@ -399,16 +405,13 @@ void GameWindow::on_btnSave_clicked()
     //eliminate the possiblity of double clicking the button
     gameui->btnSave->setEnabled(false);
 
+    //create save manager, save the game, then delete the pointer to the save manager
     SaveManager * saver = new SaveManager();
-
     saver->SaveGame();
-
     delete saver;
 
     //reenable the save game button
     gameui->btnSave->setEnabled(true);
-
-    qDebug() << "Game Saved.";
 }
 
 

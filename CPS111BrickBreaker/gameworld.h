@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *gameworld.h - this file contains class definitions and method declarations for
+ *              the GameWorld class.
+ */
+
 #ifndef GAMEWORLD_H
 #define GAMEWORLD_H
 

@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *multiplayergui.cpp - this file contains method definitions for the
+ *                     MultiplayerGUI, ProcessThread, and ServerProcessThread classes.
+ */
+
 #include "multiplayergui.h"
 #include "ui_multiplayergui.h"
 #include "gameobject.h"

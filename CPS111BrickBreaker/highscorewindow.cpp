@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *highscorewindow.cpp - this file contains method definitions for the
+ *                      HighScoreWindow class.
+ */
+
 #include "highscorewindow.h"
 #include "highscore.h"
 #include "ui_highscorewindow.h"

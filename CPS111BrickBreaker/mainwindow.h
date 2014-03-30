@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *mainwindow.h - this file contains class definitions and method declarations for the
+ *               MainWindow class.
+ */
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

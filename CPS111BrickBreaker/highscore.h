@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *highscore.h - this file contains class definitions and method declarations for the
+ *              Score and HighScoreManager classes.
+ */
+
 #ifndef HIGHSCORE_H
 #define HIGHSCORE_H
 

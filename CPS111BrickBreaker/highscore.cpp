@@ -1,3 +1,10 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *highscore.cpp - this file contains method definitions for the
+ *                Score and HighScoreManager classes. It also has the
+ *                definition for highScoreUnitTests().
+ */
+
 #include <QWidget>
 #include <string>
 #include <QString>

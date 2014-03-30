@@ -14,20 +14,20 @@
    <string>Brick Breaker!</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="lblTitle">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>40</x>
       <y>0</y>
-      <width>491</width>
-      <height>71</height>
+      <width>411</width>
+      <height>161</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="resources.qrc">:/images/title.png</pixmap>
+     <pixmap resource="resources.qrc">:/images/brickbreaker.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -36,10 +36,10 @@
    <widget class="QPushButton" name="btnPlay">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>110</y>
-      <width>401</width>
-      <height>91</height>
+      <x>70</x>
+      <y>220</y>
+      <width>351</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="text">
@@ -52,7 +52,7 @@
     </property>
     <property name="iconSize">
      <size>
-      <width>400</width>
+      <width>350</width>
       <height>400</height>
      </size>
     </property>
@@ -60,10 +60,10 @@
    <widget class="QPushButton" name="btnHowToPlay">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>340</y>
-      <width>381</width>
-      <height>61</height>
+      <x>130</x>
+      <y>400</y>
+      <width>231</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -76,8 +76,8 @@
     </property>
     <property name="iconSize">
      <size>
-      <width>300</width>
-      <height>300</height>
+      <width>225</width>
+      <height>45</height>
      </size>
     </property>
    </widget>
@@ -87,10 +87,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>480</y>
-      <width>381</width>
-      <height>61</height>
+      <x>130</x>
+      <y>500</y>
+      <width>231</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -103,18 +103,18 @@
     </property>
     <property name="iconSize">
      <size>
-      <width>300</width>
-      <height>300</height>
+      <width>350</width>
+      <height>45</height>
      </size>
     </property>
    </widget>
    <widget class="QPushButton" name="btnHighScores">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>410</y>
-      <width>381</width>
-      <height>61</height>
+      <x>130</x>
+      <y>450</y>
+      <width>231</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -127,8 +127,8 @@
     </property>
     <property name="iconSize">
      <size>
-      <width>300</width>
-      <height>300</height>
+      <width>225</width>
+      <height>45</height>
      </size>
     </property>
    </widget>
@@ -138,10 +138,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>220</y>
-      <width>241</width>
-      <height>91</height>
+      <x>150</x>
+      <y>310</y>
+      <width>191</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="text">
@@ -154,8 +154,8 @@
     </property>
     <property name="iconSize">
      <size>
-      <width>200</width>
-      <height>200</height>
+      <width>150</width>
+      <height>150</height>
      </size>
     </property>
    </widget>

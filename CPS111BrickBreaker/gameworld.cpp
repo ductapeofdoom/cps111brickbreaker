@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *gameworld.cpp - this file contains method definitions for the
+ *                GameWorld class.
+ */
+
 #include "gameworld.h"
 #include "gameobject.h"
 #include <QFile>
@@ -61,17 +67,10 @@ void GameWorld::reset()
     worldObjects.erase(worldObjects.begin(), worldObjects.end());
 }
 
-//sets the total number of bricks that each level will have in it.
-//int GameWorld::totalNumBricks = 10;//this needs to correspond to the number of entries in each leveldata text document.
-
-/*this variable ^ is currently set at 10 so that when testing, it doesn't take 3 years to beat the level to see the end of the level.
- *this variable does need to be a multiple of 10. Setting it at 0 makes the level end immediately, but
- *you can't know for sure if bricks are generating properly because there aren't any to generate.*/
-
-
 //method to render a level
 void GameWorld::makeLevel()
 {
+    //totalNumBricks does need to be set to a multiple of 10.
     if (difficulty == 0){
         totalNumBricks = 20;
     }

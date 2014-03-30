@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *mainwindow.cpp - this file contains method definitions for the
+ *                 MainWindow class.
+ */
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "inputdialog.h"
@@ -66,14 +72,16 @@ void MainWindow::on_btnHighScores_clicked()
 
 void MainWindow::on_btnLoad_clicked()
 {
+    //eliminate the possibility of clicking the load button twice in a row
     mainui->btnLoad->setEnabled(false);
 
+    //create save manager, load the game, and then delete the pointer to the save manager
     SaveManager * saver = new SaveManager();
     saver->LoadGame();
     delete saver;
 
+    //reenable the button
     mainui->btnLoad->setEnabled(true);
-    qDebug() << "Loaded game.";
 
 }
 

@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *inputdialog.cpp - this file contains method definitions for the
+ *                  InputDialog class.
+ */
+
 #include <QString>
 #include <QMessageBox>
 #include <QDebug>

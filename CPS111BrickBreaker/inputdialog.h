@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *inputdialog.h - this file contains class definitions and method declarations for the
+ *                InputDialog class.
+ */
+
 #ifndef INPUTDIALOG_H
 #define INPUTDIALOG_H
 

@@ -1,3 +1,10 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *gameobject.cpp - this file contains method definitions for the
+ *                 GameObject, Paddle, Ball, and Brick classes. It also
+ *                 contains the definition for collisionUnitTests().
+ */
+
 #include "gameobject.h"
 #include "gamewindow.h"
 #include "gameworld.h"

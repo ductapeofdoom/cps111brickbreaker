@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *savemanager.cpp - this file contains method definitions for the
+ *                  SaveManager class.
+ */
+
 #include "savemanager.h"
 #include "gamewindow.h"
 #include "gameobject.h"
@@ -24,9 +30,7 @@
 using namespace std;
 
 SaveManager::SaveManager()
-    : filepath("gamesave.txt")
-{
-}
+    : filepath("gamesave.txt"){}
 
 void SaveManager::SaveGame()
 {
@@ -88,6 +92,8 @@ void SaveManager::SaveGame()
 
     //close file
     outfile.close();
+
+    qDebug() << "Saved Game.";
 }
 
 void SaveManager::LoadGame()
@@ -229,4 +235,5 @@ void SaveManager::LoadGame()
         GameWorld::accessWorld().setSpeedBall(true);
         gamewindow->turnSpeedBallButtonOn();
     }
+    qDebug() << "Loaded game.";
 }

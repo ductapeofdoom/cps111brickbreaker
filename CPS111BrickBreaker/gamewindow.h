@@ -1,3 +1,9 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *gamewindow.h - this file contains class definitions and method declarations for
+ *               the GameWindow, GameWidget, GUIPaddle, GUIBall, and GUIBrick classes.
+ */
+
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
@@ -163,8 +169,6 @@ public:
         delete brick;
     }
 };
-
-void GUIUnitTests();
 
 
 #endif // GAMEWINDOW_H

@@ -1,3 +1,10 @@
+/*CPS111 Team Project
+ *Team 4: Stephen Sidwell, Nick Marsceau, and Daniel Tan
+ *main.cpp - this file contains the main method that runs the game.
+ *           It also contains the function declaration for runUnitTests()
+ *           that runs the other various unit test functions.
+ */
+
 #include "mainwindow.h"
 #include "gameobject.h"
 #include "gamewindow.h"

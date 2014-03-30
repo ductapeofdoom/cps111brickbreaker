@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/title.png</file>
-        <file>images/play.png</file>
         <file>images/howto.png</file>
         <file>images/highscore.png</file>
         <file>images/multiplayer.png</file>
@@ -45,5 +43,6 @@
         <file>documents/28.txt</file>
         <file>documents/29.txt</file>
         <file>documents/30.txt</file>
+        <file>images/brickbreaker.png</file>
     </qresource>
 </RCC>
