@@ -70,6 +70,11 @@ public:
     //static GameWindow* getUi();
     vector<QWidget*>& getGUIObjects(){ return GUIObjects; }
 
+    //mutators
+    void turnNoDeathButtonOn();
+    void turnSlowBallButtonOn();
+    void turnSpeedBallButtonOn();
+
     //display stuff on side of screen
     void showStuff();
 

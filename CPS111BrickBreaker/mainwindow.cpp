@@ -86,35 +86,96 @@ void MainWindow::on_btnLoad_clicked()
     infile.close();
 
     //declare some vars for use in processing the string
-    vector<string> data;
+    vector<string> gamedata;
     string entry = "";
     char ch = ' ';
-    int count = 0;
+    uint count = 0;
 
-    //split the string up into the individual parts
-    while (ch != '#'){
+    //split the string up into the individual parts and store them in the vector
+    while (count < fullfile.size()){
         ch = fullfile.at(count);
-        if (ch != '%'){
+        if (ch != '@'){
             entry += ch;
         }
         else{
-            data.push_back(entry);
+            gamedata.push_back(entry);
             entry = "";
         }
         count++;
     }
 
     //take the parts out of the vector and assign them to the appropriate variables in GameWorld
-    GameWorld::accessWorld().setLevel(stoi(data.at(0)));
-    GameWorld::accessWorld().setPlayerName(QString::fromStdString(data.at(1)));
-    GameWorld::accessWorld().setCurrentScore(stoi(data.at(2)));
-    GameWorld::accessWorld().setDifficulty(stoi(data.at(3)));
-    GameWorld::accessWorld().setLife(stoi(data.at(4)));
+    //set the level
+    GameWorld::accessWorld().setLevel(stoi(gamedata.at(0)));
 
-    //create the bricks for a level
-    GameWorld::accessWorld().makeLevel();
+    //set the player name
+    GameWorld::accessWorld().setPlayerName(QString::fromStdString(gamedata.at(1)));
 
-    //make gamewindow and show it
+    //set the current score
+    GameWorld::accessWorld().setCurrentScore(stoi(gamedata.at(2)));
+
+    //set the difficulty and totalNumBricks based on difficulty
+    int difficulty = stoi(gamedata.at(3));
+    GameWorld::accessWorld().setDifficulty(difficulty);
+    if (difficulty == 0){
+        GameWorld::accessWorld().setTotalNumBricks(20);
+    }
+    else if (difficulty == 1){
+        GameWorld::accessWorld().setTotalNumBricks(40);
+    }
+    else if (difficulty == 2){
+        GameWorld::accessWorld().setTotalNumBricks(60);
+    }
+
+    //set the number of lives
+    GameWorld::accessWorld().setLife(stoi(gamedata.at(4)));
+
+    //add a ball and paddle
+    Paddle * dataPaddle = new Paddle(150, 450, 1);
+    Ball * dataBall = new Ball(200, 430, 0, 0, dataPaddle, 2);
+    GameWorld::accessWorld().addObject(dataPaddle);
+    GameWorld::accessWorld().addObject(dataBall);
+
+    //recreate the bricks that were saved
+    //put the data of the bricks into the brickdatavec vector
+    uint i = 0;
+    string allbrickdata = gamedata.at(5);
+    vector<string> brickdatavec;
+    while (i < allbrickdata.size()){
+        ch = allbrickdata.at(i);
+        if (ch != ' '){
+            entry += ch;
+        }
+        else{
+            brickdatavec.push_back(entry);
+            entry = "";
+        }
+        i++;
+    }
+
+    //go through the vector creating bricks and adding them to the GameObjects vector
+    int j = 3; /*variable that will be used to set the ID of brick objects.
+                 set to 3 because the ball and paddle are already in the vector,
+                 and they used up 1 and 2.*/
+    for (string brickdata : brickdatavec){
+        int hits = brickdata.at(0); //set number of hits as the first number in the string
+        //remove the hits and the parentheses and store the result in a new string
+        string brickcoord = brickdata.substr(2, brickdata.size() - 3);
+
+        //split up the coordinates and store the values in integers
+        int newx, newy, commapos = brickcoord.find(',');
+        newx = stoi(brickcoord.substr(0, brickcoord.size() - commapos));
+        newy = stoi(brickcoord.substr(commapos + 1, string::npos));
+
+        //create brick & store in vector
+        Brick *newbrick = new Brick(hits, j, newx, newy);
+        GameWorld::accessWorld().addObject(newbrick);
+        j++;
+    }
+
+    qDebug() << "Made Bricks for the saved level.";
+
+    //make gamewindow
     GameWindow* gamewindow = new GameWindow();
 
     //create the GUIBricks for a level
@@ -122,6 +183,26 @@ void MainWindow::on_btnLoad_clicked()
 
     //show the game window
     gamewindow->show();
+
+    //set the cheats from the saved data
+    string cheatdata = gamedata.at(6);
+    //if nodeath was on before, set it to on now
+    if (cheatdata.at(0) == '1'){
+        GameWorld::accessWorld().setnoDeath(true);
+        gamewindow->turnNoDeathButtonOn();
+    }
+
+    //if slowball was on before, set it to on now
+    if (cheatdata.at(1) == '1'){
+        GameWorld::accessWorld().setSlowBall(true);
+        gamewindow->turnSlowBallButtonOn();
+    }
+
+    //if speedball was on before, set it to on now
+    if (cheatdata.at(2) == '1'){
+        GameWorld::accessWorld().setSpeedBall(true);
+        gamewindow->turnSpeedBallButtonOn();
+    }
 
 }
 

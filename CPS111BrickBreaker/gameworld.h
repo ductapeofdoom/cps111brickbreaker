@@ -73,6 +73,7 @@ public:
     void setnoDeath(bool value) {noDeath = value;}
     void setSlowBall(bool value) {slowBall = value;}
     void setSpeedBall(bool value) {speedBall = value;}
+    void setTotalNumBricks(int newnum){ totalNumBricks = newnum; }
 
     //add or subtract lives when ball hits bottom
     //takes in a negative (when dies) or positive number when he gets pluslife powerup

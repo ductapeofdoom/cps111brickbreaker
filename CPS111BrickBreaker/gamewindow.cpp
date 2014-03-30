@@ -76,6 +76,21 @@ void GameWindow::Update(QObject * obj)
     }
 }
 
+void GameWindow::turnNoDeathButtonOn()
+{
+    gameui->btnNoDeath->setChecked(true);
+}
+
+void GameWindow::turnSlowBallButtonOn()
+{
+    gameui->btnSlowBall->setChecked(true);
+}
+
+void GameWindow::turnSpeedBallButtonOn()
+{
+    gameui->btnSpeedBall->setChecked(true);
+}
+
 //Slot implementaion for animTimerHit. Redraws the paddle and executes Update every 10 cycles. It will also reset animation and stop the timer if the ball goes off the bottom.
 void GameWindow::animTimerHit(){
     GUIPaddle * paddle = dynamic_cast<GUIPaddle *>(GUIObjects.at(0));
@@ -382,34 +397,7 @@ void GameWindow::on_btnSave_clicked()
     //eliminate the possiblity of double clicking the button
     gameui->btnSave->setEnabled(false);
 
-    string name = GameWorld::accessWorld().getName().toStdString();
-    QString qname = QString::fromStdString(name);
-    qname.replace(QString(" "), QString("%"));
-    stringstream savedatastream;
-
-    //store the elements in a string that will be written to a file
-    savedatastream << GameWorld::accessWorld().getLevel()
-                   << ' '
-                   << qname.toStdString()
-                   << ' '
-                   << GameWorld::accessWorld().getCurrentScore()
-                   << ' '
-                   << GameWorld::accessWorld().getDifficulty()
-                   << ' '
-                   << GameWorld::accessWorld().getLife()
-                   << ' ' << "\n\n";
-    for (GameObject * obj : GameWorld::accessWorld().getObjects()){
-        Brick * tempbrick = dynamic_cast<Brick*>(obj);
-        if (tempbrick != NULL){
-            savedatastream << tempbrick->getHits() << '(' << tempbrick->getX() << ',' << tempbrick->getY() << ") ";
-        }
-    }
-
-    string savedata = savedatastream.str();
-    qDebug() << QString::fromStdString(savedata);
-
-    //write saved data to a file
-    //open file for writing
+    //open up a file for writing
     ofstream outfile("gamesave.txt");
 
     //notify user if unsuccessful
@@ -420,8 +408,53 @@ void GameWindow::on_btnSave_clicked()
         return;
     }
 
-    //write to file
-    outfile << savedata;
+    //store the elements in a string that will be written to a file
+    outfile << GameWorld::accessWorld().getLevel() << "@\n"
+            << GameWorld::accessWorld().getName().toStdString() << "@\n"
+            << GameWorld::accessWorld().getCurrentScore() << "@\n"
+            << GameWorld::accessWorld().getDifficulty() << "@\n"
+            << GameWorld::accessWorld().getLife() << "@\n";
+    for (GameObject * obj : GameWorld::accessWorld().getObjects()){
+        Brick * tempbrick = dynamic_cast<Brick*>(obj);
+        if (tempbrick != NULL){
+            outfile << tempbrick->getHits() << '(' << tempbrick->getX() << ',' << tempbrick->getY() << ") ";
+        }
+    }
+    outfile << "@\n";
+
+    //save the state of cheats
+    //nodeath
+    if (gameui->btnNoDeath->isChecked()){
+        //true
+        outfile << "1";
+    }
+    else {
+        //false
+        outfile << "0";
+    }
+
+    //slowball
+    if (gameui->btnSlowBall->isChecked()){
+        //true
+        outfile << "1";
+    }
+    else {
+        //false
+        outfile << "0";
+    }
+
+    //speedball
+    if (gameui->btnSpeedBall->isChecked()){
+        //true
+        outfile << "1";
+    }
+    else {
+        //false
+        outfile << "0";
+    }
+    outfile << '@';
+
+    //no need to save btnAddLife because that will get saved in the life section above.
 
     //close file
     outfile.close();
@@ -429,6 +462,7 @@ void GameWindow::on_btnSave_clicked()
     //reenable the save game button
     gameui->btnSave->setEnabled(true);
 
+    qDebug() << "Game Saved.";
 }
 
 

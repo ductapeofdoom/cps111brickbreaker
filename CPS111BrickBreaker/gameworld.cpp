@@ -78,7 +78,8 @@ void GameWorld::makeLevel()
     else if (difficulty == 2){
         totalNumBricks = 60;
     }
-    //Adds the ball and paddle GameWorld
+
+    //Add the ball and paddle to GameWorld
     Paddle * dataPaddle = new Paddle(150, 450, 1);
     Ball * dataBall = new Ball(200, 430, 0, 0, dataPaddle, 2);
     GameWorld::accessWorld().addObject(dataPaddle);
@@ -88,6 +89,7 @@ void GameWorld::makeLevel()
     QFile file(filePath);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        //not too concerned about having an error opening a resource
         return;
     }
 
