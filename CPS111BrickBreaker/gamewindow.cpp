@@ -66,8 +66,7 @@ void GameWindow::Update(QObject * obj)
     for(QWidget * obj : this->getGUIObjects()){
         GUIBrick * brick  = dynamic_cast<GUIBrick*>(obj);
         if (brick != NULL){
-            Brick * dataBrick = dynamic_cast<Brick*>(brick->getBrick());
-            if(dataBrick != NULL && brick->getBrick()->getDestory()){
+            if(brick->getBrick()->getDestory()){
                 if (network){
                     animTimer->stop();
                     QString brickId = "DESTROY:" + QString::number(brick->getBrick()->getId()) + "\n";
@@ -137,6 +136,10 @@ void GameWindow::animTimerHit(){
             socket->write(playerScore.toLocal8Bit());
         }
         else{
+            gameui->btnSlowBall->setChecked(false);
+            gameui->btnSlowBall->setEnabled(true);
+            gameui->btnSpeedBall->setChecked(false);
+            gameui->btnSpeedBall->setEnabled(true);
             showStuff();
             animTimer->stop();
             if (GameWorld::accessWorld().getLife() != 0){
@@ -440,7 +443,6 @@ void GameWidget::mouseMoveEvent(QMouseEvent *event)
 
     if(paddle->getInitialCommand()){
         parent->getTimer()->start();
-        int s = paddle->getPaddle()->getX();
         if (paddle->getPaddle()->getX() + 60 >= initX){
             paddle->getPaddle()->setInitialRight(true);
         }
