@@ -33,15 +33,30 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     mainui->setupUi(this);
     HighScoreManager::accessManager().loadHS(".highscore.txt");
+    music = new QSound(":/sounds/piano.wav");
+    music->setLoops(-1);
 }
 
 MainWindow::~MainWindow()
 {
     delete mainui;
+    delete music;
+}
+
+void MainWindow::playMusic()
+{
+    music->play();
+}
+
+void MainWindow::stopMusic()
+{
+    music->stop();
 }
 
 void MainWindow::on_btnPlay_clicked()
 {
+    music->stop(); //stop the music
+
     InputDialog *input = new InputDialog();
     input->show();
     input->setFocusOnLineEdit();
@@ -78,6 +93,8 @@ void MainWindow::on_btnHighScores_clicked()
 
 void MainWindow::on_btnLoad_clicked()
 {
+    music->stop(); //stop music
+
     //eliminate the possibility of clicking the load button twice in a row
     mainui->btnLoad->setEnabled(false);
 
@@ -93,6 +110,8 @@ void MainWindow::on_btnLoad_clicked()
 
 void MainWindow::on_btnMultiplayer_clicked()
 {
+    music->stop(); //stop the music
+
     MultiplayerGUI * window = new MultiplayerGUI();
     window->show();
 }

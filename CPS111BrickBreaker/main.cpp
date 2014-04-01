@@ -34,11 +34,9 @@ int main(int argc, char *argv[])
     if (args.size() > 1 && args.at(1) == "-test"){
         runUnitTests();
     }
-    w.setGeometry(450, 0, 491, 585);
+    w.setGeometry(450, 0, 491, 585); //put the window in the middle of the screen
     w.show();
-    QSound * music = new QSound(":/sounds/piano.wav");
-    music->setLoops(38);
-    music->play();
+    w.playMusic(); //play the menu music
 
     return a.exec();
 }

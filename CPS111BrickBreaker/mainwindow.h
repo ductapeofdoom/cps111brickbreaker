@@ -8,6 +8,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSound>
 
 #include "gamewindow.h"
 
@@ -22,6 +23,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    void playMusic();
+    void stopMusic();
     
 private slots:
     void on_btnPlay_clicked();
@@ -36,6 +40,7 @@ private slots:
 
 private:
     Ui::MainWindow *mainui;
+    QSound * music;
 };
 
 #endif // MAINWINDOW_H
