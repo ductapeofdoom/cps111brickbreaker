@@ -44,5 +44,7 @@
         <file>documents/29.txt</file>
         <file>documents/30.txt</file>
         <file>images/brickbreaker.png</file>
+        <file>sounds/click.wav</file>
+        <file>sounds/piano.wav</file>
     </qresource>
 </RCC>

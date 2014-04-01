@@ -7,13 +7,20 @@
 #ifndef SAVEMANAGER_H
 #define SAVEMANAGER_H
 
+#include "gamewindow.h"
+#include "mainwindow.h"
+
 #include <QString>
 
 class SaveManager
 {
     QString filepath;
+    GameWindow * gamewindow;
+    MainWindow * mainwindow;
 public:
     SaveManager();
+    SaveManager(GameWindow *);
+    SaveManager(MainWindow *);
 
     void SaveGame();
 

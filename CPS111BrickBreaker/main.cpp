@@ -11,6 +11,7 @@
 #include "highscore.h"
 #include <QApplication>
 #include <QDebug>
+#include <QSound>
 #include <vector>
 
 using namespace std;
@@ -33,7 +34,11 @@ int main(int argc, char *argv[])
     if (args.size() > 1 && args.at(1) == "-test"){
         runUnitTests();
     }
+    w.setGeometry(450, 0, 491, 585);
     w.show();
+    QSound * music = new QSound(":/sounds/piano.wav");
+    music->setLoops(38);
+    music->play();
 
     return a.exec();
 }

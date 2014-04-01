@@ -45,6 +45,16 @@ GameWindow::GameWindow(QWidget *parent) :
     wdGame = new GameWidget(this);
 }
 
+void GameWindow::stopTimer()
+{
+    animTimer->stop();
+}
+
+void GameWindow::startTimer()
+{
+    animTimer->start();
+}
+
 //Animates <obj> and hides bricks that have been destroyed.
 void GameWindow::Update(QObject * obj)
 {
@@ -412,7 +422,7 @@ void GameWindow::on_btnSave_clicked()
     gameui->btnSave->setEnabled(false);
 
     //create save manager, save the game, then delete the pointer to the save manager
-    SaveManager * saver = new SaveManager();
+    SaveManager * saver = new SaveManager(); //need to pass in 'this', but that always causes an error.
     saver->SaveGame();
     delete saver;
 

@@ -82,7 +82,7 @@ void MainWindow::on_btnLoad_clicked()
     mainui->btnLoad->setEnabled(false);
 
     //create save manager, load the game, and then delete the pointer to the save manager
-    SaveManager * saver = new SaveManager();
+    SaveManager * saver = new SaveManager(this);
     saver->LoadGame();
     delete saver;
 

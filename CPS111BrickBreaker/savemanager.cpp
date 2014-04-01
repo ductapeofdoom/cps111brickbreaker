@@ -29,8 +29,14 @@
 
 using namespace std;
 
-SaveManager::SaveManager()
-    : filepath("gamesave.txt"){}
+SaveManager::SaveManager() :
+    filepath("gamesave.txt"){}
+
+SaveManager::SaveManager(GameWindow * newgamewindow) :
+    gamewindow(newgamewindow){}
+
+SaveManager::SaveManager(MainWindow * newmainwindow) :
+    mainwindow(newmainwindow){}
 
 void SaveManager::SaveGame()
 {
@@ -39,6 +45,9 @@ void SaveManager::SaveGame()
 
     //quit if unsuccessful
     if (!outfile) {
+        /*gamewindow->stopTimer();
+        QMessageBox::critical(gamewindow, "Error!", "The game could not be saved. Please try again.");
+        gamewindow->startTimer();*/
         return;
     }
 
@@ -103,6 +112,7 @@ void SaveManager::LoadGame()
 
     //quit if file didn't open
     if (!infile) {
+        QMessageBox::critical(mainwindow, "Error!", "The default save file could not be loaded. Please start a new game and save it in order to be able to load it later.");
         return;
     }
 

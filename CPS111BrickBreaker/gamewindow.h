@@ -66,6 +66,8 @@ public:
 
     //Timer used for animations
     QTimer * getTimer(){return animTimer;}
+    void stopTimer();
+    void startTimer();
 
     //create GUIBricks based on the Brick objects in the vector in gameworld
     void renderLevel();

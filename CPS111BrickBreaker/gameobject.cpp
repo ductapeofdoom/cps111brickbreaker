@@ -8,7 +8,13 @@
 #include "gameobject.h"
 #include "gamewindow.h"
 #include "gameworld.h"
+
+#include <QObject>
+#include <QSound>
+
 #include <cassert>
+
+using namespace std;
 
 //Units tests for ball collision detection
 void collisionUnitTests(){
@@ -217,6 +223,9 @@ void Ball::checkCollision()
                         collided = true;
                         GameWorld::accessWorld().incrementScore();
                         brick->hit();
+
+                        //there are some problems with this playing on every brick
+                        QSound::play(":/sounds/click.wav");
                     }
                 }
             }
