@@ -19,6 +19,7 @@
 #include <QThread>
 #include <QString>
 #include <QMessageBox>
+#include <QSound>
 
 #include <iostream>
 #include <fstream>
@@ -43,6 +44,7 @@ GameWindow::GameWindow(QWidget *parent) :
     network = false;
     setMouseTracking(true);
     wdGame = new GameWidget(this);
+    hit = new QSound(":/sounds/click.wav");
 }
 
 void GameWindow::stopTimer()
@@ -77,6 +79,7 @@ void GameWindow::Update(QObject * obj)
         GUIBrick * brick  = dynamic_cast<GUIBrick*>(obj);
         if (brick != NULL){
             if(brick->getBrick()->getDestory()){
+                hit->play();
                 if (network){
                     animTimer->stop();
                     QString brickId = "DESTROY:" + QString::number(brick->getBrick()->getId()) + "\n";
