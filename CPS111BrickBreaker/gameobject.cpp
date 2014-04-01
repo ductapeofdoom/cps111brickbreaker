@@ -223,9 +223,6 @@ void Ball::checkCollision()
                         collided = true;
                         GameWorld::accessWorld().incrementScore();
                         brick->hit();
-
-                        //there are some problems with this playing on every brick
-                        QSound::play(":/sounds/click.wav");
                     }
                 }
             }

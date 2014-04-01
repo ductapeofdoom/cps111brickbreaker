@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     w.setGeometry(450, 0, 491, 585);
     w.show();
     QSound * music = new QSound(":/sounds/piano.wav");
-    music->setLoops(38);
+    music->setLoops(-1);
     music->play();
 
     return a.exec();

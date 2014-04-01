@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 #include <QTcpSocket>
+#include <QSound>
 
 using namespace std;
 
@@ -41,6 +42,7 @@ private:
     bool network;
     QTcpSocket * socket;
     GameWidget * wdGame;
+    QSound * hit;
 
 private slots:
     //Slot for timer timeout signal
