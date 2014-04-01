@@ -234,12 +234,12 @@ void Ball::checkCollision()
 void Ball::updatePosition(){
     if (initialPos){
         if(paddle->getInitialLeft()){
-            yHeading = .2;
+            yHeading = -.2;
             xHeading = -.5;
             paddle->setInitialLeft(false);
         }
         else if(paddle->getInitialRight()){
-            yHeading = .2;
+            yHeading = -.2;
             xHeading = .5;
             paddle->setInitialRight(false);
         }
