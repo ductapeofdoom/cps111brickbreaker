@@ -59,7 +59,7 @@ void MultiplayerGUI::clientConnected(){
     }
     else{
         int level = QInputDialog::getInt(this, "Level Choice", "Which level would you like to play?", 0, 1, 30);
-        QString levelData = "LEVEL:", filePath = ":/documents/" + QString::number(level) + ".txt";
+        QString levelData = "LEVEL:" + QString::number(level) + "/", filePath = ":/documents/" + QString::number(level) + ".txt";
 
         QFile file(filePath);
 
@@ -280,7 +280,11 @@ void MultiplayerGUI::GenerateMuliWorld(QString input)
     GameWorld::accessWorld().addObject(dataPaddle);
     GameWorld::accessWorld().addObject(dataBall);
 
-    int count = 0;
+    int slPos = input.indexOf("/");
+
+    GameWorld::accessWorld().setLevel(input.left(slPos).toInt());
+
+    int count = slPos + 1;
     int idCounter = 3;
 
     //loop through the rows of Bricks
