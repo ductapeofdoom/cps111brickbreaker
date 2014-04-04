@@ -75,7 +75,28 @@ void GameWindow::Update(QObject * obj)
         animationPaddle->start();
     }
     int i = 0;
-    for(QWidget * obj : this->getGUIObjects()){
+    for (int j = 0; j < GUIObjects.size(); j++){
+        GUIBrick * brick  = dynamic_cast<GUIBrick*>(GUIObjects.at(i));
+        if (brick != NULL){
+            if(brick->getBrick()->getDestory()){
+                hit->play();
+                if (network){
+                    animTimer->stop();
+                    QString brickId = "DESTROY:" + QString::number(brick->getBrick()->getId()) + "\n";
+                    socket->write(brickId.toLocal8Bit());
+                    animTimer->start();
+                }
+                qDebug() << brick->getBrick()->getId() << " destroyed";
+                GameWorld::accessWorld().deleteObject(brick->getBrick()->getId());
+                this->getGUIObjects().erase(this->getGUIObjects().begin() + i);
+                brick->hide();
+
+            }
+        }
+        i++;
+    }
+    //This method has a very odd bug resulting in the last object being used twice.
+    /*for(QWidget * obj : GUIObjects){
         GUIBrick * brick  = dynamic_cast<GUIBrick*>(obj);
         if (brick != NULL){
             if(brick->getBrick()->getDestory()){
@@ -90,11 +111,11 @@ void GameWindow::Update(QObject * obj)
                 GameWorld::accessWorld().deleteObject(brick->getBrick()->getId());
                 this->getGUIObjects().erase(this->getGUIObjects().begin() + i);
                 brick->hide();
-                //delete dataBrick;
+
             }
         }
         i++;
-    }
+    }*/
 }
 
 void GameWindow::turnNoDeathButtonOn()
