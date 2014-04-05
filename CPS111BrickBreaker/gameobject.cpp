@@ -174,7 +174,7 @@ void Ball::checkCollision()
                 yHeading = 0;
                 xHeading = 0;
                 x = paddle->getX() + 50;
-                y = paddle->getY() - 20;
+                y = paddle->getY() - 21;
                 initialPos = true;
                 GameWorld::accessWorld().loseLife();
             }

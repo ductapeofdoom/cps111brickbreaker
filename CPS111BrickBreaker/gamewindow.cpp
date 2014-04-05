@@ -75,7 +75,7 @@ void GameWindow::Update(QObject * obj)
         animationPaddle->start();
     }
     int i = 0;
-    for (int j = 0; j < GUIObjects.size(); j++){
+    for (size_t j = 0; j < GUIObjects.size(); j++){
         GUIBrick * brick  = dynamic_cast<GUIBrick*>(GUIObjects.at(i));
         if (brick != NULL){
             if(brick->getBrick()->getDestory()){
@@ -174,6 +174,7 @@ void GameWindow::animTimerHit(){
             gameui->btnSlowBall->setEnabled(true);
             gameui->btnSpeedBall->setChecked(false);
             gameui->btnSpeedBall->setEnabled(true);
+            gameui->btnNoDeath->setChecked(false);
             showStuff();
             animTimer->stop();
             if (GameWorld::accessWorld().getLife() != 0){

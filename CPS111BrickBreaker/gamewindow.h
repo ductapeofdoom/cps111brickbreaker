@@ -144,7 +144,7 @@ class GUIBall : public QWidget{
 public:
     //The constructor sets that ball at the middle of the paddle.
     explicit GUIBall(QWidget * parent, Ball * newBall): QWidget(parent), ball(newBall){
-        setGeometry(QRect(200, 430, 20, 20));
+        setGeometry(QRect(200, 429, 20, 20));
         setStyleSheet("background-color: orange");
     }
 
