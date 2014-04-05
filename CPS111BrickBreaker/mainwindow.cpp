@@ -55,9 +55,8 @@ void MainWindow::stopMusic()
 
 void MainWindow::on_btnPlay_clicked()
 {
-    music->stop(); //stop the music
-
-    InputDialog *input = new InputDialog();
+    InputDialog *input = new InputDialog(music);
+    input->setGeometry(497, 100, 400, 168);
     input->show();
     input->setFocusOnLineEdit();
 }
@@ -88,18 +87,17 @@ void MainWindow::on_btnHowToPlay_clicked()
 void MainWindow::on_btnHighScores_clicked()
 {
     HighScoreWindow* showHS = new HighScoreWindow();
+    showHS->setGeometry(417, 80, 557, 514);
     showHS->show();
 }
 
 void MainWindow::on_btnLoad_clicked()
 {
-    music->stop(); //stop music
-
     //eliminate the possibility of clicking the load button twice in a row
     mainui->btnLoad->setEnabled(false);
 
     //create save manager, load the game, and then delete the pointer to the save manager
-    SaveManager * saver = new SaveManager(this);
+    SaveManager * saver = new SaveManager(this, music);
     saver->LoadGame();
     delete saver;
 
@@ -110,8 +108,8 @@ void MainWindow::on_btnLoad_clicked()
 
 void MainWindow::on_btnMultiplayer_clicked()
 {
-    music->stop(); //stop the music
 
-    MultiplayerGUI * window = new MultiplayerGUI();
+    MultiplayerGUI * window = new MultiplayerGUI(music);
+    window->setGeometry(440, 80, 512, 487);
     window->show();
 }

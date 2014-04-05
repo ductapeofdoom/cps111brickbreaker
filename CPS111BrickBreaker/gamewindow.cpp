@@ -31,9 +31,10 @@ using namespace std;
 
 
 //Constructor for the GUI. Creates and sets animTimer and spawns the ball and paddle in the game widget.
-GameWindow::GameWindow(QWidget *parent) :
+GameWindow::GameWindow(QSound * newmusic, QWidget *parent) :
     QWidget(parent),
-    gameui(new Ui::GameWindow)
+    gameui(new Ui::GameWindow),
+    music(newmusic)
 {
     gameui->setupUi(this);
     cyclecount = 0;
@@ -79,7 +80,6 @@ void GameWindow::Update(QObject * obj)
         GUIBrick * brick  = dynamic_cast<GUIBrick*>(obj);
         if (brick != NULL){
             if(brick->getBrick()->getDestory()){
-                hit->play();
                 if (network){
                     animTimer->stop();
                     QString brickId = "DESTROY:" + QString::number(brick->getBrick()->getId()) + "\n";
@@ -126,6 +126,7 @@ void GameWindow::animTimerHit(){
         else if (collisioncount == 2){
             if (ball->getBall()->getCollision()){
                 ball->getBall()->setCollision(false);
+                hit->play();
             }
             cyclecount++;
             collisioncount = 0;
@@ -358,6 +359,7 @@ void GameWindow::GeneratePlayer()
 void GameWindow::closeEvent(QCloseEvent * ev)
 {
     if (ev != NULL){
+        music->play();
         animTimer->stop();
         GameWorld::accessWorld().reset();
         GameWorld::accessWorld().setCurrentScore(0);
@@ -428,7 +430,7 @@ void GameWindow::on_btnSave_clicked()
     gameui->btnSave->setEnabled(false);
 
     //create save manager, save the game, then delete the pointer to the save manager
-    SaveManager * saver = new SaveManager(); //need to pass in 'this', but that always causes an error.
+    SaveManager * saver = new SaveManager(this, music);
     saver->SaveGame();
     delete saver;
 

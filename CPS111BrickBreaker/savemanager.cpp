@@ -19,6 +19,7 @@
 #include <QThread>
 #include <QString>
 #include <QMessageBox>
+#include <QSound>
 
 #include <iostream>
 #include <fstream>
@@ -29,14 +30,11 @@
 
 using namespace std;
 
-SaveManager::SaveManager() :
-    filepath("gamesave.txt"){}
+SaveManager::SaveManager(GameWindow * newgamewindow, QSound * newmusic) :
+    filepath("gamesave.txt"), gamewindow(newgamewindow), music(newmusic){}
 
-SaveManager::SaveManager(GameWindow * newgamewindow) :
-    gamewindow(newgamewindow){}
-
-SaveManager::SaveManager(MainWindow * newmainwindow) :
-    mainwindow(newmainwindow){}
+SaveManager::SaveManager(MainWindow * newmainwindow, QSound * newmusic) :
+    filepath("gamesave.txt"), mainwindow(newmainwindow), music(newmusic){}
 
 void SaveManager::SaveGame()
 {
@@ -45,9 +43,9 @@ void SaveManager::SaveGame()
 
     //quit if unsuccessful
     if (!outfile) {
-        /*gamewindow->stopTimer();
+        gamewindow->stopTimer();
         QMessageBox::critical(gamewindow, "Error!", "The game could not be saved. Please try again.");
-        gamewindow->startTimer();*/
+        gamewindow->startTimer();
         return;
     }
 
@@ -108,7 +106,7 @@ void SaveManager::SaveGame()
 void SaveManager::LoadGame()
 {
     //open file
-    ifstream infile("gamesave.txt");
+    ifstream infile(filepath.toStdString());
 
     //quit if file didn't open
     if (!infile) {
@@ -217,11 +215,16 @@ void SaveManager::LoadGame()
 
     qDebug() << "Made Bricks for the saved level.";
 
+    music->stop(); //stop the music as the game loads
+
     //make gamewindow
-    GameWindow* gamewindow = new GameWindow();
+    GameWindow* gamewindow = new GameWindow(music);
 
     //create the GUIBricks for a level
     gamewindow->renderLevel();
+
+    //set the position of the gamewindow
+    gamewindow->setGeometry(373, 0, 642, 608);
 
     //show the game window
     gamewindow->show();

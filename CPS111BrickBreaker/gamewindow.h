@@ -43,6 +43,7 @@ private:
     QTcpSocket * socket;
     GameWidget * wdGame;
     QSound * hit;
+    QSound * music;
 
 private slots:
     //Slot for timer timeout signal
@@ -61,7 +62,7 @@ private slots:
     void on_btnSave_clicked();
 
 public:
-    explicit GameWindow(QWidget *parent = 0);
+    explicit GameWindow( QSound * newmusic, QWidget *parent = 0);
 
     //method to add GUIBricks to the vector
     void  addObject(QWidget * newObject){ GUIObjects.push_back(newObject);}

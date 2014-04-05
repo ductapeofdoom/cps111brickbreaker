@@ -13,9 +13,10 @@
 #include "gameworld.h"
 #include "gamewindow.h"
 
-InputDialog::InputDialog(QWidget *parent) :
+InputDialog::InputDialog(QSound * newmusic, QWidget *parent) :
     QWidget(parent),
-    inputui(new Ui::InputDialog)
+    inputui(new Ui::InputDialog),
+    music(newmusic)
 {
     inputui->setupUi(this);
 }
@@ -49,10 +50,15 @@ void InputDialog::on_btnOk_clicked()
     GameWorld::accessWorld().makeLevel();
 
     //make gamewindow and show it
-    GameWindow* gamewindow = new GameWindow();
+    GameWindow* gamewindow = new GameWindow(music);
 
     //create the GUIBricks for a level
     gamewindow->renderLevel();
+
+    //set the position of the gamewindow
+    gamewindow->setGeometry(373, 0, 642, 608);
+
+    music->stop(); //stop the music
 
     //show the game window
     gamewindow->show();

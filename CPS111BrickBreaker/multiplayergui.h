@@ -13,6 +13,7 @@
 #include <QThread>
 #include <QTcpServer>
 #include <QString>
+#include <QSound>
 #include <vector>
 using namespace std;
 
@@ -50,7 +51,7 @@ class MultiplayerGUI : public QWidget
     Q_OBJECT
 
 public:
-    explicit MultiplayerGUI(QWidget *parent = 0);
+    explicit MultiplayerGUI(QSound * newmusic, QWidget *parent = 0);
     ~MultiplayerGUI();
 
     void processInput(QString input);
@@ -83,6 +84,7 @@ private:
     int player1Score;
     int player2Score;
     Ui::MultiplayerGUI *ui;
+    QSound * music;
 };
 
 #endif // MULTIPLAYERGUI_H

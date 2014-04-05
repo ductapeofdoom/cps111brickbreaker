@@ -23,9 +23,9 @@
 QMutex mutex;
 
 //The constructor instatiates a server and connects its newConnection signal to the clientConnected slot.
-MultiplayerGUI::MultiplayerGUI(QWidget *parent) :
+MultiplayerGUI::MultiplayerGUI(QSound * newmusic, QWidget *parent) :
     QWidget(parent),
-    player1Name(""), player2Name("") , player1Score(0), player2Score(0), ui(new Ui::MultiplayerGUI)
+    player1Name(""), player2Name("") , player1Score(0), player2Score(0), ui(new Ui::MultiplayerGUI), music(newmusic)
 {
     ui->setupUi(this);
     server = new QTcpServer();
@@ -309,10 +309,16 @@ void MultiplayerGUI::GenerateMuliWorld(QString input)
     GameWorld::accessWorld().setDifficulty(3);
 
     //make gamewindow and show it
-    gamewindow = new GameWindow();
+    gamewindow = new GameWindow(music);
 
     //create the GUIBricks for a level
     gamewindow->renderLevel();
+
+    //set the position of the gamewindow
+    gamewindow->setGeometry(373, 0, 642, 608);
+
+    //stop the music
+    music->stop();
 
     gamewindow->setSocket(clientSock);
 

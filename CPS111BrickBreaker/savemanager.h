@@ -11,16 +11,17 @@
 #include "mainwindow.h"
 
 #include <QString>
+#include <QSound>
 
 class SaveManager
 {
     QString filepath;
     GameWindow * gamewindow;
     MainWindow * mainwindow;
+    QSound * music;
 public:
-    SaveManager();
-    SaveManager(GameWindow *);
-    SaveManager(MainWindow *);
+    SaveManager(GameWindow *, QSound *);
+    SaveManager(MainWindow *, QSound *);
 
     void SaveGame();
 
