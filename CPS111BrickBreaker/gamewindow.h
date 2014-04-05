@@ -85,6 +85,7 @@ public:
     void turnNoDeathButtonOn();
     void turnSlowBallButtonOn();
     void turnSpeedBallButtonOn();
+    void disableCheat();
 
     //display stuff on side of screen
     void showStuff();
