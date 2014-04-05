@@ -304,7 +304,7 @@ void MultiplayerGUI::GenerateMuliWorld(QString input)
     }
     qDebug() << "made Bricks for new level";
 
-    GameWorld::accessWorld().setPlayerName(QInputDialog::getText(this, "Player Name?", "Please enter your name."));
+    GameWorld::accessWorld().setPlayerName(QInputDialog::getText(this, "Player Name?", "Please enter your name.",QLineEdit::Normal, "Please Enter your name."));
 
     GameWorld::accessWorld().setDifficulty(3);
 

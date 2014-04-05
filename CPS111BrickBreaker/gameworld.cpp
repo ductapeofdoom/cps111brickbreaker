@@ -83,7 +83,7 @@ void GameWorld::makeLevel()
 
     //Add the ball and paddle to GameWorld
     Paddle * dataPaddle = new Paddle(150, 450, 1);
-    Ball * dataBall = new Ball(200, 430, 0, 0, dataPaddle, 2);
+    Ball * dataBall = new Ball(200, 429, 0, 0, dataPaddle, 2);
     GameWorld::accessWorld().addObject(dataPaddle);
     GameWorld::accessWorld().addObject(dataBall);
 

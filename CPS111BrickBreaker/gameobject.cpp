@@ -130,13 +130,13 @@ void Paddle::CheckBallCollision()
     if (ballX > x - 20 && ballX < x + 60 && ballY > y - 20 && ballY < y + 20){
         GameWorld::accessWorld().getObjects().at(1)->setX(ballX - 10);
         Ball * ball = dynamic_cast<Ball*>(GameWorld::accessWorld().getObjects().at(1));
-        ball->setYHeading(ball->getYHeading() * -1);
+        ball->setXHeading(ball->getXHeading() * -1);
     }
 
     else if(ballX < x + 120 && ballX > x + 60 && ballY > y - 20 && ballY < y + 20){
         GameWorld::accessWorld().getObjects().at(1)->setX(ballX + 10);
         Ball * ball = dynamic_cast<Ball*>(GameWorld::accessWorld().getObjects().at(1));
-        ball->setYHeading(ball->getYHeading() * -1);
+        ball->setXHeading(ball->getXHeading() * -1);
     }
 }
 
@@ -150,9 +150,9 @@ void Ball::checkCollision()
 {
     if (!collided){
         if (x <= 0){
-            if (x < -20){
+            if (x < 0){
                         x = 0;
-                        y = paddle->getY() + 20;
+                        //y = paddle->getY() + 20;
             }
             xHeading = -1 * xHeading;
             collided = true;
@@ -162,9 +162,9 @@ void Ball::checkCollision()
             collided = true;
         }
         else if (x >= 380) {
-            if (x > 400){
+            if (x > 380){
                         x = 380;
-                        y = paddle->getY() - 20;
+                        //y = paddle->getY() - 20;
                     }
             xHeading = -1 * xHeading;
             collided = true;
@@ -174,7 +174,7 @@ void Ball::checkCollision()
                 yHeading = 0;
                 xHeading = 0;
                 x = paddle->getX() + 50;
-                y = paddle->getY() - 20;
+                y = paddle->getY() - 21;
                 initialPos = true;
                 GameWorld::accessWorld().loseLife();
             }

@@ -76,8 +76,8 @@ void GameWindow::Update(QObject * obj)
         animationPaddle->start();
     }
     int i = 0;
-    for(QWidget * obj : this->getGUIObjects()){
-        GUIBrick * brick  = dynamic_cast<GUIBrick*>(obj);
+    for (size_t j = 0; j < GUIObjects.size(); j++){
+        GUIBrick * brick  = dynamic_cast<GUIBrick*>(GUIObjects.at(i));
         if (brick != NULL){
             if(brick->getBrick()->getDestory()){
                 if (network){
@@ -90,11 +90,32 @@ void GameWindow::Update(QObject * obj)
                 GameWorld::accessWorld().deleteObject(brick->getBrick()->getId());
                 this->getGUIObjects().erase(this->getGUIObjects().begin() + i);
                 brick->hide();
-                //delete dataBrick;
+
             }
         }
         i++;
     }
+    //This method has a very odd bug resulting in the last object being used twice.
+    /*for(QWidget * obj : GUIObjects){
+        GUIBrick * brick  = dynamic_cast<GUIBrick*>(obj);
+        if (brick != NULL){
+            if(brick->getBrick()->getDestory()){
+                hit->play();
+                if (network){
+                    animTimer->stop();
+                    QString brickId = "DESTROY:" + QString::number(brick->getBrick()->getId()) + "\n";
+                    socket->write(brickId.toLocal8Bit());
+                    animTimer->start();
+                }
+                qDebug() << brick->getBrick()->getId() << " destroyed";
+                GameWorld::accessWorld().deleteObject(brick->getBrick()->getId());
+                this->getGUIObjects().erase(this->getGUIObjects().begin() + i);
+                brick->hide();
+
+            }
+        }
+        i++;
+    }*/
 }
 
 void GameWindow::turnNoDeathButtonOn()
@@ -154,6 +175,7 @@ void GameWindow::animTimerHit(){
             gameui->btnSlowBall->setEnabled(true);
             gameui->btnSpeedBall->setChecked(false);
             gameui->btnSpeedBall->setEnabled(true);
+            gameui->btnNoDeath->setChecked(false);
             showStuff();
             animTimer->stop();
             if (GameWorld::accessWorld().getLife() != 0){
