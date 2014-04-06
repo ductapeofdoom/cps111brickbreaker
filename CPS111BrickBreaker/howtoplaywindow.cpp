@@ -16,4 +16,5 @@ HowToPlayWindow::~HowToPlayWindow()
 void HowToPlayWindow::on_btnOk_clicked()
 {
     this->close();
+    this->deleteLater();
 }
