@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     inputdialog.cpp \
     highscorewindow.cpp \
     highscore.cpp \
-    multiplayergui.cpp
+    multiplayergui.cpp \
+    howtoplaywindow.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -32,13 +33,15 @@ HEADERS  += mainwindow.h \
     inputdialog.h \
     highscorewindow.h \
     highscore.h \
-    multiplayergui.h
+    multiplayergui.h \
+    howtoplaywindow.h
 
 FORMS    += mainwindow.ui \
     inputdialog.ui \
     gamewindow.ui \
     highscorewindow.ui \
-    multiplayergui.ui
+    multiplayergui.ui \
+    howtoplaywindow.ui
 
 QMAKE_CXXFLAGS += -std=c++0x
 

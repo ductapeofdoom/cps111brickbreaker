@@ -12,6 +12,7 @@
 #include "highscorewindow.h"
 #include "multiplayergui.h"
 #include "savemanager.h"
+#include "howtoplaywindow.h"
 
 #include <QString>
 #include <QDebug>
@@ -63,25 +64,9 @@ void MainWindow::on_btnPlay_clicked()
 
 void MainWindow::on_btnHowToPlay_clicked()
 {
-    QString howToPlay;
-    QFile file(":/documents/howTo.txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        QMessageBox::critical(this, "Error!", "The 'How To' file appears to be missing or corrupted. You're on your own!");
-        return;
-    }
-
-    while (!file.atEnd()) {
-        QByteArray line = file.readLine();
-        howToPlay = howToPlay + line;
-    }
-
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("How To Play");
-    msgBox.setText("Brick Breaker");
-    msgBox.setInformativeText(howToPlay);
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    HowToPlayWindow * howto = new HowToPlayWindow();
+    howto->setGeometry(350, 80, 686, 510);
+    howto->show();
 }
 
 void MainWindow::on_btnHighScores_clicked()

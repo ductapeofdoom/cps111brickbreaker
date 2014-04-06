@@ -194,7 +194,7 @@ void GameWindow::animTimerHit(){
                 QMessageBox msgBox;
                 if (GameWorld::accessWorld().getLife() == 0){
                     msgBox.setText("Unfortunately you have run out of lives.");
-                    msgBox.setInformativeText("Would you like to play the again?");
+                    msgBox.setInformativeText("Would you like to play the game again?");
                 }
                 else if (GameWorld::accessWorld().getLevel() == 30){
                     msgBox.setText("Congratulation, you have finished the game!");

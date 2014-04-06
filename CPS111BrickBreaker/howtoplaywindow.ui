@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HowToPlayWindow</class>
+ <widget class="QWidget" name="HowToPlayWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>686</width>
+    <height>510</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>How To Play</string>
+  </property>
+  <widget class="QLabel" name="lblHowToPlay">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>681</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;How To Play&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="txtBrowserInstructions">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>661</width>
+     <height>391</height>
+    </rect>
+   </property>
+   <property name="html">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Starting A Game&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To start a new game, click the &amp;quot;New Game&amp;quot; button on the main menu. You will be asked for your name and your desired difficulty. Once you have provided that information and clicked 'Ok,' the game will open up on level 1.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Playing The Game&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To start the game with arrow key control, press tab and then use the left or right arrow on the keyboard to launch the ball. To start the game with mouse control (default), click and drag the paddle to launch the ball. The ball will be launched toward whichever side of the paddle you click on. The ball will bounce around the screen hitting bricks. Your job is to keep it from falling off the bottom of the screen by bouncing the ball with your paddle. As long as you hit the ball with your paddle each time it goes down to the bottom of the screen, it will continue to bounce back up and hit more bricks.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Each time you fail to catch the ball as it falls down the screen, you will lose a life. You can see the number of lives on the right side of the gameplay window. Once you lose all of your lives, you will die. You will have the option of quitting or starting over at level 1.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Once you break all the bricks in a level, you will have the option to go to the next level or quit.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Save and Load a Game&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If you would like to quit and come back to the game later, you can save your game by clicking &amp;quot;Save Game&amp;quot; in the gameplay window. From the main menu, you can click &amp;quot;Load&amp;quot; to open up the last saved game. It will pick up right where you left off when you saved.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Multiplayer&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To play with a friend online, have two people open up the game. Have both people select &amp;quot;Multiplayer&amp;quot; from the main menu. A second window should open up, and ONLY ONE person needs to click &amp;quot;Start TCP Server.&amp;quot; The host, the person who started the server, needs to tell the other player, the client, what his IP address is, and the client needs to put that IP address into the text box beside &amp;quot;Connect to TCP Server.&amp;quot; After the client has provided the IP address of the host, both players can click &amp;quot;Connect to TCP Server&amp;quot; to connect. Players should follow the on-screen prompts to proceed to play the game.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Highscores&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;When you die or end the game, if your score is higher than other players' scores, your score will be added to the high scores list! You can view your high scores by clicking &amp;quot;High Scores&amp;quot; on the main menu.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Cheating&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If you just can't seem to win, try cheating! During gameplay, look at the bottom of the game window. There are four buttons marked &amp;quot;Cheats.&amp;quot; &amp;quot;No Death&amp;quot; prevents the ball from ever going off the bottom of the screen. &amp;quot;Slow Ball&amp;quot; and &amp;quot;Speed Ball&amp;quot; slow the ball down and speed the ball up respectively. It is not possible to have both of these enabled at the same time. Finally, &amp;quot;Add Life&amp;quot; adds one life to your number of lives. You can add as many lives as you want to.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnOk">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>470</y>
+     <width>98</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>OK</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
