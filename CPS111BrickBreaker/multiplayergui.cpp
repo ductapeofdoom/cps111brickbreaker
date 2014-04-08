@@ -324,6 +324,8 @@ void MultiplayerGUI::GenerateMuliWorld(QString input)
 
     gamewindow->setNetwork(true);
 
+    gamewindow->disableCheat();
+
     //show the game window
     gamewindow->show();
 }

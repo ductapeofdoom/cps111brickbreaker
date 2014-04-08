@@ -133,6 +133,14 @@ void GameWindow::turnSpeedBallButtonOn()
     gameui->btnSpeedBall->setChecked(true);
 }
 
+void GameWindow::disableCheat()
+{
+    gameui->btnAddLife->setEnabled(false);
+    gameui->btnNoDeath->setEnabled(false);
+    gameui->btnSlowBall->setEnabled(false);
+    gameui->btnSpeedBall->setEnabled(false);
+}
+
 //Slot implementaion for animTimerHit. Redraws the paddle and executes Update every 10 cycles. It will also reset animation and stop the timer if the ball goes off the bottom.
 void GameWindow::animTimerHit(){
     GUIPaddle * paddle = dynamic_cast<GUIPaddle *>(GUIObjects.at(0));
