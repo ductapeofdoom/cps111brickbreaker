@@ -1,0 +1,1 @@
+This project is a brick breaker game. It will be done as a team project for our computer science class.
